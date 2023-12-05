@@ -16,4 +16,4 @@ function MyIconButton(props) {
   )
 }
 
-export default MyIconButton
+export default MyIconButton;
