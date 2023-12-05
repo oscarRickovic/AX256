@@ -1,0 +1,15 @@
+.NoChatSelected{
+    display: grid;
+    place-items: center;
+}
+
+.NoChatSelected-A{
+    font-family: 'Moirai One';
+    font-size: 20rem;
+}
+
+.NoChatSelected-WelcomingText{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+
+}

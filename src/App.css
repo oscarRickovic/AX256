@@ -2,7 +2,4 @@
   background-color: rgb(234, 234, 234);
   min-height: 100vh;
   min-width: 100vw;
-  display: flex;
-  justify-content :space-around;
-  align-items: center;
 }

@@ -1,0 +1,103 @@
+.Login{
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+}
+
+.Login-A {
+    background-color: #f1f1f1;
+    width: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Moirai One';
+    font-size: 20rem;
+}
+
+.Login-Form{
+    width: 50%;
+    height: 100vh;
+    background-color: #dcdcd4;
+    display: grid;
+    place-items: center;
+}
+
+.Login-Form-Formulaire{
+    background-color: #f1f1f1;
+    width: 60%;
+    height: 60%;
+    border-radius: 15px;
+    padding-top: 10%;
+    padding-left: 10%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Login-Form-Formulaire-UserName{
+    width: 90%;
+    height: 35px;
+    background-color: #f1f1f1;
+    outline-width: 0px;
+    border: none;
+    font-size: 1rem;
+    margin-bottom: 10%;
+    border-bottom: 1px solid black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.Login-Form-Formulaire-Password-Div{
+    display: flex;
+    width: 90%;
+    border-bottom: 1px solid black;
+    margin-bottom: 10%;
+}
+
+.Login-Form-Formulaire-Password{
+    width: 70%;
+    height: 35px;
+    background-color: #f1f1f1;
+    outline-width: 0px;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.VisibilityIcon{
+    width: 30%;
+    display: grid;
+    place-items: center;
+}
+
+.Login-Form-Formulaire-Submit{
+    width: 50%;
+    height: 35px;
+    margin-left: 20%;
+    font-size: larger;
+    background-color: rgb(61, 70, 78);
+    color : #f1f1f1;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10%;
+}
+
+.Login-Form-Formulaire-Submit:hover{
+    background-color: black;
+}
+
+.Login-Google{
+    width: 70%;
+    height: 40px;
+    font-size: larger;
+    background-color: rgb(61, 70, 78);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    border: none;
+    margin-left: 10%;
+    cursor: pointer;
+    color : aliceblue;
+}
+
+.Login-Google:hover{
+    background-color: black;
+    color: aliceblue;
+}

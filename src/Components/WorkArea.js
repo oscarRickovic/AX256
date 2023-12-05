@@ -1,10 +1,13 @@
 import React from 'react'
 import "./ComponentsCss/WorkAreaCss.css"
 import ChatZone from './ChatZone'
-function WorkArea() {
+import NoChatSelected from './NoChatSelected'
+import CreateGroup from './CreateGroup'
+function WorkArea(props) {
+  console.log(props.component)
   return (
     <div className='WorkArea'>
-      <ChatZone/>
+      {<props.component/>}
     </div>
   )
 }

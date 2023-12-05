@@ -1,0 +1,9 @@
+.WaitingCreateGroup{
+    min-height: 84vh;
+    margin-left: 3%;
+    width: 90%;
+    display: grid;
+    place-items: center;
+    font-family: 'Moirai One';
+    font-size: 8rem;
+}

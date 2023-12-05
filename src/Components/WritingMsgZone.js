@@ -9,7 +9,7 @@ function WritingMsgZone() {
         <input type="text" className='WritingMsgZone-Div-Input' placeholder='text..'/>
       </div>
       <div className = "WritingMsgZone-Icons">
-        <MyIconButton  icon = {SendIcon} color = "#393f4d" fonSize = {40}/>
+        <MyIconButton  icon = {SendIcon} color = "#393f4d" fontSize = {40}/>
       </div>
     </div>
   )

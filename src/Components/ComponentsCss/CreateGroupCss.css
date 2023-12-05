@@ -1,0 +1,32 @@
+.CreateGroup{
+    background-color: #f1f1f1;
+    width: 90%;
+    margin-left: 3%;
+    margin-top: 1%;
+    border-radius: 10px;
+    min-height: 9vh;
+    display: flex;
+}
+
+.CreateGroup-Div{
+    width: 100%;
+    width: 90%;
+}
+.CreateGroup-Div-Input{
+    margin-left: 7%;
+    margin-top: 1%;
+    height: 65%;
+    width: 90%;
+    border: none;
+    outline-width: 0;
+    font-size: large;
+    background-color: #f1f1f1;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.CreateGroup-Icons{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
