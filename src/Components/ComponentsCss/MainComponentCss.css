@@ -1,0 +1,7 @@
+.MainComponent {
+    height: 98vh;
+    width: 95vw;
+    display: flex;
+    min-width: 98vh;
+    min-height: 95vh;
+}

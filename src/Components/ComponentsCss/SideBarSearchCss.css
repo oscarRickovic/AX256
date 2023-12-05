@@ -1,0 +1,19 @@
+.SideBarSearch{
+    margin-top: 2%;
+    margin-left: 12%;
+    background-color: #d4d4dc;
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+}
+
+.SideBarSearch-Input{
+    margin-left: 5%;
+    width : 80%;
+    outline-width: 0;
+    border: none;
+    background-color: #d4d4dc;
+    color : #1d1e22;
+    font-size: 1rem;
+    border-radius: 10px;
+}

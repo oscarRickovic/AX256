@@ -1,0 +1,42 @@
+.ConversationElement{
+    background-color: #f1f1f1 ;
+    border-radius: 10px;
+    height: 15%;
+    width: 97%;
+    margin-left: 2%;
+    margin-top: 2%;
+    display: flex;
+}
+
+.ConversationElement-imgUser{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ConversationElement-msg{
+    padding-top: 4%;
+    padding-left: 0%;
+    width: 80%;
+    font-family :'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.ConversationElement-msg-lastMsg-timeStamp{
+    margin-top: 3%;
+    display: flex;
+}
+
+.ConversationElement-msg-lastMsg{
+    width: 70%;
+}
+
+.ConversationElement-msg-timeStamp{
+    margin-top: 5%;
+    margin-left: 10%;
+    font-size: 0.7rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 30%;
+}
+
