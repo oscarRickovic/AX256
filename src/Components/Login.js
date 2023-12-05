@@ -9,7 +9,7 @@ function Login() {
         <div className='Login-A'>
             A
         </div>
-        <div class = 'Login-Form'>
+        <div className = 'Login-Form'>
             <div className='Login-Form-Formulaire'>
                 <form>
                     <input type="text" className='Login-Form-Formulaire-UserName' placeholder='username'/>
