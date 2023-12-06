@@ -11,14 +11,11 @@ import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import useFetch from '../FetchData/useFetch';
 import WaitingToFetch from './WaitingToFetch';
-
+import { useSelector, useDispatch } from 'react-redux'
 function SideBar() {
     const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
     let iconColor = "#393f4d";
-    const [light, setLight] = useState(true);
-    const changeLight = (value) => {
-        setLight(value);
-    }
+    const light = useSelector(state=>state.LightState.value);
     const navigate = useNavigate();
   return (
     //Streotype : 
@@ -35,13 +32,12 @@ function SideBar() {
             </div>
             <div className='SideBar-Settings-Possibilities'>
                 <MyIconButton icon = {PersonAddIcon} color = {iconColor} fontSize = {30}/>
-                <MyIconButton icon = {light?ModeNightIcon:LightModeIcon} color = {iconColor} fontSize = {30} id = "lightButton" callBack = {changeLight} valueCallBack = {light}  /> 
+                <MyIconButton icon = {light?ModeNightIcon:LightModeIcon} color = {iconColor} fontSize = {30} id = "lightButton"/> 
                 <MyIconButton icon = {LogoutIcon} color = {iconColor} fontSize = {30} id = "logoutButton" callBack = {navigate} valueCallBack = '/'/>
             </div>
         </div>
         <SideBarSearch/>
         { error && <div>{ error }</div> }
-        { isPending && <div>Loading...</div> }
         { users ? <Conversations users={users} /> : <WaitingToFetch/>}
     </div>
   )

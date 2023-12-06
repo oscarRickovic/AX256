@@ -1,6 +1,10 @@
 import React from 'react'
 import { IconButton } from '@mui/material';
+import { changeLight } from './ReduxDocs/LightState';
+import { useSelector, useDispatch } from 'react-redux'
 function MyIconButton(props) {
+    const dispatch = useDispatch();
+    const light = useSelector((state)=>state.LightState.value)
     let style = {
         color : props.color
     }
@@ -11,10 +15,9 @@ function MyIconButton(props) {
     const iconButtonMethod = ()=>{
         if(props.callBack == null) {
             // No method is passed.
-            return;
         }
         if(props.id == "lightButton") {
-            props.callBack(!props.valueCallBack);
+            dispatch(changeLight())
         }
         if(props.id == "logoutButton") {
             props.callBack(props.valueCallBack);

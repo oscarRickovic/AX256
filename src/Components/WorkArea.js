@@ -4,7 +4,6 @@ import ChatZone from './ChatZone'
 import NoChatSelected from './NoChatSelected'
 import CreateGroup from './CreateGroup'
 function WorkArea(props) {
-  console.log(props.component)
   return (
     <div className='WorkArea'>
       {<props.component/>}
