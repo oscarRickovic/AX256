@@ -9,12 +9,14 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import MyIconButton from './MyIconButton';
 import SideBarSearch from './SideBarSearch';
 import Conversations from './Conversations';
+import { useNavigate } from "react-router-dom";
 function SideBar() {
     let iconColor = "#393f4d";
     const [light, setLight] = useState(true);
     const changeLight = (value) => {
         setLight(value);
     }
+    const navigate = useNavigate();
   return (
     //Streotype : 
     // MyButton we will pass :
@@ -25,7 +27,7 @@ function SideBar() {
     
     <div className='SideBar'>
         <div className='SideBar-Settings'>
-            <div className='SideBar-Settings-User-Icon'>
+            <div className='SideBar-Settings-User-Icon' onClick = {()=>{navigate('/app/MyProfile')}}>
                 <MyIconButton icon = {AccountCircleIcon} color = {iconColor} fontSize = {30}/>
             </div>
             <div className='SideBar-Settings-Possibilities'>

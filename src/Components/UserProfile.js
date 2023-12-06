@@ -1,7 +1,6 @@
 import React from 'react'
 import './ComponentsCss/UserProfileCss.css'
 import { Avatar } from '@mui/material'
-
 // The name may be confusing, this is the component that show the user profile not the friends profile.
 // Using this component we can have the button to update informations and add or delete images.
 function UserProfile() {
@@ -21,7 +20,7 @@ function UserProfile() {
                     />
                 </div>
                 <div className = "UserProfile-WhiteDiv-Infos">
-                    <div className = "fullName">abdelwaher elminawi</div>
+                    <div className = "fullName">abdelwahed elminawi</div>
                     <div className = "Gender">Male</div>
                     <div className = "Email">abdelwaher_elminawi@gmail.com</div>
                     <div className = "bio">bio</div>
