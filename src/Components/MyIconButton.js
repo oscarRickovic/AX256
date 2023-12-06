@@ -13,7 +13,12 @@ function MyIconButton(props) {
             // No method is passed.
             return;
         }
-        props.callBack( ! props.valueCallBack);
+        if(props.id == "lightButton") {
+            props.callBack(!props.valueCallBack);
+        }
+        if(props.id == "logoutButton") {
+            props.callBack(props.valueCallBack);
+        }
     }
   return (
     <>

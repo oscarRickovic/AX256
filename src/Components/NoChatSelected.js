@@ -3,11 +3,9 @@ import "./ComponentsCss/NoChatSelectedCss.css"
 function NoChatSelected() {
   return (
     <div className='NoChatSelected'>
-        <div className='NoChatSelected-A'>
-            A
-        </div>
-        <div className='NoChatSelected-WelcomingText'>
-            welcome on A, please enjoy making friends.
+        <div className='div-A'>
+            <p className='NoChatSelected-A'>A</p>
+            <p className='NoChatSelected-WelcomingText'>welcome on A, please enjoy making friends.</p>
         </div>
     </div>
   )

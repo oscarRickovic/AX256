@@ -8,6 +8,11 @@
     display: flex;
 }
 
+.ConversationElement:hover{
+    background-color: #d1c7c7 ;
+    cursor: pointer;
+}
+
 .ConversationElement-imgUser{
     width: 20%;
     height: 100%;

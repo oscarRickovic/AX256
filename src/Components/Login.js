@@ -2,8 +2,10 @@ import React from 'react'
 import './ComponentsCss/LoginCss.css'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
+import { useNavigate } from "react-router-dom";
 //import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 function Login() {
+    const navigate = useNavigate();
   return (
     <div className='Login'>
         <div className='Login-A'>
@@ -11,7 +13,7 @@ function Login() {
         </div>
         <div className = 'Login-Form'>
             <div className='Login-Form-Formulaire'>
-                <form>
+                <form onSubmit={()=>{navigate('/app')}}>
                     <input type="text" className='Login-Form-Formulaire-UserName' placeholder='username'/>
                     <br/>
                     <div className = "Login-Form-Formulaire-Password-Div">
