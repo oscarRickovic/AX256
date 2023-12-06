@@ -2,7 +2,7 @@ import React from 'react'
 import "./ComponentsCss/ConversationElementCss.css"
 import { Avatar } from '@mui/material'
 import { useNavigate } from "react-router-dom";
-function ConversationElement() {
+function ConversationElement({user}) {
     const navigate = useNavigate();
   return (
     <div className = "ConversationElement" onClick = {()=>{navigate('/app/chat')}}>
@@ -11,11 +11,11 @@ function ConversationElement() {
         </div>
         <div className='ConversationElement-msg'>
             <div className='ConversationElement-msg-nameUser'>
-                abdelwahed
+                {user.username}
             </div>
             <div className='ConversationElement-msg-lastMsg-timeStamp'>
                 <div className='ConversationElement-msg-lastMsg'>
-                    wach a abdelhadi
+                    {user.lastMessage}
                 </div>
                 <div className='ConversationElement-msg-timeStamp'>
                     today.

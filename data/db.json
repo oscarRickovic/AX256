@@ -1,0 +1,52 @@
+{
+    "users" : [
+        {
+            "id": 1,
+            "username" : "hakim",
+            "img" : "./src/images/logo.png",
+            "lastMessage" : "wesh cv?"
+        },
+        {
+            "id": 2,
+            "username" : "abdelhadi",
+            "img" : "./src/images/logo.png",
+            "lastMessage" : "wesh alkhsyem cv?"
+        },
+        {
+            "id": 3,
+            "username" : "ayoub",
+            "img" : "./src/images/logo.png",
+            "lastMessage" : "kolchi mzyan?"
+        },
+        {
+            "id": 4,
+            "username": "sara",
+            "img": "./src/images/profile_sara.png",
+            "lastMessage": "Hi there!"
+          },
+          {
+            "id": 5,
+            "username": "mohamed",
+            "img": "./src/images/profile_mohamed.png",
+            "lastMessage": "What's up, folks?"
+          },
+          {
+            "id": 6,
+            "username": "lina",
+            "img": "./src/images/profile_lina.png",
+            "lastMessage": "Meeting at 2 PM, don't forget!"
+          },
+          {
+            "id": 7,
+            "username": "karim",
+            "img": "./src/images/profile_karim.png",
+            "lastMessage": "Any plans for the weekend?"
+          },
+          {
+            "id": 8,
+            "username": "nadia",
+            "img": "./src/images/profile_nadia.png",
+            "lastMessage": "Happy birthday! 🎉"
+          }
+    ]
+}

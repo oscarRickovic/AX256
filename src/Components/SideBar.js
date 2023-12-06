@@ -9,7 +9,10 @@ import SideBarSearch from './SideBarSearch';
 import Conversations from './Conversations';
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
+import useFetch from '../FetchData/useFetch';
+
 function SideBar() {
+    const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
     let iconColor = "#393f4d";
     const [light, setLight] = useState(true);
     const changeLight = (value) => {
@@ -37,7 +40,13 @@ function SideBar() {
         </div>
 
         <SideBarSearch/>
-        <Conversations/>
+
+    
+        { error && <div>{ error }</div> }
+        { isPending && <div>Loading...</div> }
+        { users ? <Conversations users={users} /> : "No friends yet..."}
+        
+
 
     </div>
   )
