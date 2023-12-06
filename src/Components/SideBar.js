@@ -12,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import useFetch from '../FetchData/useFetch';
 import WaitingToFetch from './WaitingToFetch';
 import { useSelector, useDispatch } from 'react-redux'
+
 function SideBar() {
     const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
     let iconColor = "#393f4d";

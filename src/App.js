@@ -8,6 +8,8 @@ import ChatZone from './Components/ChatZone';
 import CreateGroup from './Components/CreateGroup';
 import PageNotFound from './Components/PageNotFound';
 import UserProfile from './Components/UserProfile';
+import FriendInfo from './Components/FriendInfo';
+
 function App() {
   // Please keep in mind the first letter of the path should be lower case. (chat-newGroup..)
   return (
@@ -19,6 +21,7 @@ function App() {
           <Route path = 'chat/:id' element = {<ChatZone/>}/>
           <Route path = 'newGroup' element = {<CreateGroup/>}/>
           <Route path = 'myProfile' element = {<UserProfile/>}/>
+          <Route path = 'friendInfo/:id' element = {<FriendInfo/>}/>
         </Route>
         <Route path = '*' element = {<PageNotFound/>}/>
       </Routes>
