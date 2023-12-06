@@ -3,7 +3,7 @@ import { Avatar } from '@mui/material'
 import MyIconButton from './MyIconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './ComponentsCss/ChatZoneFriendInfoCss.css'
-function ChatZoneFriendInfo() {
+function ChatZoneFriendInfo({user}) {
   return (
     <div className= "ChatZone-FriendInfo">
         <div className='ChatZone-FriendInfo-imgUser'>
@@ -11,7 +11,7 @@ function ChatZoneFriendInfo() {
         </div>
         <div className='ChatZone-FriendInfo-Name-State'>
             <div className='ChatZone-FriendInfo-Name'>
-                Abdelwahed Elkhssyem
+                {user.username}
             </div>
             <div className = 'ChatZone-FriendInfo-State'>
                 online

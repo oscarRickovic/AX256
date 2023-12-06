@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element = {<Login/>}/>
         <Route path='/app' element = {<MainComponent/>}>
           <Route path = '' element = {<NoChatSelected/>}/>
-          <Route path = 'chat' element = {<ChatZone/>}/>
+          <Route path = 'chat/:id' element = {<ChatZone/>}/>
           <Route path = 'newGroup' element = {<CreateGroup/>}/>
           <Route path = 'myProfile' element = {<UserProfile/>}/>
         </Route>
