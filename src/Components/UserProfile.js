@@ -20,10 +20,10 @@ function UserProfile() {
                     />
                 </div>
                 <div className = "UserProfile-WhiteDiv-Infos">
-                    <div className = "fullName">abdelwahed elminawi</div>
-                    <div className = "Gender">Male</div>
-                    <div className = "Email">abdelwaher_elminawi@gmail.com</div>
-                    <div className = "bio">bio</div>
+                    <div className = "info-div">Abdelwahed Elminawi</div>
+                    <div className = "info-div">Male</div>
+                    <div className = "info-div">Abdelwahed_Elminai@gmail.com</div>
+                    <div className = "info-div">Hi there I'm using A for fun..</div>
                 </div>
                 <div className = "div-UpdateProfile">
                     <button class="UpdateProfile" role="button">Update profile</button>
