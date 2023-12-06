@@ -1,6 +1,7 @@
 import React from 'react'
 import "./ComponentsCss/ConversationsCss.css"
 import ConversationElement from './ConversationElement'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 function Conversations({users}) {
@@ -16,9 +17,13 @@ function Conversations({users}) {
       {light}
       {users.map( user => {
 
-        return (<div key={user.id}>
-          <ConversationElement user={user} />
-        </div>)
+        return (
+        <div key={user.id}>
+          <Link to={`chat/${user.id}`}>
+            <ConversationElement user={user} />
+          </Link>
+        </div>
+        )
       })}
       
     </div>
