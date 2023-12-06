@@ -10,6 +10,7 @@ import Conversations from './Conversations';
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import useFetch from '../FetchData/useFetch';
+import WaitingToFetch from './WaitingToFetch';
 
 function SideBar() {
     const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
@@ -38,16 +39,10 @@ function SideBar() {
                 <MyIconButton icon = {LogoutIcon} color = {iconColor} fontSize = {30} id = "logoutButton" callBack = {navigate} valueCallBack = '/'/>
             </div>
         </div>
-
         <SideBarSearch/>
-
-    
         { error && <div>{ error }</div> }
         { isPending && <div>Loading...</div> }
-        { users ? <Conversations users={users} /> : "No friends yet..."}
-        
-
-
+        { users ? <Conversations users={users} /> : <WaitingToFetch/>}
     </div>
   )
 }
