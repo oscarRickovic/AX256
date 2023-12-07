@@ -55,5 +55,12 @@
     background-color: #45a049;
   }
   
-  /* Add more styling as needed */
+  .ChooseFileButton {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
   

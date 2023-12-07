@@ -29,7 +29,7 @@ function UserProfile() {
                     <div className = "info-div">Hi there I'm using A for fun..</div>
                 </div>
                 <div className = "div-UpdateProfile">
-                    <button class="UpdateProfile" role="button" onClick={()=>{navigate('/app/updateProfile')}}>Update profile</button>
+                    <button className="UpdateProfile" role="button" onClick={()=>{navigate('/app/updateProfile')}}>Update profile</button>
                 </div>
             </div>
         </div>

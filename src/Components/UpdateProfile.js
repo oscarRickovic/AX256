@@ -5,25 +5,30 @@ import './ComponentsCss/UpdatedProfileCss.css'; // Updated CSS file for styling
 
 function UpdateProfile() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('Abdelwahed Elminawi'); // Initial username
-  const [gender, setGender] = useState('Male'); // Initial gender
-  const [email, setEmail] = useState('Abdelwahed_Elminai@gmail.com'); // Initial email
-  const [bio, setBio] = useState("Hi there, I'm using A for fun."); // Initial bio
+  const [username, setUsername] = useState('Abdelwahed Elminawi');
+  const [gender, setGender] = useState('Male');
+  const [email, setEmail] = useState('Abdelwahed_Elminai@gmail.com');
+  const [bio, setBio] = useState("Hi there, I'm using A for fun.");
+  const [profilePicture, setProfilePicture] = useState(null);
 
-  // Function to handle profile update
   const handleUpdateProfile = () => {
-    // Perform the logic to update the user profile (API call, state update, etc.)
-    // For simplicity, I'm just logging the updated information to the console.
-    console.log('Updated Profile:', { username, gender, email, bio });
-
-    // Navigate back to the user profile page after updating
+    console.log('Updated Profile:', { username, gender, email, bio, profilePicture });
     navigate('/app/myProfile');
+  };
+
+  const handlePictureChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setProfilePicture(selectedFile);
+  };
+
+  const handleChooseFileClick = () => {
+    // Trigger the file input when the button is clicked
+    document.getElementById('profilePictureInput').click();
   };
 
   return (
     <div className='UpdatedProfile'>
       <div className='UpdatedProfile-WhiteDiv'>
-        {/* Add any update profile form or fields here */}
         <div className='UpdatedProfile-Img'>
           <Avatar
             alt="Remy Sharp"
@@ -32,7 +37,6 @@ function UpdateProfile() {
           />
         </div>
         <div className='UpdatedProfile-Infos'>
-          {/* Add input fields for updating information */}
           <div className='updated-info-div'>
             <label>Username:</label>
             <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -49,9 +53,20 @@ function UpdateProfile() {
             <label>Bio:</label>
             <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
           </div>
+          <div className='updated-info-div'>
+            <button className='ChooseFileButton' onClick={handleChooseFileClick}>
+              add picture
+            </button>
+            <input
+              type='file'
+              accept='*.png'
+              id='profilePictureInput'
+              style={{ display: 'none' }}
+              onChange={handlePictureChange}
+            />
+          </div>
         </div>
         <div className='div-SaveProfile'>
-          {/* Button to save the updated profile */}
           <button className='SaveUpdatedProfile' role='button' onClick={handleUpdateProfile}>
             Save Profile
           </button>

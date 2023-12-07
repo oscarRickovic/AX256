@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialName = {
-    value : false
+    value : true
 }
 
 export const LightSlice = createSlice({
