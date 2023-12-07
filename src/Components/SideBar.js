@@ -40,9 +40,7 @@ function SideBar() {
             </div>
         </div>
         <SideBarSearch/>
-        { /*error && <div>{ error }</div>*/ }
-        { /*users ? <Conversations users={users} /> : <WaitingToFetch/>*/}
-        <ErrorGettingFriends/>
+        { users ? <Conversations users={users} /> : (error) ? <ErrorGettingFriends/> : <WaitingToFetch/> }
     </div>
   )
 }
