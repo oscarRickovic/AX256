@@ -1,0 +1,59 @@
+/* UpdatedProfileCss.css */
+
+.UpdatedProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+  }
+  
+  .UpdatedProfile-WhiteDiv {
+    width: 80%; /* Adjust the width as needed */
+    max-width: 600px; /* Set a maximum width to avoid stretching on larger screens */
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .UpdatedProfile-Img {
+    margin-right: 20px;
+  }
+  
+  .UpdatedProfile-Infos {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .updated-info-div {
+    margin-bottom: 10px;
+  }
+  
+  /* Style input fields */
+  .UpdatedProfile-Infos input,
+  .UpdatedProfile-Infos textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Style SaveUpdatedProfile button */
+  .SaveUpdatedProfile {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .SaveUpdatedProfile:hover {
+    background-color: #45a049;
+  }
+  
+  /* Add more styling as needed */
+  
