@@ -9,14 +9,8 @@ function Conversations({users}) {
   const navigate = useNavigate();
 
   const light = useSelector((state) => state.LightState.value);
-  let styleLight = {
-    backgroundColor : '#d4d4dc',
-  }
-  let styleDark = {
-    backgroundColor : 'rgb(53, 52, 52)'
-  }
   return (
-    <div className='Conversations' style={light ? styleLight : styleDark}>
+    <div className='Conversations'>
       {light}
       {users.map( user => {
 

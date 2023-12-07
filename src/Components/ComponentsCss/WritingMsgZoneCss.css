@@ -1,5 +1,4 @@
 .WritingMsgZone{
-    background-color: #f1f1f1;
     width: 90%;
     margin-left: 3%;
     margin-top: 1%;
@@ -20,7 +19,6 @@
     border: none;
     outline-width: 0;
     font-size: large;
-    background-color: #f1f1f1;
     font-family: "Nunito", sans-serif;
 }
 
