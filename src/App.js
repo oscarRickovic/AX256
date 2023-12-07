@@ -9,6 +9,8 @@ import CreateGroup from './Components/CreateGroup';
 import PageNotFound from './Components/PageNotFound';
 import UserProfile from './Components/UserProfile';
 import {useSelector} from 'react-redux'
+import FriendInfo from './Components/FriendInfo';
+
 function App() {
   let color  = useSelector(state => state.ColorState.third);
   let light = useSelector(state => state.LightState.value);
@@ -22,6 +24,7 @@ function App() {
           <Route path = 'chat/:id' element = {<ChatZone/>}/>
           <Route path = 'newGroup' element = {<CreateGroup/>}/>
           <Route path = 'myProfile' element = {<UserProfile/>}/>
+          <Route path = 'friendInfo/:id' element = {<FriendInfo/>}/>
         </Route>
         <Route path = '*' element = {<PageNotFound/>}/>
       </Routes>

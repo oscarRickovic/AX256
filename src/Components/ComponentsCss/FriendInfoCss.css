@@ -1,0 +1,39 @@
+/* FriendInfoCss.css */
+
+.FriendInfo {
+    /* Add global styles for the FriendInfo component */
+  }
+  
+  .FriendInfo-WhiteDiv {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .FriendInfo-Couverture {
+    height: 150px;
+    background-size: cover;
+  }
+  
+  .FriendInfo-Informations {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .FriendInfo-Img {
+    margin-right: 20px;
+  }
+  
+  .FriendInfo-Infos {
+    flex-grow: 1;
+  }
+  
+  .info-div {
+    margin-bottom: 10px;
+  }
+  
+  /* Add more styling as needed */
+  
