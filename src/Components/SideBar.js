@@ -12,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import useFetch from '../FetchData/useFetch';
 import WaitingToFetch from './WaitingToFetch';
 import { useSelector, useDispatch } from 'react-redux'
+import ErrorGettingFriends from './ErrorGettingFriends';
 
 function SideBar() {
     const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
@@ -39,8 +40,9 @@ function SideBar() {
             </div>
         </div>
         <SideBarSearch/>
-        { error && <div>{ error }</div> }
-        { users ? <Conversations users={users} /> : <WaitingToFetch/>}
+        { /*error && <div>{ error }</div>*/ }
+        { /*users ? <Conversations users={users} /> : <WaitingToFetch/>*/}
+        <ErrorGettingFriends/>
     </div>
   )
 }

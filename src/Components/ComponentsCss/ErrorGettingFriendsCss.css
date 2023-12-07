@@ -1,0 +1,13 @@
+.ErrorGettingFriends{
+    margin-top: 15px;
+    background-color: #d4d4dc;
+    margin-left: 12%;
+    width: 80%;
+    height: 75%;
+    max-height: 75vh;
+    border-radius: 10px;
+    padding-top: 7px;
+    overflow-y: auto;
+    display: grid;
+    place-items: center;
+}
