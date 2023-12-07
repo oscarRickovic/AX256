@@ -17,6 +17,7 @@ function SideBar() {
     let iconColor = "#393f4d";
     const light = useSelector(state=>state.LightState.value);
     const navigate = useNavigate();
+    let color = useSelector(state => state.ColorState.second);
   return (
     //Streotype : 
     // MyButton we will pass :
@@ -25,7 +26,7 @@ function SideBar() {
     // 3- id of button
     // 4- method that will launch after click on the icon button.
     // 5- value is the argument that the method will use.
-    <div className='SideBar'>
+    <div className='SideBar' style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}}>
         <div className='SideBar-Settings'>
             <div className='SideBar-Settings-User-Icon' onClick = {()=>{navigate('/app/MyProfile')}}>
                 <MyIconButton icon = {AccountCircleIcon} color = {iconColor} fontSize = {30}/>
