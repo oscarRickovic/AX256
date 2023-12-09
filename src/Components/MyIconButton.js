@@ -1,6 +1,7 @@
 import React from 'react'
 import { IconButton } from '@mui/material';
 import { changeLight } from './ReduxDocs/LightState';
+import { changeFindNewFriendState} from './ReduxDocs/FindNewFriendState'
 import { useSelector, useDispatch } from 'react-redux'
 function MyIconButton(props) {
     const dispatch = useDispatch();
@@ -21,6 +22,12 @@ function MyIconButton(props) {
         }
         if(props.id == "logoutButton") {
             props.callBack(props.valueCallBack);
+        }
+        if(props.id == "findNewFriends"){
+            dispatch( changeFindNewFriendState())
+            setTimeout(()=>{
+                dispatch(changeFindNewFriendState());
+            },3000)
         }
     }
   return (

@@ -4,7 +4,9 @@ function NoChatSelected() {
   return (
     <div className='NoChatSelected'>
         <div className='div-A'>
-            <p className='NoChatSelected-A'>A</p>
+            <div className='rotation'>
+              <p className='NoChatSelected-A'>A</p>
+            </div>
             <p className='NoChatSelected-WelcomingText'>welcome on A, please enjoy making friends.</p>
         </div>
     </div>

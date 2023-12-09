@@ -5,6 +5,15 @@
     place-items: center;
 }
 
+.rotation{
+    animation: mymove 5s infinite;
+    margin-bottom: 10%;
+}
+
+@keyframes mymove {
+    50% {transform: rotate(180deg);}
+  }
+
 .NoChatSelected-A{
     font-family: 'Moirai One';
     font-size: 10rem;

@@ -8,43 +8,4 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.SideBar-Settings {
-    display: flex;
-    margin-left: 12%;
-    margin-top : 5%;
-    background-color: #d4d4dc;
-    border-radius: 10px;
-    width: 80%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-}
-
-.SideBar-Settings-Possibilities {
-    margin-left: 30%;
-}
-
-@media only screen and (max-width : 40em){
-    .SideBar{
-        width: 10%;
-        height: 97%;
-        margin-left: 0%;
-        margin-top : 0%;
-        background-color: #d4d4dc;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    }
-
-    .SideBar-Settings {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .SideBar-Settings-Possibilities{
-        display: grid;
-        place-items: center;
-        margin-left: 0;
-    }
-}
 
