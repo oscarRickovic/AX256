@@ -61,9 +61,9 @@
         "lastMessage": "Long time no see!"
       },
       {
-        "id": 100,
-        "username": "user100",
-        "img": "./src/images/user100.png",
+        "id": 11,
+        "username": "user11",
+        "img": "./src/images/user11.png",
         "lastMessage": "It's been a while!"
       }
     ]

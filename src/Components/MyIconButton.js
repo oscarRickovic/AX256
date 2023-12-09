@@ -3,9 +3,11 @@ import { IconButton } from '@mui/material';
 import { changeLight } from './ReduxDocs/LightState';
 import { changeFindNewFriendState} from './ReduxDocs/FindNewFriendState'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 function MyIconButton(props) {
     const dispatch = useDispatch();
     const light = useSelector((state)=>state.LightState.value)
+    const navigate = useNavigate();
     let style = {
         color : props.color
     }
@@ -25,9 +27,10 @@ function MyIconButton(props) {
         }
         if(props.id == "findNewFriends"){
             dispatch( changeFindNewFriendState())
+            navigate('/app/chat/new');
             setTimeout(()=>{
                 dispatch(changeFindNewFriendState());
-            },3000)
+            },10000)
         }
     }
   return (

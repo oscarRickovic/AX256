@@ -9,9 +9,12 @@ function ChatZone(props) {
     <div className='ChatZone'>
         { isPending && <div>Loading...</div> }
         { error && <div>{ error }</div> }
-        { user && <ChatZoneFriendInfo user={user} /> }
-        <TextingZone/>
-        <WritingMsgZone/>
+        { user && <>
+          <ChatZoneFriendInfo user={user} />
+          <TextingZone/>
+          <WritingMsgZone/>
+        </> }
+        
     </div>
   )
 }
