@@ -29,9 +29,7 @@ function MyIconButton(props) {
             props.callBack(props.valueCallBack);
         }
         if(props.id == "findNewFriends"){
-            dispatch( changeFindNewFriendState())
-            navigate('/app/chat/new');
-           console.log(newFriend)
+            
         }
     }
   return (
