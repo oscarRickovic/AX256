@@ -1,0 +1,71 @@
+{
+    "friends": [
+      {
+        "id": 1,
+        "username": "user1",
+        "img": "./src/images/user1.png",
+        "lastMessage": "Hello, how are you?"
+      },
+      {
+        "id": 2,
+        "username": "user2",
+        "img": "./src/images/user2.png",
+        "lastMessage": "Good morning!"
+      },
+      {
+        "id": 3,
+        "username": "user3",
+        "img": "./src/images/user3.png",
+        "lastMessage": "Hey there!"
+      },
+      {
+        "id": 4,
+        "username": "user4",
+        "img": "./src/images/user4.png",
+        "lastMessage": "What's up?"
+      },
+      {
+        "id": 5,
+        "username": "user5",
+        "img": "./src/images/user5.png",
+        "lastMessage": "How's your day going?"
+      },
+      {
+        "id": 6,
+        "username": "user6",
+        "img": "./src/images/user6.png",
+        "lastMessage": "Nice to meet you!"
+      },
+      {
+        "id": 7,
+        "username": "user7",
+        "img": "./src/images/user7.png",
+        "lastMessage": "Hi!"
+      },
+      {
+        "id": 8,
+        "username": "user8",
+        "img": "./src/images/user8.png",
+        "lastMessage": "Greetings!"
+      },
+      {
+        "id": 9,
+        "username": "user9",
+        "img": "./src/images/user9.png",
+        "lastMessage": "How are things?"
+      },
+      {
+        "id": 10,
+        "username": "user10",
+        "img": "./src/images/user10.png",
+        "lastMessage": "Long time no see!"
+      },
+      {
+        "id": 100,
+        "username": "user100",
+        "img": "./src/images/user100.png",
+        "lastMessage": "It's been a while!"
+      }
+    ]
+  }
+  

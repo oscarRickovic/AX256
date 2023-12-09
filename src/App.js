@@ -4,13 +4,13 @@ import MainComponent from './Components/MainComponent';
 import Login from './Components/Login';
 import {Routes, Route} from 'react-router-dom';
 import NoChatSelected from './Components/NoChatSelected';
-import ChatZone from './Components/ChatZone';
 import CreateGroup from './Components/CreateGroup';
 import PageNotFound from './Components/PageNotFound';
 import UserProfile from './Components/UserProfile';
 import {useSelector} from 'react-redux'
 import FriendInfo from './Components/FriendInfo';
 import UpdateProfile from './Components/UpdateProfile';
+import ChatZoneFetching from './Components/ChatZoneFetching';
 
 function App() {
   let color  = useSelector(state => state.ColorState.third);
@@ -22,7 +22,7 @@ function App() {
         <Route path='/' element = {<Login/>}/>
         <Route path='/app' element = {<MainComponent/>}>
           <Route path = '' element = {<NoChatSelected/>}/>
-          <Route path = 'chat/:id' element = {<ChatZone/>}/>
+          <Route path = 'chat/:id' element = {<ChatZoneFetching/>}/>
           <Route path = 'newGroup' element = {<CreateGroup/>}/>
           <Route path = 'myProfile' element = {<UserProfile/>}/>
           <Route path = 'friendInfo/:id' element = {<FriendInfo/>}/>
