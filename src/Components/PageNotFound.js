@@ -1,13 +1,13 @@
 import React from 'react'
 import './ComponentsCss/PageNotFoundCss.css';
-function PageNotFound() {
+function PageNotFound(props) {
   return (
     <div className = "PageNotFount-Parent">
       <div className = "PageNotFound">
-        404
+        {props.error}
       </div>
       <div className='PageNotFound-msg'>
-        this page does't exist, please check the URL.
+        {props.comment}
       </div>
     </div>
   )

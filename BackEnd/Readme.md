@@ -62,3 +62,13 @@
    - First message is crypted to send it to server without any problems.
    - Client public Key is sent to Server to make server able to return response to user
    - Jwt is crypted with server pub key to send it to Server to decode it two times and read the user id then if the user id is presented in Db then the response will be generated and encrypted with the user pub key.
+
+Achievements :
+What we will need as cryptoGraphy things ?
+
+1. npm install axios // for http requests.
+2. npm install jsonwebtoken // To generate JWT tokens
+3. npm install crypto-js // For cryptographic functions such as hashing.
+4. npm install bcryptjs // For hashing and verifying passwords securely.
+5. npm install node-rsa // RSA keys
+6. npm install uuid // For generating random strings or unique identifiers.

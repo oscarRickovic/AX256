@@ -10,6 +10,10 @@
     margin-bottom: 10%;
 }
 
+.noRotation {
+    margin-bottom: 10%;
+}
+
 @keyframes mymove {
     50% {transform: rotate(180deg);}
   }

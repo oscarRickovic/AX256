@@ -8,8 +8,8 @@ export const PassNewFriendSlice = createSlice({
     name : "PassNewFriend",
     initialState : initialName,
     reducers : {
-        changeFriend : (state, val) => {
-            state.value = val
+        changeFriend : (state, action) => {
+            state.value = action.payload;
         }
     }
 })

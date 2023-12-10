@@ -3,7 +3,6 @@ import './ComponentsCss/SideBarCss.css'
 import SideBarSearch from './SideBarSearch';
 import Conversations from './Conversations';
 import useFetch from '../FetchData/useFetch';
-import WaitingToFetch from './WaitingToFetch';
 import { useSelector} from 'react-redux'
 import ErrorGettingFriends from './ErrorGettingFriends';
 import SideBarSettings from './SideBarSettings';
@@ -12,7 +11,7 @@ function SideBar() {
     const { error, isPending, data: users } = useFetch('http://localhost:4000/users')
     const light = useSelector(state=>state.LightState.value);
     let color = useSelector(state => state.ColorState.second);
-    let findNewFriends = useSelector(state => state.FindNewFriendState.value);
+    let findNewFriends = useSelector(state => state.PassNewFriendState.value);
   return (
     //Streotype : 
     // MyButton we will pass :
@@ -22,23 +21,16 @@ function SideBar() {
     // 4- method that will launch after click on the icon button.
     // 5- value is the argument that the method will use.
     <div className='SideBar' style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}}>
-        {findNewFriends == false ?
+        {findNewFriends == null ?
         <>
             <SideBarSettings/>
             <SideBarSearch/>
-            { users ? <Conversations users={users} /> : (error) ? <ErrorGettingFriends/> : <WaitingToFetch/> }
+            { users ? <Conversations users={users} /> : (error) ? <ErrorGettingFriends/> : <NoChatSelected rotation = {true}/> }
         </> 
         :
-        <NoChatSelected/>}
+        <NoChatSelected rotation = {false}/>}
     </div>
   )
 }
 
 export default SideBar
-
-
-{/* 
-
-
-
-*/}
