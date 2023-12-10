@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-back": "nodemon BackEnd\\Server.js",
+    "dev": "nodemon backend\\server.js",
     "jsonDb" : "json-server --watch data/db.json --port 4000",
     "jsonNewFriends" : "json-server --watch data/newFriends.json --port 7000",
     "build": "react-scripts build",
