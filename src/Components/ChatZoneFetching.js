@@ -1,27 +1,31 @@
-import React from 'react'
-import { useParams } from "react-router-dom";
-import useFetch from '../FetchData/useFetch'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useFetch from '../FetchData/useFetch';
 import ChatZone from './ChatZone';
+import { useDispatch } from 'react-redux';
 import { changeFriend } from './ReduxDocs/PassNewFriendState';
-import { useSelector, useDispatch } from 'react-redux'
 
 function ChatZoneFetching() {
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    let path = null;
-    const getRandom = (min, max) => {return Math.floor(Math.random() * (max - min + 1)) + min;}
-    if(id == "new") {
-      const newFriendId = getRandom(1,12);
-      path = "http://localhost:7000/friends/" + newFriendId;
-      console.log(path)
+  const { id } = useParams();
+  const [path, setPath] = useState("");
+  const dispatch = useDispatch();
+
+  const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  useEffect(() => {
+    if (id === "new") {
+      setPath(`http://localhost:7000/friends/${getRandom(1, 15)}`);
+    } else {
+      setPath(`http://localhost:4000/users/${id}`);
     }
-    else{
-      path = 'http://localhost:4000/users/' + id;
-    }
-    const { data: user, error, isPending } = useFetch(path);
-  return (
-    <ChatZone user = {user} error = {error} isPending = {isPending}/>
-  )
+  }, [id]);
+  const { data: user, error, isPending } = useFetch(path);
+
+  useEffect(() => {
+    dispatch(changeFriend(user));
+  }, [dispatch, user]);
+
+  return <ChatZone user={user} error={error} isPending={isPending} />;
 }
 
-export default ChatZoneFetching
+export default ChatZoneFetching;

@@ -1,44 +1,51 @@
-import React from 'react'
+import React from 'react';
 import { IconButton } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { changeLight } from './ReduxDocs/LightState';
-import { changeFindNewFriendState} from './ReduxDocs/FindNewFriendState'
+import { changeFindNewFriendState } from './ReduxDocs/FindNewFriendState';
 import { changeFriend } from './ReduxDocs/PassNewFriendState';
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from "react-router-dom";
 
 function MyIconButton(props) {
-    const dispatch = useDispatch();
-    const light = useSelector((state)=>state.LightState.value)
-    const newFriend = useSelector((state)=>state.PassNewFriendState.value)
-    const navigate = useNavigate();
-    let style = {
-        color : props.color
+  const dispatch = useDispatch();
+  const light = useSelector((state) => state.LightState.value);
+  const newFriend = useSelector((state) => state.PassNewFriendState.value);
+  const navigate = useNavigate();
+
+  const iconButtonMethod = () => {
+    if (props.callBack != null) {
+      props.callBack(props.valueCallBack);
+    } else {
+      switch (props.id) {
+        case 'lightButton':
+          dispatch(changeLight());
+          break;
+        case 'logoutButton':
+          // Add specific logic for logoutButton if needed
+          break;
+        case 'findNewFriends':
+          navigate('/app/chat/new');
+          break;
+        default:
+          // Handle other cases if needed
+          break;
+      }
     }
-    let sx = {
-        fontSize : props.fontSize
-    }
-    // since each IconButton must do different work we should pass the method as props.
-    const iconButtonMethod = ()=>{
-        if(props.callBack == null) {
-            // No method is passed.
-        }
-        if(props.id == "lightButton") {
-            dispatch(changeLight())
-        }
-        if(props.id == "logoutButton") {
-            props.callBack(props.valueCallBack);
-        }
-        if(props.id == "findNewFriends"){
-            
-        }
-    }
+  };
+
+  const style = {
+    color: props.color,
+  };
+
+  const sx = {
+    fontSize: props.fontSize,
+  };
+
   return (
-    <>
-        <IconButton onClick = {iconButtonMethod}>
-            {<props.icon style = {style} sx = {sx}/>}
-        </IconButton>
-    </>
-  )
+    <IconButton onClick={iconButtonMethod}>
+      {<props.icon style={style} sx={sx} />}
+    </IconButton>
+  );
 }
 
 export default MyIconButton;

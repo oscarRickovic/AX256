@@ -7,12 +7,10 @@ const useFetch = (url) => {
 
   useEffect(() => {
     const abortCont = new AbortController();
-
-    
       fetch(url, { signal: abortCont.signal })
       .then(res => {
-        if (!res.ok) { // error coming back from server
-          
+        if (!res.ok) {
+          setData(null);
         }
         else {
           return res.json();
@@ -26,14 +24,10 @@ const useFetch = (url) => {
       .catch(err => {
         if (err.name === 'AbortError') {
         } else {
-          // auto catches network / connection error
           setIsPending(false);
           setError(err.message);
         }
       })
-   
-
-    // abort the fetch
     return () => abortCont.abort();
   }, [url])
 

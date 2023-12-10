@@ -29,16 +29,9 @@ function SideBar() {
             { users ? <Conversations users={users} /> : (error) ? <ErrorGettingFriends/> : <WaitingToFetch/> }
         </> 
         :
-        <NoChatSelected/>}
+        <NoChatSelected rotation = {false}/>}
     </div>
   )
 }
 
 export default SideBar
-
-
-{/* 
-
-
-
-*/}
