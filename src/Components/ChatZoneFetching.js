@@ -13,7 +13,7 @@ function ChatZoneFetching() {
   const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   useEffect(() => {
-    if (id === "new") {
+    if (id.startsWith("new")) {
       setPath(`http://localhost:7000/friends/${getRandom(1, 15)}`);
     } else {
       setPath(`http://localhost:4000/users/${id}`);
@@ -22,7 +22,9 @@ function ChatZoneFetching() {
   const { data: user, error, isPending } = useFetch(path);
 
   useEffect(() => {
-    dispatch(changeFriend(user));
+    if(path.includes('friends')){
+      dispatch(changeFriend(user));
+    }
   }, [dispatch, user]);
 
   return <ChatZone user={user} error={error} isPending={isPending} />;
