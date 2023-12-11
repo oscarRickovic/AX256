@@ -11,6 +11,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [readPassword, setReadPassword] = useState(false);
 
   useEffect(() => {
     console.log('lets create pub key and private key');
@@ -48,14 +49,14 @@ function Register() {
             />
             <div className="Login-Form-Formulaire-Password-Div">
               <input
-                type="password"
+                type={readPassword ? "text" : "password"}
                 className="Login-Form-Formulaire-Password"
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="VisibilityIcon">
-                <MyIconButton icon={VisibilityIcon} color="#d4d4dc" fontSize={30} />
+              <div className="VisibilityIcon" onClick={()=>{setReadPassword(!readPassword)}}>
+                <MyIconButton icon={VisibilityIcon} color="#d4d4dc" fontSize={30}/>
               </div>
             </div>
            <div className='confirmingPassword'>
