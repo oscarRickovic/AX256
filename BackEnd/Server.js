@@ -3,11 +3,19 @@ const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const generateServerKeys = require('./Crypto/ServerKeys');
+const keysJson = require('./Crypto/Keys.json');
 dotenv.config() ;
 const PORT = process.env.PORT_BACK || 6000;
+
+// to @2tay please create separate folders for ROUTES and MIDLEWARES.
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
+})
+
+app.get('/', (req, res)=>{
+    // In this step we should return the server public key that is stored in keys.json.
+    res.status(200).json(keysJson.publicKey);
 })
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
