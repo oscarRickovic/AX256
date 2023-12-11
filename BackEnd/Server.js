@@ -6,7 +6,9 @@ const generateServerKeys = require('./Crypto/ServerKeys');
 const keysJson = require('./Crypto/Keys.json');
 dotenv.config() ;
 const PORT = process.env.PORT_BACK || 6000;
+const cors = require('cors');
 
+app.use(cors());
 // to @2tay please create separate folders for ROUTES and MIDLEWARES.
 app.use((req, res, next) => {
     console.log(req.path, req.method)

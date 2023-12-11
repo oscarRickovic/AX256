@@ -3,7 +3,9 @@ import './ComponentsCss/RegisterCss.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
 import { useNavigate } from 'react-router-dom';
-import generateKeys from './CryptoFront/generateClientKeys';
+import axios from 'axios';
+const generateKeys = require('./CryptoFront/generateClientKeys');
+const {encrypt, decrypt} = require('./CryptoFront/cryptageRSA');
 const {checkUserName,
       checkEmail,
       checkPassword,
@@ -17,13 +19,12 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [readPassword, setReadPassword] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
+  const [serverPubKey, setServerPubKey] = useState('');
 
   useEffect(() => {
-    console.log('lets create pub key and private key');
     //const keys = generateKeys();
     //localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
     //localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
-    //console.log('get keys');
     //console.log(localStorage.getItem('rsaKeys_pubKey'));
   }, []);
 
@@ -35,7 +36,17 @@ function Register() {
     if(!checkPassword(password)) errorsMap.push("your password length need to be more than 8 characters, without extra characters at least 2 upper letters, at least 3 lower case, at least 2 numbers, `_ -` allowed");
     if(!checkConfirmationPassword(password, confirmPassword)) errorsMap.push("please double check password confirmation");
     if(errorsMap.length == 0) {
-      navigate('/app');
+      let data = [username, email, password];
+      let result = data.join("00000000");
+      await axios.get('http://localhost:5000/')
+      .then(response => {
+        // Get server public Key.
+        setServerPubKey(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:' + error);
+      });
+      console.log(encrypt(result, serverPubKey))
     }
     else {
       setFormErrors(errorsMap);

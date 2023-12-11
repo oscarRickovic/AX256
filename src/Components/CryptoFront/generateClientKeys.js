@@ -8,4 +8,4 @@ const generateKeys = () => {
   return { publicKey, privateKey };
 };
 
-export default generateKeys;
+module.exports = generateKeys;
