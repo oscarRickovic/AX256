@@ -1,6 +1,7 @@
 const Users = require('../models/userModel')
 const mongoose = require('mongoose')
 
+
 // get all users
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -30,6 +31,12 @@ const createUser = async (req, res) => {
     const {username, email, password} = req.body
 
     try {
+        const existedEmail = await Users.findOne({ email });
+
+        if (existedEmail) {
+            return res.status(404).json({ error: 'email already existed' });
+        }
+
         const newUser = await Users.create({username, email, password})
         res.status(200).json(newUser)
     } catch (error) {
