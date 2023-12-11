@@ -4,6 +4,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
 import { useNavigate } from 'react-router-dom';
 import generateKeys from './CryptoFront/generateClientKeys';
+const {checkUserName,
+      checkEmail,
+      checkPassword,
+      checkConfirmationPassword} = require('./StaticFunctions/HandleLoginRegisterForms');
 
 function Register() {
   const navigate = useNavigate();
@@ -12,6 +16,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [readPassword, setReadPassword] = useState(false);
+  const [formErrors, setFormErrors] = useState([]);
 
   useEffect(() => {
     console.log('lets create pub key and private key');
@@ -22,14 +27,30 @@ function Register() {
     //console.log(localStorage.getItem('rsaKeys_pubKey'));
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/app');
+    let errorsMap = [];
+    if(!checkUserName(username)) errorsMap.push("the length of username must be more than 4 characters, without extra characters, only alpha numeric and `- _` ");
+    if(!checkEmail(email)) errorsMap.push("use email format and use only alpha numeric characters and `- _`");
+    if(!checkPassword(password)) errorsMap.push("your password length need to be more than 8 characters, without extra characters at least 2 upper letters, at least 3 lower case, at least 2 numbers, `_ -` allowed");
+    if(!checkConfirmationPassword(password, confirmPassword)) errorsMap.push("please double check password confirmation");
+    if(errorsMap.length == 0) {
+      navigate('/app');
+    }
+    else {
+      setFormErrors(errorsMap);
+      await new Promise(resolve => setTimeout(resolve, 10000));
+      setFormErrors([])
+    }
   };
 
   return (
     <div className="Login">
-      <div className="Login-A">A</div>
+      {formErrors.length == 0 ?
+        <div className="Login-A">A</div>
+        :
+        <div className="Login-Error"><div className = "WriteError">{formErrors[0]}</div></div>
+      }
       <div className="Login-Form">
         <div className="Login-Form-Formulaire">
           <form onSubmit={handleSubmit}>
