@@ -6,8 +6,6 @@ import { changeLight } from './ReduxDocs/LightState';
 
 function MyIconButton(props) {
   const dispatch = useDispatch();
-  const light = useSelector((state) => state.LightState.value);
-  const newFriend = useSelector((state) => state.PassNewFriendState.value);
   const navigate = useNavigate();
 
   const iconButtonMethod = () => {

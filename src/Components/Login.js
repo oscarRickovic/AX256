@@ -9,9 +9,10 @@ function Login() {
     useEffect(()=>{
         console.log('lets create pub key and private key');
         const keys = generateKeys();
-        localStorage.setItem('rsaKeys', JSON.stringify(keys));
+        localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
+        localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
         console.log('get keys');
-        console.log(localStorage.getItem('rsaKeys'))
+        console.log(localStorage.getItem('rsaKeys_pubKey'))
     })
   return (
     <div className='Login'>

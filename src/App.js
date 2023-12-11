@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux'
 import FriendInfo from './Components/FriendInfo';
 import UpdateProfile from './Components/UpdateProfile';
 import ChatZoneFetching from './Components/ChatZoneFetching';
+import Register from './Components/Register';
 
 function App() {
   let color  = useSelector(state => state.ColorState.third);
@@ -17,7 +18,8 @@ function App() {
   return (
     <div className="App" style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}}>
       <Routes>
-        <Route path='/' element = {<Login/>}/>
+        <Route path='/Login' element = {<Login/>}/>
+        <Route path= '/Register' element = {<Register/>}/>
         <Route path='/app' element = {<MainComponent/>}>
           <Route path = '' element = {<NoChatSelected rotation = {false} />}/>
           <Route path = 'chat/:id' element = {<ChatZoneFetching/>}/>

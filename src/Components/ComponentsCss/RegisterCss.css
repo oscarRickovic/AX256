@@ -47,7 +47,7 @@
     display: flex;
     width: 90%;
     border-bottom: 1px solid black;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 }
 
 .Login-Form-Formulaire-Password{
@@ -58,6 +58,12 @@
     border: none;
     font-size: 1rem;
     font-family: "Nunito", sans-serif;
+}
+
+.confirmingPassword{
+    width: 90%;
+    border-bottom: 1px solid black;
+    margin-bottom: 10%;
 }
 
 .VisibilityIcon{
@@ -154,7 +160,6 @@
     padding: 0 25px;
   }
 }
-
 @media (max-width: 767px) {
   .Login {
     flex-direction: column;
@@ -162,17 +167,17 @@
 
   .Login-A,
   .Login-Form {
-    width: 100%;
+    width: 100%; 
   }
 
   .Login-Form-Formulaire {
-    width: 80%;
+    width: 80%; 
   }
 
   .Login-Form-Formulaire-UserName,
   .Login-Form-Formulaire-Password,
   .Login-Form-Formulaire-Password-Div {
-    width: 100%;
+    width: 100%; 
   }
 
   .Login-Form-Formulaire-Submit {
@@ -191,5 +196,4 @@
     min-width: 120px;
     padding: 0 25px;
   }
-
 }

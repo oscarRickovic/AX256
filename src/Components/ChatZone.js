@@ -3,7 +3,6 @@ import "./ComponentsCss/ChatZoneCss.css";
 import ChatZoneFriendInfo from './ChatZoneFriendInfo';
 import TextingZone from './TextingZone';
 import WritingMsgZone from './WritingMsgZone';
-import { useSelector } from 'react-redux';
 import PageNotFound from './PageNotFound';
 import NoChatSelected from './NoChatSelected';
 
