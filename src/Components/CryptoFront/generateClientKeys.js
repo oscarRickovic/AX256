@@ -1,13 +1,11 @@
-const NodeRSA = require('node-rsa');
-const generateClientKeys = () => {
-  const key = new NodeRSA({ b: 2048 });
-  const publicKey = key.exportKey('pkcs1-public-pem');
-  const privateKey = key.exportKey('pkcs1-private-pem');
-  const keysObject = {
-    publicKey,
-    privateKey,
-  };
-  return keysObject;
+const forge = require('node-forge');
+
+const generateKeys = () => {
+  const keyPair = forge.pki.rsa.generateKeyPair({ bits: 2048 });
+  const publicKey = forge.pki.publicKeyToPem(keyPair.publicKey);
+  const privateKey = forge.pki.privateKeyToPem(keyPair.privateKey);
+
+  return { publicKey, privateKey };
 };
 
-module.exports = generateClientKeys;
+export default generateKeys;

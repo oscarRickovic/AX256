@@ -3,13 +3,15 @@ import './ComponentsCss/LoginCss.css'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
 import { useNavigate } from "react-router-dom";
-//import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import generateKeys from './CryptoFront/generateClientKeys'
 function Login() {
     const navigate = useNavigate();
     useEffect(()=>{
         console.log('lets create pub key and private key');
-        localStorage.setItem('oscar', "abdelhadiAgourzam");
-        console.log("the champion is " + localStorage.getItem('oscar'))
+        const keys = generateKeys();
+        localStorage.setItem('rsaKeys', JSON.stringify(keys));
+        console.log('get keys');
+        console.log(localStorage.getItem('rsaKeys'))
     })
   return (
     <div className='Login'>
