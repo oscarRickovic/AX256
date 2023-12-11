@@ -17,7 +17,7 @@ app.use(express.json())
 })*/
 
 //routes
-app.use('/', usersRoutes)
+app.use('/users', usersRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
