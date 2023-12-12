@@ -4,11 +4,13 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const generateServerKeys = require('./Crypto/ServerKeys');
 const keysJson = require('./Crypto/Keys.json');
+const {encrypt, decrypt} = require('./Crypto/AsymCrypto');
 dotenv.config() ;
 const PORT = process.env.PORT_BACK || 6000;
 const usersRoutes = require('./routes/users')
 const cors = require('cors');
 app.use(cors());
+
 
 // middleware
 app.use(express.json())
@@ -16,9 +18,16 @@ app.use(express.json())
 //routes
 app.use('/users', usersRoutes)
 
-app.get('/', (req, res)=>{
+app.get('/testCrypto', (req, res)=>{
   // In this step we should return the server public key that is stored in keys.json.
-  res.status(200).json(keysJson.publicKey);
+  console.log(keysJson.publicKey)
+  res.status(200).json({serverPubKey : keysJson.publicKey});
+})
+
+app.post('/testCrypto', (req, res) => {
+  const {data, clientPubKey} = req.body;
+  const clearData = decrypt(data, keysJson.privateKey);
+  console.log(clearData);
 })
 
 
