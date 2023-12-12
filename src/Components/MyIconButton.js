@@ -17,7 +17,8 @@ function MyIconButton(props) {
           dispatch(changeLight());
           break;
         case 'logoutButton':
-          // Add specific logic for logoutButton if needed
+          localStorage.removeItem('A_JWT')
+          navigate('/Login')
           break;
         case 'findNewFriends':
             const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;

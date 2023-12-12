@@ -20,7 +20,7 @@ function SideBarSettings() {
         <div className='SideBar-Settings-Possibilities'>
             <MyIconButton icon = {PersonAddIcon} color = {iconColor} fontSize = {30} id = "findNewFriends"/>
             <MyIconButton icon = {light?ModeNightIcon:LightModeIcon} color = {iconColor} fontSize = {30} id = "lightButton"/> 
-            <MyIconButton icon = {LogoutIcon} color = {iconColor} fontSize = {30} id = "logoutButton" callBack = {navigate} valueCallBack = '/'/>
+            <MyIconButton icon = {LogoutIcon} color = {iconColor} fontSize = {30} id = "logoutButton"/>
         </div>
      </div>
   )
