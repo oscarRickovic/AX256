@@ -43,6 +43,7 @@ function Login() {
             let res = await sendCryptedData([email, password], "http://localhost:5000/user/login", serverPubKey);
             console.log(res)
             if(res == 200) {
+                alert(localStorage.getItem('A_JWT'))
                 navigate('/app');
                 return;
               }
@@ -59,7 +60,7 @@ function Login() {
                 errorsMap.push("Please double check your credentials");
               }
               else if (res == 500) {
-                errorsMap.push("Server Error while checking informations x");
+                errorsMap.push("Server Error while checking informations");
               }
               else {
                 errorsMap.push("Status not acceptable " + res);

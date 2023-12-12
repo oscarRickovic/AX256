@@ -65,6 +65,7 @@ function Register() {
     if (errorsMap.length === 0) {
       let res = await sendCryptedData([username, email, password], "http://localhost:5000/user", serverPubKey);
       if(res == 200) {
+        alert(localStorage.getItem('A_JWT'))
         navigate('/app');
         return;
       }

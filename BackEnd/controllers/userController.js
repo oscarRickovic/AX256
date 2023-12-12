@@ -1,7 +1,7 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
 const {getUserRegister, getUserLogin} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
-
+const {signJWT, designJWT} = require('../Crypto/Jwt');
 // get all users
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -38,8 +38,13 @@ const createUser = async (req, res) => {
             return res.status(404).json({ error: 'email already existed' });
         }
 
-        const newUser = await Users.create({username, email, password})
-        res.status(200).json(newUser)
+        const newUser = await Users.create({username, email, password});
+        const credentials = {
+          username : username,
+          email : email,
+          password : password
+        };
+        res.status(200).json(signJWT(credentials));
     } catch (error) {
         // This a server error not user one.
         res.status(500).json({error: error.message})
@@ -97,10 +102,16 @@ const loginUser = async (req, res) => {
         if (user.password !== password) {
             return res.status(401).json({ error: 'Incorrect password' });
         }
-    
-        res.status(200).json({ message: 'Login successful', user });
+
+        const credentials = {
+          username : user.username,
+          email : user.email,
+          password : user.password
+        };
+
+        res.status(200).json(signJWT(credentials));
         
-        } catch (error) {
+      } catch (error) {
             res.status(500).json({ error: error.message });
         }
 };
