@@ -4,30 +4,17 @@ const { encrypt } = require('../CryptoFront/cryptageRSA');
 const sendCryptedData = async (data, link, serverPubKey) => {
   try {
     if (!serverPubKey) {
-      console.log('No operations with null server pub key');
-      return false;
+      return 507;
     }
-
     const result = data.join('00000000');
-    console.log(result);
-    console.log(serverPubKey);
-
     const pairInfos = {
       data: encrypt(result, serverPubKey),
       clientPubKey: localStorage.getItem('rsaKeys_pubKey'),
     };
-
     const response = await axios.post(link, pairInfos);
-
-    if (response.status === 200) {
-      return true;
-    } else {
-      console.error('Unexpected response status:', response.status);
-      return false;
-    }
+    return response.status;
   } catch (error) {
-    console.error('Error while sending data:', error);
-    return false;
+    return error.response.status;
   }
 };
 

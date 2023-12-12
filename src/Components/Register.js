@@ -63,9 +63,27 @@ function Register() {
       errorsMap.push('please double-check password confirmation');
 
     if (errorsMap.length === 0) {
-      if( await sendCryptedData([username, email, password], "http://localhost:5000/user", serverPubKey)){
-        navigate('/app')
+      let res = await sendCryptedData([username, email, password], "http://localhost:5000/user", serverPubKey);
+      if(res == 200) {
+        navigate('/app');
+        return;
       }
+      else if(res == 507) {
+        errorsMap.push("Error while crypting data");
+      }
+      else if(res == 506) {
+        errorsMap.push("Error while sending data");
+      }
+      else if(res == 500) {
+        errorsMap.push("Error while server is checking data");
+      }
+      else if(res == 404) {
+        errorsMap.push("please use another email, this one is already used");
+      }
+      else {
+        errorsMap.push("Status not acceptable " + res);
+      }
+      setFormErrors(errorsMap);
     } else {
       setFormErrors(errorsMap);
       await new Promise((resolve) => setTimeout(resolve, 10000));

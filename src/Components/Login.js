@@ -40,9 +40,31 @@ function Login() {
         if(!checkEmail(email)) errorsMap.push("use email format and use only alpha numeric characters and `- _`");
         if(!checkPassword(password)) errorsMap.push("your password length need to be more than 8 characters, without extra characters at least 2 upper letters, at least 3 lower case, at least 2 numbers, `_ -` allowed");
         if(errorsMap.length == 0) {
-            if(await sendCryptedData([email, password], "http://localhost:5000/user/login", serverPubKey)){
+            let res = await sendCryptedData([email, password], "http://localhost:5000/user/login", serverPubKey);
+            console.log(res)
+            if(res == 200) {
                 navigate('/app');
-            }
+                return;
+              }
+              else if(res == 507) {
+                errorsMap.push("Error while crypting data");
+              }
+              else if(res == 506) {
+                errorsMap.push("Error while sending data");
+              }
+              else if(res == 401) {
+                errorsMap.push("Please double check your password");
+              }
+              else if(res == 404) {
+                errorsMap.push("Please double check your credentials");
+              }
+              else if (res == 500) {
+                errorsMap.push("Server Error while checking informations x");
+              }
+              else {
+                errorsMap.push("Status not acceptable " + res);
+              }
+              setFormErrors(errorsMap);
             
         } else {
             setFormErrors(errorsMap);

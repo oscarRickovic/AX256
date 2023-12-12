@@ -28,6 +28,7 @@ const getUser = async (req, res) => {
 
 // create a new user
 // to 2tay this will work only with Register component not with Login.
+// used status [200, 400, 404]
 const createUser = async (req, res) => {
   const [username, email, password] = getUserRegister(req);
     try {
@@ -40,7 +41,8 @@ const createUser = async (req, res) => {
         const newUser = await Users.create({username, email, password})
         res.status(200).json(newUser)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        // This a server error not user one.
+        res.status(500).json({error: error.message})
     }
 }
 
@@ -80,6 +82,7 @@ const updateUser = async (req, res) => {
   res.status(200).json(user)
 }
 
+// used status [200, 404, 401,500]
 const loginUser = async (req, res) => {
     const [ email, password ] = getUserLogin(req);
     console.log(email, password)

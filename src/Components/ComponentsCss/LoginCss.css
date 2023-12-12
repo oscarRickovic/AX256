@@ -14,7 +14,7 @@
 }
 
 .Login-Error {
-  background-color: #ea7d7d;
+  background-color: gray;
   width: 50%;
   display: grid;
   place-items: center;
@@ -178,7 +178,8 @@
   }
 
   .Login-A,
-  .Login-Form {
+  .Login-Form,
+  .Login-Error {
     width: 100%;
   }
 
