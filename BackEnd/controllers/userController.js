@@ -1,6 +1,6 @@
-const Users = require('../models/userModel')
-const mongoose = require('mongoose')
-
+const Users = require('../models/userModel');
+const mongoose = require('mongoose');
+const getUserRegister = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 
 // get all users
 const getUsers = async (req, res) => {
@@ -27,9 +27,9 @@ const getUser = async (req, res) => {
 }
 
 // create a new user
+// to 2tay this will work only with Register component not with Login.
 const createUser = async (req, res) => {
-    const {username, email, password} = req.body
-
+  const [username, email, password] = getUserRegister(req);
     try {
         const existedEmail = await Users.findOne({ email });
 

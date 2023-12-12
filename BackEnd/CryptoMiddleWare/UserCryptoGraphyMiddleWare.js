@@ -8,7 +8,7 @@ let clientPubKey = req.body.clientPubKey;
   let data = req.body.data;
   let clearPrivateKey = sym.decrypt(keysJson.privateKey, process.env.SERVER_SECRET_KEY);
   let clearData = decrypt(data, clearPrivateKey).split("00000000");
-  return {...clearData}
+  return clearData;
 }
 
 module.exports = getUserRegister

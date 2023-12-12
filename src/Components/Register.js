@@ -33,7 +33,7 @@ function Register() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/testCrypto');
+        const response = await axios.get('http://localhost:5000/getServerPubKey');
         setServerPubKey(response.data);
         console.log(serverPubKey.serverPubKey);
       } catch (error) {
@@ -80,7 +80,7 @@ function Register() {
         };
   
         try {
-          await axios.post('http://localhost:5000/testCrypto', pairInfos);
+          await axios.post('http://localhost:5000/user', pairInfos);
           console.log('Data sent successfully!');
         } catch (e) {
           console.log('Error while sending data:', e);
