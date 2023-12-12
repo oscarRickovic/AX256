@@ -4,6 +4,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
 import { useNavigate } from "react-router-dom";
 import generateKeys from './CryptoFront/generateClientKeys'
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
+import axios from 'axios';
 const {checkEmail,
       checkPassword} = require('./StaticFunctions/HandleLoginRegisterForms');
 function Login() {
@@ -11,29 +13,44 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [formErrors, setFormErrors] = useState([]);
+    const [serverPubKey, setServerPubKey] = useState(null);
     const navigate = useNavigate();
     useEffect(()=>{
-        console.log('lets create pub key and private key');
-        //const keys = generateKeys();
-        //localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
-        //localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
-        //console.log('get keys');
-        //console.log(localStorage.getItem('rsaKeys_pubKey'))
+        const keys = generateKeys();
+        localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
+        localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
+        console.log(localStorage.getItem('rsaKeys_pubKey'));
+
+        const fetchData = async () => {
+            try {
+              const response = await axios.get('http://localhost:5000/getServerPubKey');
+              setServerPubKey(response.data);
+              console.log(serverPubKey.serverPubKey);
+            } catch (error) {
+              console.error('Error fetching data:' + error);
+            }
+          };
+          fetchData();
     },[])
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         let errorsMap = [];
         if(!checkEmail(email)) errorsMap.push("use email format and use only alpha numeric characters and `- _`");
         if(!checkPassword(password)) errorsMap.push("your password length need to be more than 8 characters, without extra characters at least 2 upper letters, at least 3 lower case, at least 2 numbers, `_ -` allowed");
         if(errorsMap.length == 0) {
-          navigate('/app');
-        }
-        else {
-          setFormErrors(errorsMap);
-          await new Promise(resolve => setTimeout(resolve, 10000));
-          setFormErrors([])
+            if(await sendCryptedData([email, password], "http://localhost:5000/user/login", serverPubKey)){
+                navigate('/app');
+            }
+            
+        } else {
+            setFormErrors(errorsMap);
+            await new Promise(resolve => setTimeout(resolve, 10000));
+            setFormErrors([])
         }
       };
+
   return (
     <div className='Login'>
         {formErrors.length == 0 ?

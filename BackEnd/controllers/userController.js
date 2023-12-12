@@ -1,6 +1,6 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
-const getUserRegister = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
+const {getUserRegister, getUserLogin} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 
 // get all users
 const getUsers = async (req, res) => {
@@ -81,8 +81,8 @@ const updateUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-
+    const [ email, password ] = getUserLogin(req);
+    console.log(email, password)
     try {
         // Find user by email
         const user = await Users.findOne({ email });
