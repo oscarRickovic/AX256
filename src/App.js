@@ -10,7 +10,21 @@ import FriendInfo from './Components/FriendInfo';
 import UpdateProfile from './Components/UpdateProfile';
 import ChatZoneFetching from './Components/ChatZoneFetching';
 import Register from './Components/Register';
+const filter = () => {
+  const A_JWT = localStorage.getItem('A_JWT');
+  console.log(A_JWT);
+  return (A_JWT != null)
+}
 
+const setFilteredElement = (element, defaultElement = <Login/>) => {
+  let filterResult = filter();
+  if(filterResult) {
+    return element;
+  }
+  else {
+    return defaultElement;
+  }
+}
 function App() {
   let color  = useSelector(state => state.ColorState.third);
   let light = useSelector(state => state.LightState.value);
@@ -20,12 +34,12 @@ function App() {
       <Routes>
         <Route path='/Login' element = {<Login/>}/>
         <Route path= '/Register' element = {<Register/>}/>
-        <Route path='/app' element = {<MainComponent/>}>
-          <Route path = '' element = {<NoChatSelected rotation = {false} />}/>
-          <Route path = 'chat/:id' element = {<ChatZoneFetching/>}/>
-          <Route path = 'myProfile' element = {<UserProfile/>}/>
-          <Route path = 'friendInfo/:id' element = {<FriendInfo/>}/>
-          <Route path = 'updateProfile' element = {<UpdateProfile/>}/>
+        <Route path='/app' element = {setFilteredElement(<MainComponent/>, <Login/>)}>
+          <Route path = '' element = {setFilteredElement(<NoChatSelected rotation = {false} />)}/>
+          <Route path = 'chat/:id' element = {setFilteredElement(<ChatZoneFetching/>)}/>
+          <Route path = 'myProfile' element = {setFilteredElement(<UserProfile/>)}/>
+          <Route path = 'friendInfo/:id' element = {setFilteredElement(<FriendInfo/>)}/>
+          <Route path = 'updateProfile' element = {setFilteredElement(<UpdateProfile/>)}/>
         </Route>
         <Route path = '*' element = {<PageNotFound error= {404} comment = {"page not found, please double check the URL"}/>}/>
       </Routes>
