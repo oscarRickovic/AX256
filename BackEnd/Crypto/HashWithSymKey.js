@@ -6,4 +6,5 @@ const hashWithKey = (inputString, Key) => {
   const hashedString = crypto.SHA256(combinedString).toString();
   return hashedString;
 };
+
 module.exports = hashWithKey;
