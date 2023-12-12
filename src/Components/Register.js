@@ -67,6 +67,7 @@ function Register() {
     if (errorsMap.length === 0) {
       let data = [username, email, password];
       let result = data.join('00000000');
+      console.log(result)
       console.log(serverPubKey);
       const pairInfos = {
         data : encrypt(data, serverPubKey),
