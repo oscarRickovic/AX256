@@ -113,8 +113,32 @@ const loginUser = async (req, res) => {
         
       } catch (error) {
             res.status(500).json({ error: error.message });
-        }
+      }
 };
+
+const checkUserJwt = async (req, res) => {
+  const token = req.body.token;
+  const data = designJWT(token);
+  if(data == null) {
+    res.status(402).json({msg : "token not authorized"})
+  }
+  else {
+    const email = data.email;
+    const password = data.password;
+    try {
+      const user = await Users.findOne({ email });
+      if (!user) {
+          return res.status(404).json({ msg: 'User not found' });
+      }
+      if (user.password !== password) {
+          return res.status(401).json({ msg: 'Incorrect password' });
+      }
+      res.status(200).json({msg : 'welcome'});
+    } catch (error) {
+          res.status(500).json({ msg: error.message });
+    }
+  }
+}
 
 module.exports = {
   getUsers,
@@ -122,5 +146,6 @@ module.exports = {
   createUser,
   deleteUser,
   updateUser,
-  loginUser
+  loginUser,
+  checkUserJwt
 }
