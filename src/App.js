@@ -13,6 +13,7 @@ import UserProfile from './Components/UserProfile';
 import FriendInfo from './Components/FriendInfo';
 import UpdateProfile from './Components/UpdateProfile';
 import PageNotFound from './Components/PageNotFound';
+import Verify from './Components/Verify';
 
 const checkUserJwt = async (token) => {
   if (!token) return false;
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="friendInfo/:id" element={<FriendInfo />} />
           <Route path="updateProfile" element={<UpdateProfile />} />
         </Route>
+        <Route path="/verify" element = {<Verify/>} />
         <Route path="*" element={<PageNotFound error={404} comment="Page not found, please double-check the URL" />} />
       </Routes>
     </div>

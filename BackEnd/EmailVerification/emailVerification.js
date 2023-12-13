@@ -5,6 +5,7 @@ dotenv.config() ;
 const html = require('./emailBody')
 
 
+// takes receiver name, email and the code that we want to send to him to verify it's email.
 const sendEmailByA = (username, email, code) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -32,6 +33,8 @@ const sendEmailByA = (username, email, code) => {
       });
 }
 
-sendEmailByA("Abdelhadi", "abdelhadiagourzam@gmail.com", 123456);
+module.exports = sendEmailByA;
+
+
 
 

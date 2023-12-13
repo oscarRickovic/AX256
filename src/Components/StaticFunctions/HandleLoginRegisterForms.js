@@ -44,11 +44,18 @@ const checkGender = (gender) => {
     return (upper == "MALE" || upper == "FEMALE") 
 }
 
+const checkCode = (code) => {
+    const numeriqueExp = /^[0-9]{6}$/;
+    return numeriqueExp.test(code);
+}
+
+
 
 module.exports = {
     checkUserName,
     checkEmail,
     checkGender,
     checkPassword,
-    checkConfirmationPassword
+    checkConfirmationPassword,
+    checkCode
 };

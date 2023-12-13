@@ -7,6 +7,7 @@ const keysJson = require('./Crypto/Keys.json');
 dotenv.config() ;
 const PORT = process.env.PORT_BACK || 6000;
 const usersRoutes = require('./routes/users')
+const preUsersRoutes = require('./routes/preUser')
 const cors = require('cors');
 app.use(cors());
 
@@ -19,6 +20,8 @@ app.get('/getServerPubKey', (req, res)=>{
 })
 
 app.use('/user', usersRoutes)
+
+app.use('/preUser', preUsersRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
