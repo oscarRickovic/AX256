@@ -130,7 +130,7 @@ function Login() {
             <br />
             <button className="Login-Form-Formulaire-Submit">Login A...</button>
           </form>
-          <button className="Login-Google">Use Google</button>
+          <button className="Login-Google" onClick = {() => {navigate('/Register')}}>I don't have account</button>
         </div>
       </div>
     </div>

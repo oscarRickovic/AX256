@@ -154,7 +154,7 @@ function Register() {
             </div>
             <button className="Login-Form-Formulaire-Submit">Register</button>
           </form>
-          <button className="Login-Google">Use Google</button>
+          <button className="Login-Google" onClick={()=>{navigate('/Login')}}>Already have account</button>
         </div>
       </div>
     </div>
