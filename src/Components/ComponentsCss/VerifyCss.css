@@ -71,6 +71,16 @@
     border-bottom: 1px solid red;
 }
 
+.inputNormal{
+    color : gray;
+    border-bottom: 1px solid gray;
+}
+
+.inputSuccess{
+    color : rgb(0, 255, 166);
+    border-bottom: 1px solid rgb(0, 255, 166);
+}
+
 .button {
   align-items: center;
   background-color: #FFFFFF;

@@ -24,15 +24,18 @@ function Register() {
   const [serverPubKey, setServerPubKey] = useState(null);
 
   useEffect(() => {
-    const keys = generateKeys();
-    localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
-    localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
+    if(localStorage.getItem('rsaKeys_pubKey') == null || localStorage.getItem('rsaKeys_priKey') == null){
+      const keys = generateKeys();
+      localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
+      localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
+    }
 
     const fetchData = async () => {
       if(localStorage.getItem('A_Server_pubKey') == null) {
         try {
           const response = await axios.get('http://localhost:5000/getServerPubKey');
           setServerPubKey(response.data);
+          localStorage.setItem('A_Server_pubKey', response.data);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -72,7 +75,7 @@ function Register() {
         switch (res) {
           case 200:
             alert(localStorage.getItem('A_JWT'));
-            navigate('/app');
+            navigate('/Verify');
             break;
           case 507:
             errorsMap.push('Error while crypting data');

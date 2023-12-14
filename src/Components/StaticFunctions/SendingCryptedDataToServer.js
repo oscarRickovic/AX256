@@ -10,7 +10,10 @@ const sendCryptedData = async (data, link, serverPubKey) => {
     const pairInfos = {
       data: encrypt(result, serverPubKey),
       clientPubKey: localStorage.getItem('rsaKeys_pubKey'),
+      token: localStorage.getItem('A_JWT')
     };
+    console.log('pairInfos');
+    console.log(pairInfos);
     const response = await axios.post(link, pairInfos);
     localStorage.setItem('A_JWT', response.data)
     return response.status;

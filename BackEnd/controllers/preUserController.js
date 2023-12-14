@@ -1,7 +1,7 @@
 const Users = require('../models/preUserModel');
 const realUsers = require('../models/userModel');
 const mongoose = require('mongoose');
-const {getUserRegister, getUserLogin} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
+const {getUserRegister, getUserLogin, clearDatafnct} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT, designJWT} = require('../Crypto/Jwt');
 // get all users
 const getUsers = async (req, res) => {
@@ -126,27 +126,68 @@ const loginUser = async (req, res) => {
 };
 
 const checkUserJwt = async (req, res) => {
+  // we will receive 3 kind of informations
+  // token : username, email, password, code, isVerified.
+  // data (decrypt) : code.
+  // client pub key
   const token = req.body.token;
-  const data = designJWT(token);
-  if(data == null) {
+  const dataToken = designJWT(token);
+  console.log('data in token');
+  console.log(dataToken);
+  const clearCode = clearDatafnct(req);
+  console.log('clear code passed by user');
+  console.log(clearCode);
+  if(dataToken == null) {
     res.status(402).json({msg : "token not authorized"})
   }
   else {
-    const email = data.email;
-    const password = data.password;
-    try {
-      const user = await Users.findOne({ email });
-      if (!user) {
-          return res.status(404).json({ msg: 'User not found' });
+    const username = dataToken.username;
+    const email = dataToken.email;
+    const password = dataToken.password;
+    const code = dataToken.code;
+    const isVerified = dataToken.isVerified
+    if(code != clearCode[0]){
+      return res.status(403).json({msg : "not same code as token"});
+    }
+    else {
+      try {
+        let existedEmail = await Users.findOne({ email });
+        if(existedEmail == null) {
+          return res.status(404).json({msg : "no registred data found for this"});
+        }
+        else {
+          if(existedEmail.password != password) {
+            return res.status(401).json({msg : "token no authorized"});
+          }
+          if(existedEmail.code != clearCode) {
+            return res.status(405).json({msg : "not same code as saved token in DB"});
+          }
+          try {
+            const deleteUser = await Users.findOneAndDelete({email: email})
+            if(!deleteUser) {
+              return res.status(406).json({msg : "ndeletin preUser is found"})
+            }
+          } catch (e) {
+              return res.status(503).json({msg : "error while deleting preUser"});
+          }
+          try {
+            const newUser = await realUsers.create({username, email, password});
+            const credentials = {
+            username : username,
+            email : email,
+            password : password
+            };
+            return res.status(200).json(signJWT(credentials));
+          } catch(e){
+            return res.status(501).json({msg : "server error while updating tables"});
+          }
+        }
+      } catch(e) {
+        return res.status(500).json({msg : "server error while checking datas"})
       }
-      if (user.password !== password) {
-          return res.status(401).json({ msg: 'Incorrect password' });
-      }
-      res.status(200).json({msg : 'welcome'});
-    } catch (error) {
-          res.status(500).json({ msg: error.message });
     }
   }
+
 }
 
 module.exports = {
