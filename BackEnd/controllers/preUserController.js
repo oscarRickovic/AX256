@@ -46,7 +46,7 @@ const createUser = async (req, res) => {
             return res.status(404).json({ error: 'email already existed in real Users' });
         }
 
-        let code = parseInt(Math.random() * 1000000);
+        let code = Math.floor(Math.random() * 900000) + 100000;
         const newUser = await Users.create({username, email, password, code});
         const credentials = {
           username : username,
