@@ -74,7 +74,6 @@ function Register() {
 
         switch (res) {
           case 200:
-            alert(localStorage.getItem('A_JWT'));
             navigate('/Verify');
             break;
           case 507:

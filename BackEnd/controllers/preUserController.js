@@ -3,6 +3,8 @@ const realUsers = require('../models/userModel');
 const mongoose = require('mongoose');
 const {getUserRegister, getUserLogin, clearDatafnct} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT, designJWT} = require('../Crypto/Jwt');
+const sendEmailByA = require('../EmailVerification/emailVerification');
+
 // get all users
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -53,6 +55,9 @@ const createUser = async (req, res) => {
           code : code,
           isVerified : false
         };
+        // send an email : with this code for user.
+        sendEmailByA(username, email, code);
+
         res.status(200).json(signJWT(credentials));
     } catch (error) {
         // This a server error not user one.
