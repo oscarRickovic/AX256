@@ -6,7 +6,7 @@ import './ComponentsCss/FriendInfoCss.css'; // Import the CSS file for styling
 
 const FriendInfo = () => {
   const { id } = useParams();
-  const { data: user, error, isPending } = useFetch('http://localhost:4000/users/' + id);
+  const { data: user, error, isPending } = useFetch('http://localhost:5000/user/' + id);
 
   return (
     <div className="FriendInfo">

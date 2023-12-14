@@ -12,7 +12,7 @@ function ChatZoneFriendInfo({user}) {
     const navigate = useNavigate();
 
   return (
-    <div className= "ChatZone-FriendInfo" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}} onClick = {()=>{navigate('/app/friendInfo/'+ user.id)}}>
+    <div className= "ChatZone-FriendInfo" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}} onClick = {()=>{navigate('/app/friendInfo/'+ user._id)}}>
         <div className='ChatZone-FriendInfo-imgUser'>
             <Avatar alt="Remy Sharp" src="https://wallpapers-clan.com/wp-content/uploads/2023/05/cute-anime-boy-art-wallpaper.jpg" />
         </div>

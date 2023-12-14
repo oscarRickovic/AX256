@@ -16,7 +16,7 @@ function ChatZoneFetching() {
     if (id.startsWith("new")) {
       setPath(`http://localhost:7000/friends/${getRandom(1, 15)}`);
     } else {
-      setPath(`http://localhost:4000/users/${id}`);
+      setPath(`http://localhost:5000/user/${id}`);
     }
   }, [id]);
   const { data: user, error, isPending } = useFetch(path);

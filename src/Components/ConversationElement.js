@@ -8,7 +8,7 @@ function ConversationElement({user}) {
     const light = useSelector(state => state.LightState.value);
     const color = useSelector(state => state.ColorState.primar);
   return (
-    <div className = "ConversationElement" style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}} onClick = {()=>{navigate('/app/chat')}}>
+    <div className = "ConversationElement" style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}} onClick = {()=>{navigate('/app/chat/' + user._id)}}>
         <div className = "ConversationElement-imgUser" >
             <Avatar alt="Remy Sharp" src="https://wallpapers-clan.com/wp-content/uploads/2023/05/cute-anime-boy-art-wallpaper.jpg" />
         </div>
@@ -18,7 +18,7 @@ function ConversationElement({user}) {
             </div>
             <div className='ConversationElement-msg-lastMsg-timeStamp'>
                 <div className='ConversationElement-msg-lastMsg'>
-                    {user.lastMessage}
+                    {user.email}
                 </div>
                 <div className='ConversationElement-msg-timeStamp'>
                     today.
