@@ -25,13 +25,13 @@ const checkUserJwt = async (token) => {
   }
 };
 
-const PrivateRoute = ({ element }) => {
+const PrivateRoute = ({ element, to = "/Login", value = true }) => {
   const [filteredElement, setFilteredElement] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const filterResult = await checkUserJwt(localStorage.getItem('A_JWT'));
-      setFilteredElement(filterResult ? element : <Navigate to="/Login" />);
+      setFilteredElement(filterResult == value ? element : <Navigate to= {to} />);
     };
 
     fetchData();
@@ -47,9 +47,9 @@ const App = () => {
   return (
     <div className="App" style={light ? { backgroundColor: color.light } : { backgroundColor: color.dark }}>
       <Routes>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/app" element={<PrivateRoute element={<MainComponent />} />}>
+        <Route path="/Login" element={<PrivateRoute element={<Login/>} to='/app' value = {false}/>} />
+        <Route path="/Register" element= {<PrivateRoute element={<Register/>} to='/app' value = {false}/>} />
+        <Route path="/app" element={<PrivateRoute element={<MainComponent />}/>}>
           <Route path="" element={<NoChatSelected rotation={false} />} />
           <Route path="chat/:id" element={<ChatZoneFetching />} />
           <Route path="myProfile" element={<UserProfile />} />

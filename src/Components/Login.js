@@ -20,16 +20,25 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const keys = generateKeys();
-    localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
-    localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
+
+    if(localStorage.getItem('rsaKeys_pubKey') == null || localStorage.getItem('rsaKeys_priKey') == null){
+      const keys = generateKeys();
+      localStorage.setItem('rsaKeys_pubKey', JSON.stringify(keys.publicKey));
+      localStorage.setItem('rsaKeys_priKey', JSON.stringify(keys.privateKey));
+    }
 
     const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/getServerPubKey');
-        setServerPubKey(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      if(localStorage.getItem('A_Server_pubKey') == null) {
+        try {
+          const response = await axios.get('http://localhost:5000/getServerPubKey');
+          setServerPubKey(response.data);
+          localStorage.setItem('A_Server_pubKey', response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      else {
+        setServerPubKey(localStorage.getItem('A_Server_pubKey'))
       }
     };
 
