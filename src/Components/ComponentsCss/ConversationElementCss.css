@@ -1,7 +1,7 @@
 .ConversationElement{
     background-color: #f1f1f1 ;
     border-radius: 10px;
-    height: 15%;
+    height: 70px;
     width: 97%;
     margin-left: 1%;
     margin-top: 2%;
@@ -16,6 +16,7 @@
 .ConversationElement-imgUser{
     width: 20%;
     height: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

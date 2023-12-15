@@ -10,7 +10,7 @@ function ConversationElement({user}) {
   return (
     <div className = "ConversationElement" style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}} onClick = {()=>{navigate('/app/chat/' + user._id)}}>
         <div className = "ConversationElement-imgUser" >
-            <Avatar alt="Remy Sharp" src="https://wallpapers-clan.com/wp-content/uploads/2023/05/cute-anime-boy-art-wallpaper.jpg" />
+            <Avatar alt={user.username} src= {"/imagesStore/" + user.profilePicture} />
         </div>
         <div className='ConversationElement-msg'>
             <div className='ConversationElement-msg-nameUser'>

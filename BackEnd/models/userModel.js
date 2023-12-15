@@ -14,6 +14,17 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  gender : {
+    type : String,
+    enum : ['male', 'female']
+  },
+  profilePicture : {
+    type : String
+  },
+  isOnline : {
+    type : Boolean,
+    default : false
   }  
 }, { timestamps: true })
 
