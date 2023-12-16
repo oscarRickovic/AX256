@@ -33,9 +33,9 @@ const checkConfirmationPassword = (password, confirmation) => {
 }
 
 // For the userNAme it should be alphaNumerique and - _
-// the length of username should be more than 4 caracters.
+// the length of username should be more than 4 caracters and less than 20
 const checkUserName = (username) => {
-    const alphaNumeriqueExp = /^[a-zA-Z0-9_-]{4,}$/;
+    const alphaNumeriqueExp = /^[a-zA-Z0-9_-]{4,20}$/;
     return alphaNumeriqueExp.test(username);
 }
 

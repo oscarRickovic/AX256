@@ -22,7 +22,6 @@ function UpdateProfile() {
   };
 
   const handleChooseFileClick = () => {
-    // Trigger the file input when the button is clicked
     document.getElementById('profilePictureInput').click();
   };
 

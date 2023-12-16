@@ -8,15 +8,12 @@ const imageSchema = new Schema({
         type : String,
         required : true
     },
+    // the image name that will be stored in public/imagesStore
+    // The name should be unique using uuid4
     name : {
         type : String,
         required : true
-    }, 
-    image : {
-        type : Buffer,
-        required : true
     }
-  
 }, { timestamps: true })
 
 module.exports = mongoose.model('image', imageSchema)

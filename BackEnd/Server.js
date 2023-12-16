@@ -1,16 +1,25 @@
+// imported libraries.
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose')
+const cors = require('cors');
+
+// crypto files.
 const generateServerKeys = require('./Crypto/ServerKeys');
 const keysJson = require('./Crypto/Keys.json');
-dotenv.config() ;
-const PORT = process.env.PORT_BACK || 6000;
+
+// Routers.
 const usersRoutes = require('./routes/users')
 const preUsersRoutes = require('./routes/preUser')
-const cors = require('cors');
-const {storeImage, getImage} = require('./controllers/imageController');
+const imageRoutes = require('./routes/image')
+
+// configs.
 app.use(cors());
+dotenv.config() ;
+
+// used constants.
+const PORT = process.env.PORT_BACK || 6000;
 
 
 // middleware
@@ -24,9 +33,9 @@ app.use('/user', usersRoutes)
 
 app.use('/preUser', preUsersRoutes)
 
-app.use('/storePics', storeImage);
+app.use('/image', imageRoutes)
 
-app.use('/getPics', getImage)
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

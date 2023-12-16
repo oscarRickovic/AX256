@@ -56,7 +56,7 @@ function Register() {
 
       if (!checkUserName(username))
         errorsMap.push(
-          'The length of username must be more than 4 characters, without extra characters. Only alpha numeric and `- _` allowed'
+          'The length of username must be more than 4 characters and less than 20, without extra characters. Only alpha numeric and `- _` allowed'
         );
       if (!checkEmail(email))
         errorsMap.push(

@@ -13,7 +13,6 @@ const useFetch = (url) => {
           setData(null);
         }
         else {
-          console.log(res.json)
           return res.json();
         }
       })
