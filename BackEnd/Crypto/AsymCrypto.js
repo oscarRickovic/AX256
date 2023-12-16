@@ -1,6 +1,7 @@
 const forge = require('node-forge');
 
 const encrypt = (plainText, publicKey) => {
+  plainText = JSON.stringify(plainText);
   const publicKeyObject = forge.pki.publicKeyFromPem(publicKey);
   const encrypted = publicKeyObject.encrypt(plainText, 'RSA-OAEP', {
     md: forge.md.sha256.create(),
@@ -15,7 +16,7 @@ const decrypt = (cipherText, privateKey) => {
     md: forge.md.sha256.create(),
   });
 
-  return decrypted;
+  return JSON.parse(decrypted);
 };
 
 module.exports = {encrypt, decrypt}

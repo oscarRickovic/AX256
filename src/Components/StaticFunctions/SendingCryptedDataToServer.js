@@ -6,9 +6,8 @@ const sendCryptedData = async (data, link, serverPubKey = localStorage.getItem('
     if (!serverPubKey) {
       return 507;
     }
-    const result = data.join('00000000');
     const pairInfos = {
-      data: encrypt(result, serverPubKey),
+      data: encrypt(data, serverPubKey),
       clientPubKey: localStorage.getItem('rsaKeys_pubKey'),
       token: localStorage.getItem('A_JWT')
     };

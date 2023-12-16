@@ -14,6 +14,10 @@ const usersRoutes = require('./routes/users')
 const preUsersRoutes = require('./routes/preUser')
 const imageRoutes = require('./routes/image')
 
+// MiddleWares imports.
+
+const checkUserJwt = require('./MiddleWare/checkUserJWT');
+
 // configs.
 app.use(cors());
 dotenv.config() ;
@@ -33,7 +37,13 @@ app.use('/user', usersRoutes)
 
 app.use('/preUser', preUsersRoutes)
 
-app.use('/image', imageRoutes)
+// For all access we need to check your JWT :
+
+app.use('/image' ,imageRoutes);
+
+app.get('/test',checkUserJwt,(req, res) => {
+  return res.status(200).json({msg : 'test is fine'});
+})
 
 
 

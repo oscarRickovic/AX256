@@ -45,7 +45,10 @@ function Verify() {
       setError(0);
     } else {
       // Code format is good, send data
-      let res = await sendCryptedData([code], "http://localhost:5000/preUser/checkUserJwt", localStorage.getItem('A_Server_pubKey'));
+      const data = {
+        code : code
+      }
+      let res = await sendCryptedData(data, "http://localhost:5000/preUser/checkUserJwt", localStorage.getItem('A_Server_pubKey'));
       if(res == 200) {
         setError(1);
         navigate('/app');

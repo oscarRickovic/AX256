@@ -4,6 +4,7 @@ import { Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import axios from 'axios';
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 
 function UserProfile() {
     const [updatePicture, setUpdatePicture] = useState(false);

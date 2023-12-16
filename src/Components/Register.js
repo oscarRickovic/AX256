@@ -70,7 +70,12 @@ function Register() {
         errorsMap.push('Please double-check password confirmation');
 
       if (errorsMap.length === 0) {
-        let res = await sendCryptedData([username, email, password], 'http://localhost:5000/preUser', serverPubKey);
+        const data = {
+          username : username, 
+          email : email,
+          password : password
+        }
+        let res = await sendCryptedData(data, 'http://localhost:5000/preUser', serverPubKey);
 
         switch (res) {
           case 200:

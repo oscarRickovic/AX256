@@ -61,7 +61,11 @@ function Login() {
         );
 
       if (errorsMap.length === 0) {
-        let res = await sendCryptedData([email, password], "http://localhost:5000/user/login", serverPubKey);
+        const data = {
+          email : email,
+          password : password
+        }
+        let res = await sendCryptedData(data, "http://localhost:5000/user/login", serverPubKey);
 
         if (res === 200) {
           navigate('/app');

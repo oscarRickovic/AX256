@@ -6,7 +6,8 @@ const {
     deleteUser,
     updateUser,
     loginUser,
-    checkUserJwt
+    checkUserJwt,
+    test
   } = require('../controllers/userController')
 
 const router = express.Router()
@@ -29,7 +30,7 @@ router.delete('/:id', deleteUser)
 // UPDATE a user
 router.patch('/:id', updateUser)
 
+// Check the user JWT
 router.post('/checkUserJwt', checkUserJwt);
-
 
 module.exports = router

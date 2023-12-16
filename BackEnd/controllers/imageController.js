@@ -1,10 +1,10 @@
 const imageModel = require('../models/imageModel');
 const fs = require('fs');
-
+const uuid = require('uuid');
 
 const upload = async (req,res) => {
   const buffer = req.file.buffer;
-  const filePath = `public/imagesStore/aaaa.png`;
+  const filePath = `public/imagesStore/${uuid.v1()}.png`;
   fs.writeFile(filePath, buffer, (err) => {
     if (err) {
       console.error('Error writing file:', err);

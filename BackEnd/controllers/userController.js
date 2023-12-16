@@ -1,14 +1,13 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
-const {getUserRegister, getUserLogin} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
+const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT, designJWT} = require('../Crypto/Jwt');
-// get all users
+
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
   res.status(200).json(users)
 }
 
-// get a single user
 const getUser = async (req, res) => {
   const { id } = req.params
 
@@ -22,14 +21,11 @@ const getUser = async (req, res) => {
     return res.status(404).json({error: 'No such user'})
   }
 
-  res.status(200).json(user)
+  return res.status(200).json(user)
 }
 
-// create a new user
-// to 2tay this will work only with Register component not with Login.
-// used status [200, 400, 404]
 const createUser = async (req, res) => {
-  const [username, email, password] = getUserRegister(req);
+  const {username, email, password} = clr.hashClearDataPassword(req);
     try {
         const existedEmail = await Users.findOne({ email });
 
@@ -50,7 +46,6 @@ const createUser = async (req, res) => {
     }
 }
 
-// delete a user
 const deleteUser = async (req, res) => {
   const { id } = req.params
 
@@ -67,7 +62,6 @@ const deleteUser = async (req, res) => {
   res.status(200).json(user)
 }
 
-// update a user
 const updateUser = async (req, res) => {
   const { id } = req.params
 
@@ -86,12 +80,10 @@ const updateUser = async (req, res) => {
   res.status(200).json(user)
 }
 
-// used status [200, 404, 401,500]
 const loginUser = async (req, res) => {
-    const [ email, password ] = getUserLogin(req);
+    const {email, password} = clr.hashClearDataPassword(req);
     console.log(email, password)
     try {
-        // Find user by email
         const user = await Users.findOne({ email });
 
         if (!user) {
@@ -116,8 +108,7 @@ const loginUser = async (req, res) => {
 };
 
 const checkUserJwt = async (req, res) => {
-  const token = req.body.token;
-  const data = designJWT(token);
+  const data = designJWT(req.body.token);
   if(data == null) {
     res.status(402).json({msg : "token not authorized"})
   }
@@ -138,6 +129,7 @@ const checkUserJwt = async (req, res) => {
     }
   }
 }
+
 
 module.exports = {
   getUsers,

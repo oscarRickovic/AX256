@@ -1,17 +1,15 @@
 const Users = require('../models/preUserModel');
 const realUsers = require('../models/userModel');
 const mongoose = require('mongoose');
-const {getUserRegister, getUserLogin, clearDatafnct} = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
+const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT, designJWT} = require('../Crypto/Jwt');
 const sendEmailByA = require('../EmailVerification/emailVerification');
 
-// get all users
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
   res.status(200).json(users)
 }
 
-// get a single user
 const getUser = async (req, res) => {
   const { id } = req.params
 
@@ -28,11 +26,8 @@ const getUser = async (req, res) => {
   res.status(200).json(user)
 }
 
-// create a new user
-// to 2tay this will work only with Register component not with Login.
-// used status [200, 400, 404]
 const createUser = async (req, res) => {
-  const [username, email, password] = getUserRegister(req);
+  const {username, email, password} = clr.hashClearDataPassword(req);
     try {
         let existedEmail = await Users.findOne({ email });
 
@@ -65,7 +60,6 @@ const createUser = async (req, res) => {
     }
 }
 
-// delete a user
 const deleteUser = async (req, res) => {
   const { id } = req.params
 
@@ -82,7 +76,6 @@ const deleteUser = async (req, res) => {
   res.status(200).json(user)
 }
 
-// update a user
 const updateUser = async (req, res) => {
   const { id } = req.params
 
@@ -101,12 +94,10 @@ const updateUser = async (req, res) => {
   res.status(200).json(user)
 }
 
-// used status [200, 404, 401,500]
 const loginUser = async (req, res) => {
-    const [ email, password ] = getUserLogin(req);
+    const {email, password } = clr.hashClearDataPassword(req);
     console.log(email, password)
     try {
-        // Find user by email
         const user = await Users.findOne({ email });
 
         if (!user) {
@@ -139,7 +130,7 @@ const checkUserJwt = async (req, res) => {
   const dataToken = designJWT(token);
   console.log('data in token');
   console.log(dataToken);
-  const clearCode = clearDatafnct(req);
+  const clearCode = clr.clearDatafnct(req);
   console.log('clear code passed by user');
   console.log(clearCode);
   if(dataToken == null) {
@@ -150,8 +141,7 @@ const checkUserJwt = async (req, res) => {
     const email = dataToken.email;
     const password = dataToken.password;
     const code = dataToken.code;
-    const isVerified = dataToken.isVerified
-    if(code != clearCode[0]){
+    if(code != clearCode.code){
       return res.status(403).json({msg : "not same code as token"});
     }
     else {
@@ -164,7 +154,7 @@ const checkUserJwt = async (req, res) => {
           if(existedEmail.password != password) {
             return res.status(401).json({msg : "token no authorized"});
           }
-          if(existedEmail.code != clearCode) {
+          if(existedEmail.code != clearCode.code) {
             return res.status(405).json({msg : "not same code as saved token in DB"});
           }
           try {
@@ -176,7 +166,7 @@ const checkUserJwt = async (req, res) => {
               return res.status(503).json({msg : "error while deleting preUser"});
           }
           try {
-            const newUser = await realUsers.create({username, email, password});
+            await realUsers.create({username, email, password});
             const credentials = {
             username : username,
             email : email,
