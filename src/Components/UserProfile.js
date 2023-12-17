@@ -44,14 +44,12 @@ function UserProfile() {
             <div className='UserProfile-WhiteDiv'>
                 <div className={'UserProfile-WhiteDiv-Couverture'} style={{ backgroundImage: 'url("https://random.imagecdn.app/500/150")' }} />
                 <div className="UserProfile-WhiteDiv-Informations">
-                    <div
-                        className="UserProfile-WhiteDiv-Img"
-                        onMouseEnter={() => setUpdatePicture(true)}
-                        onMouseLeave={() => setUpdatePicture(false)}
-                    >
+                    <div className="UserProfile-WhiteDiv-Img">
                         {
                             !updatePicture ? (
                                 <Avatar
+                                    onMouseEnter={() => setUpdatePicture(true)}
+                                    onMouseLeave={() => setUpdatePicture(false)}
                                     alt="User profile"
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxx8mLIqSwLq3xOeOu_nQP2AEvPt0cFdvSRw&usqp=CAU"
                                     sx={{ width: 90, height: 90 }}
@@ -65,6 +63,8 @@ function UserProfile() {
                                         onChange={handleFileChange}
                                     />
                                     <Avatar
+                                        onMouseEnter={() => setUpdatePicture(true)}
+                                        onMouseLeave={() => setUpdatePicture(false)}
                                         alt="User update profile"
                                         sx={{ width: 90, height: 90 }}
                                     >
