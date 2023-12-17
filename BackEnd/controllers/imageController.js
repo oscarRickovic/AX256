@@ -3,6 +3,7 @@ const fs = require('fs');
 const uuid = require('uuid');
 
 const upload = async (req,res) => {
+  console.log(req.headers);
   const buffer = req.file.buffer;
   const filePath = `public/imagesStore/${uuid.v1()}.png`;
   fs.writeFile(filePath, buffer, (err) => {

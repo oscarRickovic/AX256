@@ -35,18 +35,11 @@ app.get('/getServerPubKey', (req, res)=>{
 
 app.use('/preUser', preUsersRoutes)
 
+app.use('/user', usersRoutes)
 
 // For all access we need to check your JWT :
 
-
-app.use('/user', usersRoutes)
-
-app.use('/image', imageRoutes);
-
-app.get('/test',checkUserJwt,(req, res) => {
-  return res.status(200).json({msg : 'test is fine'});
-})
-
+app.use('/image', checkUserJwt ,imageRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI)

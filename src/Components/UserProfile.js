@@ -15,7 +15,11 @@ function UserProfile() {
         formData.append('file', file);
       
         try {
-          await axios.post("http://localhost:5000/image", formData);
+          await axios.post("http://localhost:5000/image", formData, {
+            headers : {
+                'A_JWT' : localStorage.getItem('A_JWT')
+            }
+          });
           console.log('File uploaded successfully');
         } catch (error) {
           console.error('Error uploading file:', error);

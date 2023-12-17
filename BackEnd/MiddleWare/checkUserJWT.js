@@ -2,7 +2,7 @@ const Users = require('../models/userModel');
 const jwt = require('../Crypto/Jwt');
 
 const checkUserJwt = async (req, res, next) => {
-  const token = req.body.token || req.header('A_JWT');
+    const token = req.body.token || req.header('A_JWT');
     const data = jwt.designJWT(token);
     if(data == null) {
       res.status(402).json({msg : "token not authorized"})
