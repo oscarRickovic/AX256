@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ComponentsCss/UserProfileCss.css';
 import { Alert, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -9,8 +9,33 @@ function UserProfile() {
     const [updatePicture, setUpdatePicture] = useState(false);
     const [error, setError] = useState(false);
     const [msg, setMsg] = useState('');
+    const [me, setMe] = useState({});
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000/ownInformations", {
+                    headers: {
+                        'A_JWT': localStorage.getItem('A_JWT')
+                    }
+                });
+    
+                console.log(response.data);
+    
+                if (response.data !== null) {
+                    setMe(response.data.user);
+                }
+            } catch (error) {
+                console.error('Error fetching user information:', error);
+            }
+        };
+    
+        fetchData();
+    
+    }, []);
+    
+      
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         const formData = new FormData();
@@ -75,10 +100,10 @@ function UserProfile() {
                         }
                     </div>
                     <div className="UserProfile-WhiteDiv-Infos">
-                        <div className="info-div">Abdelwahed Elminawi</div>
-                        <div className="info-div">Male</div>
-                        <div className="info-div">Abdelwahed_Elminai@gmail.com</div>
-                        <div className="info-div">Hi there! I'm using A for fun...</div>
+                        <div className="info-div">{me.username}</div>
+                        <div className="info-div">{me.gender}</div>
+                        <div className="info-div">{me.email}</div>
+                        <div className="info-div">{me.bio}</div>
                     </div>
                     <div className="div-UpdateProfile">
                         <button className="UpdateProfile" role="button" onClick={() => navigate('/app/updateProfile')}>

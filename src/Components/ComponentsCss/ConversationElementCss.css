@@ -9,8 +9,10 @@
 }
 
 .ConversationElement:hover{
-    background-color: #d1c7c7 ;
     cursor: pointer;
+    height: 80px;
+    font-size: large;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .ConversationElement-imgUser{
@@ -36,13 +38,16 @@
 
 .ConversationElement-msg-lastMsg{
     width: 70%;
+    font-size: 60%;
+    font-weight: bold;
 }
 
 .ConversationElement-msg-timeStamp{
     margin-top: 5%;
     margin-left: 10%;
-    font-size: 0.7rem;
+    font-size: 40%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 30%;
+    font-style: italic;
 }
 

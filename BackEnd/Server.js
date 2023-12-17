@@ -41,6 +41,10 @@ app.use('/user', usersRoutes)
 
 app.use('/image', checkUserJwt ,imageRoutes);
 
+app.get('/ownInformations', checkUserJwt, (req, res) => {
+  return res.status(200).json({user : req.customData.user});
+})
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
