@@ -48,7 +48,8 @@ function Verify() {
       const data = {
         code : code
       }
-      let res = await sendCryptedData(data, "http://localhost:5000/preUser/checkUserJwt", localStorage.getItem('A_Server_pubKey'));
+      let response = await sendCryptedData(data, "http://localhost:5000/preUser/checkUserJwt", localStorage.getItem('A_Server_pubKey'));
+      let res = response.status;
       if(res == 200) {
         setError(1);
         navigate('/app');

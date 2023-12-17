@@ -11,11 +11,9 @@ const sendCryptedData = async (data, link, serverPubKey = localStorage.getItem('
       clientPubKey: localStorage.getItem('rsaKeys_pubKey'),
       token: localStorage.getItem('A_JWT')
     };
-    const response = await axios.post(link, pairInfos);
-    localStorage.setItem('A_JWT', response.data)
-    return response.status;
+    return await axios.post(link, pairInfos);
   } catch (error) {
-    return error.response.status;
+    return error.response;
   }
 };
 

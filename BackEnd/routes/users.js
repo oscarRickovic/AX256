@@ -1,4 +1,5 @@
 const express = require('express')
+const checkUserJwtMiddleWare = require('../MiddleWare/checkUserJWT');
 const {
     getUsers,
     getUser,
@@ -31,6 +32,6 @@ router.delete('/:id', deleteUser)
 router.patch('/:id', updateUser)
 
 // Check the user JWT
-router.post('/checkUserJwt', checkUserJwt);
+router.post('/checkUserJwt',checkUserJwtMiddleWare ,checkUserJwt);
 
 module.exports = router

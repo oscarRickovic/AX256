@@ -33,13 +33,15 @@ app.get('/getServerPubKey', (req, res)=>{
   res.send(keysJson.publicKey);
 })
 
-app.use('/user', usersRoutes)
-
 app.use('/preUser', preUsersRoutes)
+
 
 // For all access we need to check your JWT :
 
-app.use('/image' ,imageRoutes);
+
+app.use('/user', usersRoutes)
+
+app.use('/image', imageRoutes);
 
 app.get('/test',checkUserJwt,(req, res) => {
   return res.status(200).json({msg : 'test is fine'});

@@ -75,10 +75,11 @@ function Register() {
           email : email,
           password : password
         }
-        let res = await sendCryptedData(data, 'http://localhost:5000/preUser', serverPubKey);
-
+        let response = await sendCryptedData(data, 'http://localhost:5000/preUser', serverPubKey);
+        let res = response.status;
         switch (res) {
           case 200:
+            localStorage.setItem('A_JWT', response.data)
             navigate('/Verify');
             break;
           case 507:
