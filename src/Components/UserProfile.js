@@ -41,11 +41,11 @@ function UserProfile() {
                                     sx={{ width: 90, height: 90 }}
                                 />
                             ) : (
-                                <label htmlFor="profilePictureInput">
+                                <label htmlFor="profilePictureInput" style={{cursor: 'pointer'}}>
                                     <input
                                         type="file"
                                         id="profilePictureInput"
-                                        style={{ display: 'none' }}
+                                        style={{ display: 'none'}}
                                         onChange={handleFileChange}
                                     />
                                     <Avatar
