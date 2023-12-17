@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './ComponentsCss/UserProfileCss.css';
-import { Avatar } from '@mui/material';
+import { Alert, Avatar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import axios from 'axios';
 
 function UserProfile() {
     const [updatePicture, setUpdatePicture] = useState(false);
+    const [error, setError] = useState(false);
+    const [msg, setMsg] = useState('');
     const navigate = useNavigate();
 
     const handleFileChange = async (e) => {
@@ -15,20 +17,30 @@ function UserProfile() {
         formData.append('file', file);
       
         try {
-          await axios.post("http://localhost:5000/image", formData, {
+          let response = await axios.post("http://localhost:5000/image", formData, {
             headers : {
                 'A_JWT' : localStorage.getItem('A_JWT')
             }
           });
-          console.log('File uploaded successfully');
+          setError(1);
+          setMsg(response.data);
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          setError(0);
+          setMsg('');
         } catch (error) {
-          console.error('Error uploading file:', error);
+            setError(-1);
+            setMsg("Server Error While uploading picture");
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            setError(0);
+            setMsg('');
         }
       };
       
 
     return (
-        <div className='UserProfile'>
+        <>
+            {(error == 1 || error == -1) && <Alert severity={error == -1 ? "error" : "success"}>{msg}</Alert>}
+            <div className='UserProfile'>
             <div className='UserProfile-WhiteDiv'>
                 <div className={'UserProfile-WhiteDiv-Couverture'} style={{ backgroundImage: 'url("https://random.imagecdn.app/500/150")' }} />
                 <div className="UserProfile-WhiteDiv-Informations">
@@ -76,6 +88,7 @@ function UserProfile() {
                 </div>
             </div>
         </div>
+    </>
     );
 }
 
