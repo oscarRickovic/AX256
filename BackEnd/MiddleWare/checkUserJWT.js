@@ -18,6 +18,9 @@ const checkUserJwt = async (req, res, next) => {
         if (user.password !== password) {
             return res.status(401).json({ msg: 'Incorrect password' });
         }
+        req.customData = {
+          user : user
+        }
         next();
       } catch (error) {
             return res.status(500).json({ msg: error.message });
