@@ -21,8 +21,6 @@ function UserProfile() {
                     }
                 });
     
-                console.log(response.data);
-    
                 if (response.data !== null) {
                     setMe(response.data.user);
                 }
