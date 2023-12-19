@@ -8,6 +8,24 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
+function input_div(type, condition, value1, value2, callBack) {
+    if(condition) {
+        return <input className = 'sub-div-input' type={type} value = {value1} onChange={(e)=>{callBack(e.target.value)}}/>
+    }
+    else {
+        return <input className = 'sub-div-input' style = {{borderBottom: 'none'}} type="text" value = {value2} readOnly/>
+    }
+}
+
+function textarea_div(condition, value1, value2, callBack) {
+    if(condition) {
+        return <textarea id="bio" name="bio" value ={value1} onChange={(e)=>callBack(e.target.value)}/>
+    }
+    else {
+        return <textarea id="bio" name="bio" style={{border: 'none'}} value = {value2} readOnly/>
+    }
+}
+
 function UserProfile() {
   const [updatePicture, setUpdatePicture] = useState(false);
   const [error, setError] = useState(false);
@@ -17,7 +35,13 @@ function UserProfile() {
   const [currentPicture, setCurrentPicture] = useState(0);
   const [successUpdateProfile, setSuccessUpdateProfile] = useState(0);
   const [successAddPictures, setSuccessAddPictures] = useState(0);
-  const navigate = useNavigate();
+  const [updateProfileClicked, setUpdateProfileClicked] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('male');
+  const [bio, setBio] = useState('');
+  const [password, setPassword] = useState(''); 
+  //const navigate = useNavigate();
 
   const apiBaseURL = "http://localhost:5000";
 
@@ -127,6 +151,11 @@ function UserProfile() {
     </label>
   );
 
+  const update = () => {
+    console.log(username, email, gender, bio);
+    setUpdateProfileClicked(false);
+  }
+
   return (
     <>
       {(error === 1 || error === -1) && <Alert severity={error === -1 ? "error" : "success"}>{msg}</Alert>}
@@ -155,25 +184,33 @@ function UserProfile() {
                 <div className="column-60">
                     <div className="sub-div">
                         <p className='sub-div-label'>name</p>
-                        <input className = 'sub-div-input' type="text" value = {me.username}/>
+                        {input_div("text", updateProfileClicked, username, me.username, setUsername)}
                     </div>
                     <div className="sub-div">
                         <p className='sub-div-label'>email</p>
-                        <input className = 'sub-div-input' type="text" value = {me.email}/>
+                        {input_div("text", updateProfileClicked, email, me.email, setEmail)}
                     </div>
                     <div className="sub-div">
                         <p className='sub-div-label'>gender</p>
-                        <input className = 'sub-div-input' type="text" value = {me.gender}/>
+                        {input_div("text", updateProfileClicked, gender, me.gender, setGender)}
                     </div>
                 </div>
                     <div class="column-40">
                     <div class="sub-div-90">
                         <p className='sub-div-label'>bio</p>
-                        <textarea id="bio" name="bio" value ={me.bio} required>
-                        </textarea>
+                        {textarea_div(updateProfileClicked, bio, me.bio, setBio)}
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>password</p>
+                        {input_div("password", updateProfileClicked, password, "****", setPassword)}
                     </div>
                     <div class="sub-div-10">
-                        <button className='update'>Update</button>
+                        {
+                           !updateProfileClicked ? 
+                                <button className='update' onClick = {() => {setUpdateProfileClicked(true)}}>Update</button>
+                                :
+                                <button className='update' style = {{backgroundColor : `#7dc489`}} onClick = {update}>Update</button>
+                        }
                     </div>
                 </div>
             </div>
