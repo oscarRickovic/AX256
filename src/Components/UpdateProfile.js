@@ -24,7 +24,7 @@ function UpdateProfile() {
             });
 
             if (response.data !== null) {
-                setMe(response.data.user);
+                setMe(response.data);
             }
         } catch (error) {
             console.error('Error fetching user information:', error);
@@ -52,13 +52,6 @@ function UpdateProfile() {
   return (
     <div className='UpdatedProfile'>
       <div className='UpdatedProfile-WhiteDiv'>
-        <div className='UpdatedProfile-Img'>
-          <Avatar
-            alt="Remy Sharp"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxx8mLIqSwLq3xOeOu_nQP2AEvPt0cFdvSRw&usqp=CAU"
-            sx={{ width: 90, height: 90 }}
-          />
-        </div>
         <div className='UpdatedProfile-Infos'>
           <div className='updated-info-div'>
             <label>Username:</label>
@@ -77,16 +70,6 @@ function UpdateProfile() {
             <textarea value={me.bio} onChange={(e) => setBio(e.target.value)} />
           </div>
           <div className='updated-info-div'>
-            <button className='ChooseFileButton' onClick={handleChooseFileClick}>
-              add picture
-            </button>
-            <input
-              type='file'
-              accept='*.png'
-              id='profilePictureInput'
-              style={{ display: 'none' }}
-              onChange={handlePictureChange}
-            />
           </div>
         </div>
         <div className='div-SaveProfile'>

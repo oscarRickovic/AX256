@@ -151,16 +151,31 @@ function UserProfile() {
             <div className="UserProfile-WhiteDiv-Img">
               {!updatePicture ? renderProfilePicture() : renderUpdateProfilePicture()}
             </div>
-            <div className="UserProfile-WhiteDiv-Infos">
-              <div className="info-div">{me.username}</div>
-              <div className="info-div">{me.gender}</div>
-              <div className="info-div">{me.email}</div>
-              <div className="info-div">{me.bio}</div>
-            </div>
-            <div className="div-UpdateProfile">
-              <button className="UpdateProfile" role="button" onClick={() => navigate('/app/updateProfile')}>
-                Update profile
-              </button>
+            <div className='informations'>
+                <div className="column-60">
+                    <div className="sub-div">
+                        <p className='sub-div-label'>name</p>
+                        <input className = 'sub-div-input' type="text" value = {me.username}/>
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>email</p>
+                        <input className = 'sub-div-input' type="text" value = {me.email}/>
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>gender</p>
+                        <input className = 'sub-div-input' type="text" value = {me.gender}/>
+                    </div>
+                </div>
+                    <div class="column-40">
+                    <div class="sub-div-90">
+                        <p className='sub-div-label'>bio</p>
+                        <textarea id="bio" name="bio" value ={me.bio} required>
+                        </textarea>
+                    </div>
+                    <div class="sub-div-10">
+                        <button className='update'>Update</button>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
