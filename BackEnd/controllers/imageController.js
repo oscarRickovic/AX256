@@ -58,6 +58,18 @@ const uploadPicture = async (req, res) => {
     }
   });
 }
-module.exports = {uploadProfile, uploadPicture};
+
+const myPictures = async (req, res) => {
+  const user = req.customData.user;
+  
+  try {
+    let pictures = await imageModel.find({owner : user.email}).sort({createdAt: -1});
+    if(!pictures) return res.status(404).json({msg : "no user with this ID is found"});
+    return res.status(200).json(pictures);
+  } catch(e) {
+    return res.status(500).json({msg : "error while searching pictures"})
+  }
+}
+module.exports = {uploadProfile, uploadPicture, myPictures};
 
 

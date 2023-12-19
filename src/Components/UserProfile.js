@@ -13,27 +13,29 @@ function UserProfile() {
     const [error, setError] = useState(false);
     const [msg, setMsg] = useState('');
     const [me, setMe] = useState({});
+    const [myPictures, setMyPictures] = useState([]);
+    let [currentPicture, setCurrentPicture] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (link, callBack) => {
             try {
-                const response = await axios.get("http://localhost:5000/ownInformations", {
+                const response = await axios.get(link, {
                     headers: {
                         'A_JWT': localStorage.getItem('A_JWT')
                     }
                 });
     
                 if (response.data !== null) {
-                    setMe(response.data.user);
+                    console.log(response.data)
+                    callBack(response.data);
                 }
             } catch (error) {
                 console.error('Error fetching user information:', error);
             }
         };
-    
-        fetchData();
-    
+        fetchData("http://localhost:5000/ownInformations", setMe);
+        fetchData("http://localhost:5000/image/myPictures", setMyPictures)
     }, []);
     
       
@@ -52,6 +54,7 @@ function UserProfile() {
                         "http://localhost:5000/image/picture":
                             ""
         )
+        alert(link)
         try {
           let response = await axios.post(link, formData, {
             headers : {
@@ -72,15 +75,35 @@ function UserProfile() {
         }
       };
       
+      const dec = () => {
+        const n = myPictures.length - 1;
+        if((n + 1) == 1 || (n + 1) == 0) return;
+        if(currentPicture - 1 < 0){
+            setCurrentPicture(n);
+            return;
+        }
+        setCurrentPicture(currentPicture - 1); 
+      }
+
+      const inc = () => {
+        const n = myPictures.length - 1;
+        if((n + 1) == 1 || (n + 1) == 0) return;
+        if(currentPicture + 1 > n){
+            setCurrentPicture(0);
+            return;
+        }
+        setCurrentPicture(currentPicture + 1);
+      }
+      let backgroundImage = (myPictures.length !=0 ? `url('/imagesStore/${myPictures[currentPicture].name}')` : '');
 
     return (
         <>
             {(error == 1 || error == -1) && <Alert severity={error == -1 ? "error" : "success"}>{msg}</Alert>}
             <div className='UserProfile'>
             <div className='UserProfile-WhiteDiv'>
-                <div className={'UserProfile-WhiteDiv-Couverture'} style={{ backgroundImage: 'url("https://random.imagecdn.app/500/200")' }}>
-                    <div id="left"><ArrowLeftIcon  sx={{ fontSize: 40 }}/></div>
-                    <div id="right-top"><ArrowRightIcon  sx={{ fontSize: 40 }}/></div>
+                <div className={'UserProfile-WhiteDiv-Couverture'} style={{ backgroundImage: `${backgroundImage}` }}>
+                    <div id="left" onClick={dec}><ArrowLeftIcon  sx={{ fontSize: 40 }}/></div>
+                    <div id="right-top" onClick = {inc}><ArrowRightIcon  sx={{ fontSize: 40 }}/></div>
                     <div id="right-bottom">
                         <label htmlFor="PictureInput" style={{cursor: 'pointer'}}>
                             <input
