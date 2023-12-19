@@ -14,34 +14,39 @@ function UserProfile() {
     const [msg, setMsg] = useState('');
     const [me, setMe] = useState({});
     const [myPictures, setMyPictures] = useState([]);
-    let [currentPicture, setCurrentPicture] = useState(0);
+    const [currentPicture, setCurrentPicture] = useState(0);
+    const [successUpdateProfile, setSuccessUpdateProfile] = useState(0);
+    const [successAddPicture, setSuccessAddPictures] = useState(0);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchData = async (link, callBack) => {
-            try {
-                const response = await axios.get(link, {
-                    headers: {
-                        'A_JWT': localStorage.getItem('A_JWT')
-                    }
-                });
-    
-                if (response.data !== null) {
-                    console.log(response.data)
-                    callBack(response.data);
+    const fetchData = async (link, callBack) => {
+        try {
+            const response = await axios.get(link, {
+                headers: {
+                    'A_JWT': localStorage.getItem('A_JWT')
                 }
-            } catch (error) {
-                console.error('Error fetching user information:', error);
+            });
+
+            if (response.data !== null) {
+                console.log(response.data)
+                callBack(response.data);
             }
-        };
+        } catch (error) {
+            console.error('Error fetching user information:', error);
+        }
+    };
+
+    useEffect(() => {
         fetchData("http://localhost:5000/ownInformations", setMe);
+    }, [successUpdateProfile]);
+
+    useEffect(()=>{
         fetchData("http://localhost:5000/image/myPictures", setMyPictures)
-    }, []);
+    },[successAddPicture])
     
       
     const handleFileChange = async (type, e) => {
         if(type != "profile" && type != "picture") {
-            alert("no tye found");
             return;
         }
         const file = e.target.files[0];
@@ -66,6 +71,7 @@ function UserProfile() {
           await new Promise((resolve) => setTimeout(resolve, 2000));
           setError(0);
           setMsg('');
+          type == "picture" ? setSuccessAddPictures(successAddPicture + 1) : setSuccessUpdateProfile(successUpdateProfile + 1);
         } catch (error) {
             setError(-1);
             setMsg("Server Error While uploading picture");
@@ -125,8 +131,8 @@ function UserProfile() {
                                 <Avatar
                                     onMouseEnter={() => setUpdatePicture(true)}
                                     onMouseLeave={() => setUpdatePicture(false)}
-                                    alt="User profile"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxx8mLIqSwLq3xOeOu_nQP2AEvPt0cFdvSRw&usqp=CAU"
+                                    alt= {me.username}
+                                    src= {"/imagesStore/" + me.profilePicture}
                                     sx={{ width: 90, height: 90 }}
                                 />
                             ) : (
