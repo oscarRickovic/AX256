@@ -1,7 +1,7 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
 const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
-const {signJWT, designJWT} = require('../Crypto/Jwt');
+const {signJWT} = require('../Crypto/Jwt');
 
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -63,21 +63,38 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { id } = req.params
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({error: 'No valid id'})
+  const user = req.customData.user;
+  const newUser = req.customData.newUser;
+  if(newUser.email != null && newUser.email != '') {
+    try {
+      const existedEmail = await Users.findOne({ email : newUser.email });
+      if (existedEmail) {
+        return res.status(407).json({ error: 'email already existed' });
+      }
+    } catch(e) { return res.status(500).json({msg : "server error while checking email"})}
   }
 
-  const user = await Users.findOneAndUpdate({_id: id}, {
-    ...req.body
-  })
-
-  if (!user) {
-    return res.status(400).json({error: 'No such user'})
+  try {
+    await Users.findOneAndUpdate({email : user.email},{
+      ...req.customData.newUser
+    })
+  } catch(e) {
+    return res.status(501).json({msg : "server error while updating user"});
   }
-
-  res.status(200).json(user)
+  try {
+    const cred = await Users.findById({_id : user._id})
+    console.log('user controller');
+    console.log(cred);
+    return res.status(200).json(signJWT(
+      {
+        username : cred.username,
+        email : cred.email,
+        password : cred.password
+      }
+    ))
+  } catch(e) {
+    return res.status(502).json({msg : "server error while finding new Infos"})
+  }
 }
 
 const loginUser = async (req, res) => {
@@ -100,7 +117,7 @@ const loginUser = async (req, res) => {
           password : user.password
         };
 
-        res.status(200).json(signJWT(credentials));
+        return res.status(200).json(signJWT(credentials));
         
       } catch (error) {
             res.status(500).json({ error: error.message });

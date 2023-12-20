@@ -16,9 +16,8 @@ function UserProfile() {
   const [currentPicture, setCurrentPicture] = useState(0);
   const [successUpdateProfile, setSuccessUpdateProfile] = useState(0);
   const [successAddPictures, setSuccessAddPictures] = useState(0);
+  const [refresh, setRefresh] = useState(true);
   
-  //const navigate = useNavigate();
-
   const apiBaseURL = "http://localhost:5000";
 
   const fetchData = async (link, callBack) => {
@@ -40,7 +39,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchData(`${apiBaseURL}/ownInformations`, setMe);
-  }, [successUpdateProfile]);
+  }, [successUpdateProfile, refresh]);
 
   useEffect(() => {
     fetchData(`${apiBaseURL}/image/myPictures`, setMyPictures);
@@ -153,7 +152,7 @@ function UserProfile() {
             <div className="UserProfile-WhiteDiv-Img">
               {!updatePicture ? renderProfilePicture() : renderUpdateProfilePicture()}
             </div>
-                <UserProfileInformations me = {me}/>
+                <UserProfileInformations me = {me} refresh = {setRefresh} value = {refresh}/>
           </div>
         </div>
       </div>

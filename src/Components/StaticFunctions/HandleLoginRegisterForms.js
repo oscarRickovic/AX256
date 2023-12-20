@@ -25,9 +25,9 @@ const checkPassword = (password) => {
 }
 
 const checkConfirmationPassword = (password, confirmation) => {
-    if(password.length != confirmation.length) return false;
+    if(password.length !== confirmation.length) return false;
     for(let i = 0; i < password.length ; i++) {
-        if(password[i] != confirmation[i]) return false;
+        if(password[i] !== confirmation[i]) return false;
     }
     return true;
 }
@@ -41,7 +41,7 @@ const checkUserName = (username) => {
 
 const checkGender = (gender) => {
     let upper = gender.toUpperCase();
-    return (upper == "MALE" || upper == "FEMALE") 
+    return (upper === "MALE" || upper === "FEMALE") 
 }
 
 const checkCode = (code) => {
@@ -49,6 +49,12 @@ const checkCode = (code) => {
     return numeriqueExp.test(code);
 }
 
+const checkBio = (bio) => {
+    if(bio.length >300) {
+        return false;
+    }
+    return true;
+}
 
 
 module.exports = {
@@ -57,5 +63,6 @@ module.exports = {
     checkGender,
     checkPassword,
     checkConfirmationPassword,
-    checkCode
+    checkCode,
+    checkBio
 };

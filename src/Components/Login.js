@@ -65,7 +65,7 @@ function Login() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData(data, "http://localhost:5000/user/login", serverPubKey);
+        let response = await sendCryptedData("post", data, "http://localhost:5000/user/login", serverPubKey);
         let res = response.status;
         if (res === 200) {
           localStorage.setItem('A_JWT', response.data)

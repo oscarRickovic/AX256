@@ -75,7 +75,7 @@ function Register() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData(data, 'http://localhost:5000/preUser', serverPubKey);
+        let response = await sendCryptedData("post", data, 'http://localhost:5000/preUser', serverPubKey);
         let res = response.status;
         switch (res) {
           case 200:

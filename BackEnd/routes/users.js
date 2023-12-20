@@ -1,5 +1,6 @@
 const express = require('express')
 const checkUserJwtMiddleWare = require('../MiddleWare/checkUserJWT');
+const updateUserMiddleWare = require('../MiddleWare/updateUserMiddleWare');
 const {
     getUsers,
     getUser,
@@ -8,7 +9,7 @@ const {
     updateUser,
     loginUser,
     checkUserJwt
-  } = require('../controllers/userController')
+  } = require('../controllers/userController');
 
 const router = express.Router()
 
@@ -28,7 +29,7 @@ router.post('/login', loginUser)
 router.delete('/:id', deleteUser)
 
 // UPDATE a user
-router.patch('/:id', updateUser)
+router.post('/updateMyProfile',checkUserJwtMiddleWare,updateUserMiddleWare ,updateUser)
 
 // Check the user JWT
 router.post('/checkUserJwt',checkUserJwtMiddleWare ,checkUserJwt);
