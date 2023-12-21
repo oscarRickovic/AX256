@@ -91,7 +91,7 @@ const FriendInfo = () => {
                         {friend.bio}
                     </div>
                     <div className="sub-div-10">
-                    <button className='update'>
+                    <button className='block'>
                       <div className="block-icon-div">
                         <RemoveCircleIcon sx= {{fontSize: '20px'}}/>
                       </div>

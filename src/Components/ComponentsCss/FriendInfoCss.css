@@ -1,4 +1,4 @@
-.update{
+.block{
   width: 100%;
   background-color: #bf4343;
   color: #fff;
@@ -11,7 +11,7 @@
   display: flex;
 }
 
-.update:hover{
+.block:hover{
   background-color: #d67979;
 }
 
