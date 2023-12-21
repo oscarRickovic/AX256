@@ -33,7 +33,7 @@ function Register() {
     const fetchData = async () => {
       if(localStorage.getItem('A_Server_pubKey') == null) {
         try {
-          const response = await axios.get('http://localhost:5000/getServerPubKey');
+          const response = await axios.get(`${process.env.REACT_APP_URL}/getServerPubKey`);
           setServerPubKey(response.data);
           localStorage.setItem('A_Server_pubKey', response.data);
         } catch (error) {
@@ -75,7 +75,7 @@ function Register() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData("post", data, 'http://localhost:5000/preUser', serverPubKey);
+        let response = await sendCryptedData("post", data, `${process.env.REACT_APP_URL}/preUser`, serverPubKey);
         let res = response.status;
         switch (res) {
           case 200:

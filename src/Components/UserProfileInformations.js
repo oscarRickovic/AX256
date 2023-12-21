@@ -127,7 +127,7 @@ function UserProfileInformations(props) {
                 gender: gender,
                 bio: bio 
             }
-            let response = await sendCryptedData("post", data, 'http://localhost:5000/user/updateMyProfile');
+            let response = await sendCryptedData("post", data, `${process.env.REACT_APP_URL}/user/updateMyProfile`);
             let res = response.status;
             switch (res) {
                 case 200:

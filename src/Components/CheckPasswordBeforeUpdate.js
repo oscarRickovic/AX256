@@ -14,7 +14,7 @@ function CheckPasswordBeforeUpdate(props) {
       setError(0);
       return;
     }
-    const response = await sendCryptedData("post",{password : password},"http://localhost:5000/user/checkUserPassword");
+    const response = await sendCryptedData("post",{password : password},`${process.env.REACT_APP_URL}/user/checkUserPassword`);
     if(response.status == 200) {
       props.status();
       return;

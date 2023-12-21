@@ -17,7 +17,7 @@ import Verify from './Components/Verify';
 const checkUserJwt = async (token) => {
   if (!token) return false;
   try {
-    const res = await axios.post('http://localhost:5000/user/checkUserJwt', { token });
+    const res = await axios.post(`${process.env.REACT_APP_URL}/user/checkUserJwt`, { token });
     return res.status === 200;
   } catch (error) {
     return false;

@@ -18,7 +18,7 @@ function UserProfile() {
   const [successAddPictures, setSuccessAddPictures] = useState(0);
   const [refresh, setRefresh] = useState(true);
   
-  const apiBaseURL = "http://localhost:5000";
+  const apiBaseURL = process.env.REACT_APP_URL;
 
   const fetchData = async (link, callBack) => {
     try {

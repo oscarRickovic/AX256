@@ -8,7 +8,7 @@ import ErrorGettingFriends from './ErrorGettingFriends';
 import SideBarSettings from './SideBarSettings';
 import NoChatSelected from './NoChatSelected';
 function SideBar() {
-    const { error, isPending, data: users } = useFetch('http://localhost:5000/user')
+    const { error, isPending, data: users } = useFetch(`${process.env.REACT_APP_URL}/user`)
     const light = useSelector(state=>state.LightState.value);
     let color = useSelector(state => state.ColorState.second);
     let findNewFriends = useSelector(state => state.PassNewFriendState.value);
