@@ -1,5 +1,6 @@
 const imageModel = require('../models/imageModel');
 const userModel = require('../models/userModel');
+const mongoose = require('mongoose');
 const fs = require('fs');
 const uuid = require('uuid');
 
@@ -16,7 +17,7 @@ const uploadProfile = async (req,res) => {
       const user = req.customData.user;
       try {
         await imageModel.create({
-          owner : user.email,
+          owner : user._id,
           name : newName
         })
       } catch(e) {
@@ -24,7 +25,7 @@ const uploadProfile = async (req,res) => {
       }
       try {
         user.profilePicture = newName;
-        await userModel.findOneAndUpdate({email : user.email},{
+        await userModel.findOneAndUpdate({_id : user._id},{
           ...user
         })
       } catch(e) {
@@ -48,7 +49,7 @@ const uploadPicture = async (req, res) => {
       const user = req.customData.user;
       try {
         await imageModel.create({
-          owner : user.email,
+          owner : user._id,
           name : newName
         })
       } catch(e) {
@@ -63,13 +64,30 @@ const myPictures = async (req, res) => {
   const user = req.customData.user;
   
   try {
-    let pictures = await imageModel.find({owner : user.email}).sort({createdAt: -1});
+    let pictures = await imageModel.find({owner : user._id}).sort({createdAt: -1});
     if(!pictures) return res.status(404).json({msg : "no user with this ID is found"});
     return res.status(200).json(pictures);
   } catch(e) {
     return res.status(500).json({msg : "error while searching pictures"})
   }
 }
-module.exports = {uploadProfile, uploadPicture, myPictures};
+
+const friendPictures = async(req, res) => {
+  const { id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(405).json({error: 'No valid id'})
+  }
+  const user = await userModel.findById(id)
+  if (!user) {
+    return res.status(404).json({error: 'No such user'})
+  }
+  try {
+    const images = await imageModel.find({owner: id}).sort({createdAt: -1});
+    return res.status(200).json(images)
+  }catch(e){
+    return res.status(500).json({msg: "error while loading pictures"})
+  }
+}
+module.exports = {uploadProfile, uploadPicture, myPictures, friendPictures};
 
 

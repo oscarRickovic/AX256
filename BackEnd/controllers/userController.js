@@ -1,7 +1,7 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
 const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
-const {signJWT, designJWT} = require('../Crypto/Jwt');
+const {signJWT} = require('../Crypto/Jwt');
 
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -12,7 +12,7 @@ const getUser = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No valid id'})
+    return res.status(405).json({error: 'No valid id'})
   }
 
   const user = await Users.findById(id)

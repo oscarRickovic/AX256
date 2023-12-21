@@ -18,7 +18,7 @@ const router = express.Router()
 router.get('/', getUsers)
 
 // GET a single user
-router.get('/:id', getUser)
+router.get('/:id',getUser)
 
 // POST a new user
 router.post('/', createUser)
@@ -27,7 +27,7 @@ router.post('/', createUser)
 router.post('/login', loginUser)
 
 // DELETE a user
-router.delete('/:id', deleteUser)
+router.delete('/:id', checkUserJwtMiddleWare ,deleteUser)
 
 // UPDATE a user
 router.post('/updateMyProfile',checkUserJwtMiddleWare,updateUserMiddleWare ,updateUser)

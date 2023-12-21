@@ -86,13 +86,21 @@ function UserProfile() {
   const handleDecrement = () => {
     const n = myPictures.length - 1;
     if (n <= 0) return;
-    setCurrentPicture((currentPicture - 1 + n) % n);
+    if(currentPicture == 0) {
+      setCurrentPicture(n);
+    }
+    else setCurrentPicture(currentPicture - 1);
   };
 
   const handleIncrement = () => {
     const n = myPictures.length - 1;
     if (n <= 0) return;
-    setCurrentPicture((currentPicture + 1) % n);
+    if(currentPicture == n) {
+      setCurrentPicture(0)
+    }
+    else {
+      setCurrentPicture(currentPicture + 1);
+    }
   };
 
   const backgroundImage = (myPictures.length !== 0 ? `url('/imagesStore/${myPictures[currentPicture].name}')` : '');
