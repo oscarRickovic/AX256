@@ -1,39 +1,28 @@
-/* FriendInfoCss.css */
+.update{
+  width: 100%;
+  background-color: #bf4343;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+}
 
-.FriendInfo {
-    /* Add global styles for the FriendInfo component */
-  }
-  
-  .FriendInfo-WhiteDiv {
-    position: relative;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-  }
-  
-  .FriendInfo-Couverture {
-    height: 150px;
-    background-size: cover;
-  }
-  
-  .FriendInfo-Informations {
-    display: flex;
-    padding: 20px;
-  }
-  
-  .FriendInfo-Img {
-    margin-right: 20px;
-  }
-  
-  .FriendInfo-Infos {
-    flex-grow: 1;
-  }
-  
-  .info-div {
-    margin-bottom: 10px;
-  }
-  
-  /* Add more styling as needed */
-  
+.update:hover{
+  background-color: #d67979;
+}
+
+.block-icon-div{
+  width: 20%;
+  display:grid;
+  place-content: center;
+}
+
+.block-text-div{
+  width:80%;
+  display:grid;
+  place-items: center;
+}

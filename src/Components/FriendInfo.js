@@ -5,6 +5,7 @@ import axios from 'axios';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import './ComponentsCss/FriendInfoCss.css';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 const FriendInfo = () => {
   const { id } = useParams();
   const [friend, setFriend] = useState({});
@@ -73,7 +74,7 @@ const FriendInfo = () => {
                 <div className="column-60">
                     <div className="sub-div">
                         <p className='sub-div-label'>name</p>
-                        {friend.name}
+                        {friend.username}
                     </div>
                     <div className="sub-div">
                         <p className='sub-div-label'>email</p>
@@ -85,12 +86,19 @@ const FriendInfo = () => {
                     </div>
                 </div>
                 <div className="column-40">
-                    <div className="sub-div-90">
+                    <div className="sub-div-90" style ={{height: '75%'}}>
                         <p className='sub-div-label'>bio</p>
                         {friend.bio}
                     </div>
                     <div className="sub-div-10">
-                    <button className='update' style = {{backgroundColor : `#c25757`}}>Block this user</button>
+                    <button className='update'>
+                      <div className="block-icon-div">
+                        <RemoveCircleIcon sx= {{fontSize: '20px'}}/>
+                      </div>
+                      <div className="block-text-div">
+                        Block this user
+                      </div>
+                    </button>
                     </div>
                 </div>
             </div>

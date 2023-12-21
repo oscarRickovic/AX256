@@ -46,6 +46,7 @@ const App = () => {
   return (
     <div className="App" style={light ? { backgroundColor: color.light } : { backgroundColor: color.dark }}>
       <Routes>
+        <Route path="" element={<PrivateRoute element={<Login/>} to='/app' value = {false}/>} />
         <Route path="/Login" element={<PrivateRoute element={<Login/>} to='/app' value = {false}/>} />
         <Route path="/Register" element= {<PrivateRoute element={<Register/>} to='/app' value = {false}/>} />
         <Route path="/app" element={<PrivateRoute element={<MainComponent />}/>}>
