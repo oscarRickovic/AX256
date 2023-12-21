@@ -8,7 +8,8 @@ const {
     deleteUser,
     updateUser,
     loginUser,
-    checkUserJwt
+    checkUserJwt,
+    checkUserPassword
   } = require('../controllers/userController');
 
 const router = express.Router()
@@ -33,5 +34,8 @@ router.post('/updateMyProfile',checkUserJwtMiddleWare,updateUserMiddleWare ,upda
 
 // Check the user JWT
 router.post('/checkUserJwt',checkUserJwtMiddleWare ,checkUserJwt);
+
+// Check user password before update profile.
+router.post('/checkUserPassword', checkUserJwtMiddleWare, checkUserPassword);
 
 module.exports = router

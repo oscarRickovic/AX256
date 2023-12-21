@@ -61,10 +61,6 @@
     outline-width: 0px;
 }
 
-.inputNormal{
-    color : gray;
-    border-bottom: 1px solid gray;
-}
 
 .inputError{
     color : red;

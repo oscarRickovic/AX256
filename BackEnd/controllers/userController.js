@@ -1,7 +1,7 @@
 const Users = require('../models/userModel');
 const mongoose = require('mongoose');
 const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
-const {signJWT} = require('../Crypto/Jwt');
+const {signJWT, designJWT} = require('../Crypto/Jwt');
 
 const getUsers = async (req, res) => {
   const users = await Users.find({}).sort({createdAt: -1})
@@ -128,6 +128,15 @@ const checkUserJwt = async (req, res) => {
   return res.status(200).json({msg : 'welcome'});
 }
 
+const checkUserPassword = async(req, res) => {
+  const user = req.customData.user;
+  const clearData = clr.hashClearDataPassword(req);
+  if(clearData.password === user.password) {
+    return res.status(200).json({msg : "OK"});
+  }
+  return res.status(401).json({msg : "NOT SAME USER PASSWORD, AUTHORIZATION DENIED"})
+}
+
 
 module.exports = {
   getUsers,
@@ -136,5 +145,6 @@ module.exports = {
   deleteUser,
   updateUser,
   loginUser,
-  checkUserJwt
+  checkUserJwt,
+  checkUserPassword
 }

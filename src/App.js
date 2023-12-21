@@ -52,7 +52,7 @@ const App = () => {
           <Route path="" element={<NoChatSelected rotation={false} />} />
           <Route path="chat/:id" element={<ChatZoneFetching />} />
           <Route path="myProfile" element={<UserProfile />} />
-          <Route path="friendInfo/:id" element={<FriendInfo />} />
+          <Route path="friendInfo/:id" element={<FriendInfo/>} />
         </Route>
         <Route path="/verify" element = {<Verify/>} />
         <Route path="*" element={<PageNotFound error={404} comment="Page not found, please double-check the URL" />} />

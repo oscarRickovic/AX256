@@ -3,7 +3,7 @@ import './ComponentsCss/UserProfileInformationsCss.css'
 import { Alert, MenuItem, Select } from '@mui/material'
 import check from './StaticFunctions/HandleLoginRegisterForms';
 import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
-
+import CheckPasswordBeforeUpdate from './CheckPasswordBeforeUpdate'
 function input_div(type, condition, value1, value2, callBack) {
     if(condition) {
         return <input className = 'sub-div-input' type={type} value = {value1} onChange={(e)=>{callBack(e.target.value)}}/>
@@ -45,6 +45,7 @@ function UserProfileInformations(props) {
     const [password, setPassword] = useState('');
     const [result, setResult] = useState(0);
     const [msg, setMsg] = useState('');
+    const [checkPassword, setCheckPassword] = useState(false);
     const me = props.me;
     
     const updateCheckInputs = () => {
@@ -111,6 +112,11 @@ function UserProfileInformations(props) {
         setMsg('')
     }
 
+    const changeComponent = () => {
+        setCheckPassword(false)
+        setUpdateProfileClicked(true);
+        
+    }
     const update = async() => {
         let errors = updateCheckInputs();
         if(errors.length === 0) {
@@ -142,6 +148,7 @@ function UserProfileInformations(props) {
             if(errors.length == 0) {
                 updateAlert("success", "your profile is update successfully");
                 props.refresh(!props.value);
+                setUpdateProfileClicked(false);
 
             }
             else {
@@ -151,46 +158,50 @@ function UserProfileInformations(props) {
         else {
             updateAlert("error", errors[0]);
         }
-        setUpdateProfileClicked(false);
     }
 
   return (
     <>
-    {(result === 1 || result === -1) && <Alert severity={result === -1 ? "error" : "success"}>{msg}</Alert>}
-    <div className='informations' style = {{display : `${(result === 0 ? '' : 'none')}`}}>
-        <div className="column-60">
-            <div className="sub-div">
-                <p className='sub-div-label'>name</p>
-                {input_div("text", updateProfileClicked, username, me.username, setUsername)}
+        {(result === 1 || result === -1) && <Alert severity={result === -1 ? "error" : "success"}>{msg}</Alert>}
+        {
+            !checkPassword ? 
+            <div className='informations' style = {{display : `${(result === 0 ? '' : 'none')}`}}>
+                <div className="column-60">
+                    <div className="sub-div">
+                        <p className='sub-div-label'>name</p>
+                        {input_div("text", updateProfileClicked, username, me.username, setUsername)}
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>email</p>
+                        {input_div("text", updateProfileClicked, email, me.email, setEmail)}
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>gender</p>
+                        {select_div(updateProfileClicked, gender, me.gender, setGender)}
+                    </div>
+                </div>
+                <div class="column-40">
+                    <div class="sub-div-90">
+                        <p className='sub-div-label'>bio</p>
+                        {textarea_div(updateProfileClicked, bio, me.bio, setBio)}
+                    </div>
+                    <div className="sub-div">
+                        <p className='sub-div-label'>new password</p>
+                        {input_div("password", updateProfileClicked, password, "", setPassword)}
+                    </div>
+                    <div class="sub-div-10">
+                        {
+                            !updateProfileClicked ? 
+                                <button className='update' onClick = {() => {setCheckPassword(true)}}>Update</button>
+                            :
+                                <button className='update' style = {{backgroundColor : `#7dc489`}} onClick = {update}>Update</button>
+                        }
+                    </div>
+                </div>
             </div>
-            <div className="sub-div">
-                <p className='sub-div-label'>email</p>
-                {input_div("text", updateProfileClicked, email, me.email, setEmail)}
-            </div>
-            <div className="sub-div">
-                <p className='sub-div-label'>gender</p>
-                {select_div(updateProfileClicked, gender, me.gender, setGender)}
-            </div>
-        </div>
-        <div class="column-40">
-            <div class="sub-div-90">
-                <p className='sub-div-label'>bio</p>
-                {textarea_div(updateProfileClicked, bio, me.bio, setBio)}
-            </div>
-            <div className="sub-div">
-                <p className='sub-div-label'>password</p>
-                {input_div("password", updateProfileClicked, password, "", setPassword)}
-            </div>
-            <div class="sub-div-10">
-                {
-                    !updateProfileClicked ? 
-                        <button className='update' onClick = {() => {setUpdateProfileClicked(true)}}>Update</button>
-                    :
-                        <button className='update' style = {{backgroundColor : `#7dc489`}} onClick = {update}>Update</button>
-                }
-            </div>
-        </div>
-    </div>
+            : 
+           <CheckPasswordBeforeUpdate status = {changeComponent} />
+        }
     </>
   )
 }
