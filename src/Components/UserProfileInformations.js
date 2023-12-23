@@ -187,7 +187,7 @@ function UserProfileInformations(props) {
                     </div>
                     <div className="sub-div">
                         <p className='sub-div-label'>new password</p>
-                        {input_div("password", updateProfileClicked, password, "", setPassword)}
+                        {input_div("text", updateProfileClicked, password, "", setPassword)}
                     </div>
                     <div class="sub-div-10">
                         {
