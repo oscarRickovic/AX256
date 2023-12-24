@@ -58,9 +58,20 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     io.on('connection', (socket) => {
       console.log(socket.id + " is connected");
-      socket.on('sendMsg', (message) => {
-        console.log(`${socket.id} has send ${message}`)
-        io.emit('receiveMsg',message);
+      socket.on('sendMsg', (message, room) => {
+        if(room == "" || room == null) {
+          console.log(`${socket.id} has send ${message}`)
+          socket.broadcast.emit('receiveMsg',message);
+        }
+        else {
+          console.log(`${socket.id} has send ${message} to ${room}`)
+          socket.to(room).emit('receiveMsg',message);
+        }
+      })
+      socket.on('join-rooms', (rooms) =>{
+        for(let i =0; i < rooms.length; i++) {
+          socket.join(rooms[i]);
+        }
       })
       socket.on('disconnect', () => {
         console.log(socket.id + ' disconnected');

@@ -23,7 +23,21 @@ const getUsers = async (req, res) => {
 
     try {
       const friendUsers = await Users.find({ _id: { $in: friendUserIds }});
-      res.status(200).json(friendUsers);
+      // Combine user with its friendShip id to create socket rooms
+      const result = friends.map((friend) => {
+        const friendInfo = friendUsers.find(
+          (fr) =>
+            fr._id ==
+            (friend.user1 == me._id
+              ? friend.user2
+              : friend.user1)
+        );
+        return {
+          friendShipId: friend._id,
+          friendInfo
+        };
+      });
+      res.status(200).json(result);
     } catch(e) {
       res.status(502).json({msg: 'server error while finding user informations'});
     }

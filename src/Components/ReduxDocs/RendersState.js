@@ -10,7 +10,6 @@ export const RendersSlice = createSlice({
     initialState : initialName,
     reducers : {
         renderConversations : (state) => {
-            alert('hello')
             state.Conversations = !state.Conversations
         }
     }

@@ -12,9 +12,9 @@ function MainComponent() {
   useEffect(() => {
     const socket = io(`http://localhost:7777`);
     dispatch(setSocket(socket));
-    socket.on('receiveMsg', (msg) => {
+    /*socket.on('receiveMsg', (msg) => {
       alert(msg);
-    })
+    })*/
     return () => {
       socket.disconnect();
     };

@@ -9,7 +9,6 @@ import NoChatSelected from './NoChatSelected';
 import axios from 'axios';
 
 function SideBar() {
-    //const { error, isPending, data: users } = useFetch(`${process.env.REACT_APP_URL}/user`)
     const light = useSelector(state=>state.LightState.value);
     let color = useSelector(state => state.ColorState.second);
     let findNewFriends = useSelector(state => state.PassNewFriendState.value);
@@ -18,7 +17,6 @@ function SideBar() {
     const [isPending, setIsPending] = useState(false);
     const [users, setUsers] = useState([]);
     useEffect(()=>{
-      alert(renderConversation);
       const getUsers = async () => {
         try {
           let response = await axios.get(`${process.env.REACT_APP_URL}/user`,{
@@ -26,7 +24,6 @@ function SideBar() {
               'A_JWT' : localStorage.getItem('A_JWT')
             }
           });
-          console.log(response.data)
           if(response.status == 200) {
             setUsers(response.data);
           }
