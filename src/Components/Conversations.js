@@ -1,7 +1,5 @@
-import React from 'react'
 import "./ComponentsCss/ConversationsCss.css"
 import ConversationElement from './ConversationElement'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,7 +11,7 @@ function Conversations({users}) {
     <div className='Conversations'>
       {light}
       {users.map( user => {
-
+        
         return (
         <div key={user._id} onClick={() => {navigate('/app/chat/' + user._id)}}>
           <ConversationElement user={user} />

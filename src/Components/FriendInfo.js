@@ -7,13 +7,17 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import './ComponentsCss/FriendInfoCss.css';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import NoChatSelected from "./NoChatSelected";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { renderConversations } from "./ReduxDocs/RendersState";
 const FriendInfo = () => {
   const { id } = useParams();
   const [friend, setFriend] = useState({});
   const [friendPictures, setFriendPictures] = useState([])
   const [currentPicture, setCurrentPicture] = useState(0);
   const [error, setError] = useState(false);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetch = async(link, callBack)=>{
     try {
@@ -64,9 +68,9 @@ const FriendInfo = () => {
   };
 
   const blockUser = async () => {
-    //let response = await axios.get(`${process.env.REACT_APP_URL}/user/blockUser/${id}`)
     await fetch(`${process.env.REACT_APP_URL}/user/blockUser/${id}`)
-    return <NoChatSelected/>
+    navigate('/app');
+    dispatch(renderConversations());
   }
 
   const backgroundImage = (friendPictures.length !== 0 ? `url('/imagesStore/${friendPictures[currentPicture].name}')` : '');
