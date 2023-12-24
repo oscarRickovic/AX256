@@ -16,7 +16,7 @@ const getUsers = async (req, res) => {
     });
 
     const friendUserIds = friends.map(
-      friend => (friend.user1 === me._id) ?
+      friend => (friend.user1 == me._id) ?
        friend.user2 : 
        friend.user1
     );
@@ -87,19 +87,38 @@ const createUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-  const { id } = req.params
-
+  const { id } = req.params;
+  const me = req.customData.user;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({error: 'No valid id'})
   }
-
-  const user = await Users.findOneAndDelete({_id: id})
-
-  if(!user) {
-    return res.status(400).json({error: 'No such user'})
+  try {
+    const user = await Users.findOne({_id: id})
+    if(!user) {
+      return res.status(400).json({error: 'No such user'})
+    }
+    try {
+      const friendship = await Friend.findOne({
+        $or: [
+          { user1: me._id, user2: id},
+          { user1: id, user2: me._id},
+        ],
+      });
+      if(!friendship) {
+        return res.status(401).json({msg: "Not authorize to Block no friends"})
+      }
+      try {
+        await Friend.findOneAndDelete({_id : friendship._id});
+        return res.status(200).json({msg : "Blocked Successfully"})
+      } catch(e) {
+        return res.status(503).json({msg : "Server error while deleting friend"})
+      }
+    } catch(e) {
+      return res.status(502).json({msg : "Server error while finding friends infos"})
+    }
+  } catch(e) {
+    res.status(501).json({msg : "Server error while finding user"})
   }
-
-  res.status(200).json(user)
 }
 
 const updateUser = async (req, res) => {

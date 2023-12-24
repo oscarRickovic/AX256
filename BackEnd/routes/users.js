@@ -27,7 +27,7 @@ router.post('/', createUser)
 router.post('/login', loginUser)
 
 // DELETE a user
-router.delete('/:id', checkUserJwtMiddleWare ,deleteUser)
+router.get('blockUser/:id', checkUserJwtMiddleWare ,deleteUser)
 
 // UPDATE a user
 router.post('/updateMyProfile',checkUserJwtMiddleWare,updateUserMiddleWare ,updateUser)

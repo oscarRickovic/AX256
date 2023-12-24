@@ -21,7 +21,6 @@ const checkUserJwt = async (req, res, next) => {
         req.customData = {
           user : user
         }
-        console.log('yes');
         next();
       } catch (error) {
             return res.status(500).json({ msg: error.message });

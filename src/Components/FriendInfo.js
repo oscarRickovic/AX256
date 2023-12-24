@@ -14,27 +14,29 @@ const FriendInfo = () => {
   const [currentPicture, setCurrentPicture] = useState(0);
   const [error, setError] = useState(false);
 
-  useEffect(()=>{
-    const fetch = async(link, callBack)=>{
-      try {
-        let response = await axios.get(link,{
-          headers:{
-            'A_JWT': localStorage.getItem('A_JWT')
-          }
-        })
-        if(response.status == 200) {
-          callBack(response.data);
-        } else {
-         setError(true);
-        }
-      } catch(e) {
-        setError(true);
-      }
-    }
 
+  const fetch = async(link, callBack)=>{
+    try {
+      let response = await axios.get(link,{
+        headers:{
+          'A_JWT': localStorage.getItem('A_JWT')
+        }
+      })
+      if(response.status == 200) {
+        if(callBack != null) {
+          callBack(response.data);
+        }
+      } else {
+       setError(true);
+      }
+    } catch(e) {
+      setError(true);
+    }
+  }
+
+  useEffect(()=>{
     fetch(`${process.env.REACT_APP_URL}/user/${id}`, setFriend);
     fetch(`${process.env.REACT_APP_URL}/image/friendPictures/${id}`, setFriendPictures)
-
   },[])
 
   if(error) {
@@ -60,6 +62,11 @@ const FriendInfo = () => {
       setCurrentPicture(currentPicture + 1);
     }
   };
+
+  const blockUser = async () => {
+    await fetch(`${process.env.REACT_APP_URL}/user/blockUser/${id}`);
+    return <NoChatSelected/>
+  }
 
   const backgroundImage = (friendPictures.length !== 0 ? `url('/imagesStore/${friendPictures[currentPicture].name}')` : '');
 
@@ -99,7 +106,7 @@ const FriendInfo = () => {
                         {friend.bio}
                     </div>
                     <div className="sub-div-10">
-                    <button className='block'>
+                    <button className='block' onClick={blockUser}>
                       <div className="block-icon-div">
                         <RemoveCircleIcon sx= {{fontSize: '20px'}}/>
                       </div>
