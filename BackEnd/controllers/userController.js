@@ -1,13 +1,38 @@
 const Users = require('../models/userModel');
+const Friend = require('../models/friendModel');
 const mongoose = require('mongoose');
 const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT} = require('../Crypto/Jwt');
 
+// get only ur friend users.
 const getUsers = async (req, res) => {
-  const users = await Users.find({}).sort({createdAt: -1})
-  res.status(200).json(users)
+  const me = req.customData.user;
+  try{
+    const friends = await Friend.find({
+      $or: [
+        { user1: me._id },
+        { user2: me._id },
+      ],
+    });
+
+    const friendUserIds = friends.map(
+      friend => (friend.user1 === me._id) ?
+       friend.user2 : 
+       friend.user1
+    );
+
+    try {
+      const friendUsers = await Users.find({ _id: { $in: friendUserIds }});
+      res.status(200).json(friendUsers);
+    } catch(e) {
+      res.status(502).json({msg: 'server error while finding user informations'});
+    }
+  } catch(e) {
+    res.status(501).json({msg : 'server error while searching for friends'})
+  }
 }
 
+// get only ur friend users.
 const getUser = async (req, res) => {
   const { id } = req.params
 

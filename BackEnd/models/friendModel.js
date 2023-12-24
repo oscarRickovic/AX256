@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const friendSchema = new Schema({
-    // using only emails.
+    //using ids.
     user1 : {
         type : String,
         required : true

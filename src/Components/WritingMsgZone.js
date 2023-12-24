@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ComponentsCss/WritingMsgZoneCss.css'
-import MyIconButton from './MyIconButton'
 import SendIcon from '@mui/icons-material/Send';
 import {useSelector} from 'react-redux'
+import { IconButton } from '@mui/material';
+
 function WritingMsgZone() {
   const color = useSelector(state => state.ColorState.fourth);
   const light = useSelector(state => state.LightState.value);
+  const socket = useSelector(state => state.SocketState.value);
+  const [msg, setMsg] = useState('');
+
+  const sendMsg = () => {
+    socket.emit('sendMsg', msg);
+    setMsg('');
+  }
   return (
     <div className= "WritingMsgZone" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}>
       <div className = "WritingMsgZone-Div">
-        <input type="text" className='WritingMsgZone-Div-Input' style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}} placeholder='text..'/>
+        <input type="text"
+                className='WritingMsgZone-Div-Input'
+                  style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}
+                    placeholder='text..'
+                    onChange={(e)=>{setMsg(e.target.value)}}/>
       </div>
       <div className = "WritingMsgZone-Icons">
-        <MyIconButton  icon = {SendIcon} color = "#393f4d" fontSize = {40}/>
+        <IconButton onClick={sendMsg}>
+          <SendIcon style={{color: "#393f4d"}} sx={{fontSize : 40}} />
+        </IconButton>
       </div>
     </div>
   )

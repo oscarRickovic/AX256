@@ -56,7 +56,6 @@ function Verify() {
       }
       else {
         setError(-1);
-        console.log(res);
       }
       
     }

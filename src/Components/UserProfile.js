@@ -29,7 +29,6 @@ function UserProfile() {
       });
 
       if (response.data !== null) {
-        console.log(response.data);
         callBack(response.data);
       }
     } catch (error) {

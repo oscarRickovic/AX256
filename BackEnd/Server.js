@@ -25,6 +25,14 @@ dotenv.config() ;
 // used constants.
 const PORT = process.env.PORT_BACK || 6000;
 
+// socket io.
+
+const io = require('socket.io')(7777, {
+  cors : {
+      origin: "*"
+  }
+});
+
 
 // middleware
 app.use(express.json())
@@ -48,6 +56,16 @@ app.get('/ownInformations', checkUserJwt, (req, res) => {
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
+    io.on('connection', (socket) => {
+      console.log(socket.id + " is connected");
+      socket.on('sendMsg', (message) => {
+        console.log(`${socket.id} has send ${message}`)
+        io.emit('receiveMsg',message);
+      })
+      socket.on('disconnect', () => {
+        console.log(socket.id + ' disconnected');
+      });
+    });
     app.listen(PORT,()=>{
         // Before the server start running it should create pub key and private key.
         // the pub key and crypted private key should be stored on a json file named 'KEYS.JSON'.
