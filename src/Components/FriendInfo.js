@@ -64,7 +64,8 @@ const FriendInfo = () => {
   };
 
   const blockUser = async () => {
-    await fetch(`${process.env.REACT_APP_URL}/user/blockUser/${id}`);
+    //let response = await axios.get(`${process.env.REACT_APP_URL}/user/blockUser/${id}`)
+    await fetch(`${process.env.REACT_APP_URL}/user/blockUser/${id}`)
     return <NoChatSelected/>
   }
 
