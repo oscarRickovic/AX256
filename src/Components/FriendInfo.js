@@ -6,24 +6,29 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import './ComponentsCss/FriendInfoCss.css';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import NoChatSelected from "./NoChatSelected";
 const FriendInfo = () => {
   const { id } = useParams();
   const [friend, setFriend] = useState({});
   const [friendPictures, setFriendPictures] = useState([])
   const [currentPicture, setCurrentPicture] = useState(0);
+  const [error, setError] = useState(false);
+
   useEffect(()=>{
     const fetch = async(link, callBack)=>{
-      let response = await axios.get(link,{
-        headers:{
-          'A_JWT': localStorage.getItem('A_JWT')
+      try {
+        let response = await axios.get(link,{
+          headers:{
+            'A_JWT': localStorage.getItem('A_JWT')
+          }
+        })
+        if(response.status == 200) {
+          callBack(response.data);
+        } else {
+         setError(true);
         }
-      })
-      if(response.status == 200) {
-        console.log('friend data');
-        console.log(response.data)
-        callBack(response.data);
-      } else {
-        console.log('error while feetching friend datas');
+      } catch(e) {
+        setError(true);
       }
     }
 
@@ -31,6 +36,10 @@ const FriendInfo = () => {
     fetch(`${process.env.REACT_APP_URL}/image/friendPictures/${id}`, setFriendPictures)
 
   },[])
+
+  if(error) {
+    return <NoChatSelected/>
+  }
 
   const handleDecrement = () => {
     const n = friendPictures.length - 1;
