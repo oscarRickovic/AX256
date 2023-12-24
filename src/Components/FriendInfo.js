@@ -30,7 +30,6 @@ const FriendInfo = () => {
     fetch(`${process.env.REACT_APP_URL}/user/${id}`, setFriend);
     fetch(`${process.env.REACT_APP_URL}/image/friendPictures/${id}`, setFriendPictures)
 
-    console.log(friendPictures)
   },[])
 
   const handleDecrement = () => {

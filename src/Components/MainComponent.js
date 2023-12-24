@@ -4,16 +4,17 @@ import SideBar from './SideBar';
 import WorkArea from './WorkArea';
 import { Outlet } from 'react-router-dom';
 import io from 'socket.io-client';
+import { setSocket } from './ReduxDocs/SocketState';
+import { useDispatch } from 'react-redux';
 
 function MainComponent() {
+  const dispatch = useDispatch();
   useEffect(() => {
     const socket = io(`http://localhost:7777`);
-    console.log('helloooo')
-
-    socket.on('chat message', (msg) => {
-        console.log('Received message:', msg);
-    });
-    
+    dispatch(setSocket(socket));
+    socket.on('receiveMsg', (msg) => {
+      alert(msg);
+    })
     return () => {
       socket.disconnect();
     };

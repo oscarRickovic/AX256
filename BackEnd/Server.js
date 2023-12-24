@@ -58,13 +58,12 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     io.on('connection', (socket) => {
       console.log(socket.id + " is connected");
-    
-      socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
-      });
-    
+      socket.on('sendMsg', (message) => {
+        console.log(`${socket.id} has send ${message}`)
+        io.emit('receiveMsg',message);
+      })
       socket.on('disconnect', () => {
-        console.log('User disconnected');
+        console.log(socket.id + ' disconnected');
       });
     });
     app.listen(PORT,()=>{

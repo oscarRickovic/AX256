@@ -97,7 +97,6 @@ function UserProfileInformations(props) {
 
     const updateAlert = async (type, msg) => {
         if(type != "error" && type != "success"){
-            console.log(`UserProfile error in updateAlert function`);
             return;
         }
         if(type == "error") {

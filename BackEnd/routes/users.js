@@ -15,10 +15,10 @@ const {
 const router = express.Router()
 
 // GET all users
-router.get('/', getUsers)
+router.get('/', checkUserJwtMiddleWare, getUsers)
 
 // GET a single user
-router.get('/:id',getUser)
+router.get('/:id', checkUserJwtMiddleWare, getUser)
 
 // POST a new user
 router.post('/', createUser)

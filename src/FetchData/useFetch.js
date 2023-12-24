@@ -7,7 +7,14 @@ const useFetch = (url) => {
 
   useEffect(() => {
     const abortCont = new AbortController();
-      fetch(url, { signal: abortCont.signal })
+      fetch(url,
+         {
+            signal: abortCont.signal,
+            headers : {
+              'A_JWT': localStorage.getItem('A_JWT')
+            }
+          }
+        )
       .then(res => {
         if (!res.ok) {
           setData(null);
