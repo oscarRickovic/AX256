@@ -15,10 +15,6 @@ function MainComponent() {
     /*socket.on('receiveMsg', (msg) => {
       alert(msg);
     })*/
-    return () => {
-      socket.disconnect();
-    };
-
   }, []);
 
   return (

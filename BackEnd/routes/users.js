@@ -4,6 +4,7 @@ const updateUserMiddleWare = require('../MiddleWare/updateUserMiddleWare');
 const {
     getUsers,
     getUser,
+    getFriendShipUser,
     createUser,
     deleteUser,
     updateUser,
@@ -19,6 +20,9 @@ router.get('/', checkUserJwtMiddleWare, getUsers)
 
 // GET a single user
 router.get('/:id', checkUserJwtMiddleWare,getUser)
+
+// GET a single user
+router.get('/friendShip/:id', checkUserJwtMiddleWare,getFriendShipUser)
 
 // POST a new user
 router.post('/', createUser)

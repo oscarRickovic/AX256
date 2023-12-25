@@ -8,6 +8,8 @@ function MyIconButton(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const socket = useSelector(state => state.SocketState.value);
+
   const iconButtonMethod = () => {
     if (props.callBack != null) {
       props.callBack(props.valueCallBack);
@@ -17,7 +19,8 @@ function MyIconButton(props) {
           dispatch(changeLight());
           break;
         case 'logoutButton':
-          localStorage.removeItem('A_JWT')
+          localStorage.removeItem('A_JWT');
+          socket.disconnect();
           navigate('/Login')
           break;
         case 'findNewFriends':

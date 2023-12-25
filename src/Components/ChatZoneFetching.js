@@ -9,7 +9,7 @@ function ChatZoneFetching() {
   const [isPending, setIsPending] = useState(false);
   const [data, setData] = useState({});
   useEffect(() => {
-    const path = `${process.env.REACT_APP_URL}/user/${id}`;
+    const path = `${process.env.REACT_APP_URL}/user/friendShip/${id}`;
     const fetch = async() => {
       try {
         let response = await axios.get(path, {
