@@ -13,7 +13,8 @@ function WritingMsgZone() {
 
   const {id} = useParams();
 
-  const sendMsg = () => {
+  const sendMsg = async () => {
+    setMsg('')
     socket.emit('sendMsg', msg, id);
   }
   return (
@@ -21,6 +22,7 @@ function WritingMsgZone() {
       <div className = "WritingMsgZone-Div">
         <input type="text"
                 className='WritingMsgZone-Div-Input'
+                  value = {msg}
                   style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}
                     placeholder='text..'
                     onChange={(e)=>{setMsg(e.target.value)}}/>
