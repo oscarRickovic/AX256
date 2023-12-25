@@ -15,7 +15,7 @@ function WritingMsgZone() {
 
   const sendMsg = async () => {
     setMsg('')
-    socket.emit('sendMsg', msg, id);
+    socket.emit('sendMsg', msg, id, localStorage.getItem('A_JWT'));
   }
   return (
     <div className= "WritingMsgZone" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}>

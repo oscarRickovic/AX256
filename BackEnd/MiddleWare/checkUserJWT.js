@@ -1,6 +1,7 @@
 const Users = require('../models/userModel');
 const jwt = require('../Crypto/Jwt');
 
+
 const checkUserJwt = async (req, res, next) => {
     const token = req.body.token || req.header('A_JWT');
     const data = jwt.designJWT(token);

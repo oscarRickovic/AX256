@@ -18,6 +18,10 @@ const imageRoutes = require('./routes/image')
 
 const checkUserJwt = require('./MiddleWare/checkUserJWT');
 
+// message Controller:
+
+const msgController = require('./controllers/messageController')
+
 // configs.
 app.use(cors());
 dotenv.config() ;
@@ -59,17 +63,22 @@ mongoose.connect(process.env.MONGO_URI)
     io.on('connection', (socket) => {
       console.log(socket.id + " is connected");
 
-      socket.on('sendMsg', (message, room) => {
+      socket.on('sendMsg', async (message, room, token) => {
         if(room == "" || room == null) {
-          console.log(`${socket.id} has send ${message}`)
-          socket.broadcast.emit('receiveMsg',message);
+          // nothing to do.
         }
         else {
           console.log(`${socket.id} has send ${message} to ${room}`)
-          socket.to(room).emit('receiveMsg',{
-            room : room,
-            msg : message
-          });
+          if(message != null && message != ""){
+            const user = await msgController.checkJWT(token);
+            if(user == null) return;
+            const newMessage = await msgController.createMessage(user._id, room, message);
+            console.log(newMessage)
+            socket.to(room).emit('receiveMsg',{
+              room : room,
+              msg : message
+            });
+          }
         }
       })
 
