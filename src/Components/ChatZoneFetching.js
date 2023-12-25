@@ -1,33 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useFetch from '../FetchData/useFetch';
 import ChatZone from './ChatZone';
-import { useDispatch } from 'react-redux';
-import { changeFriend } from './ReduxDocs/PassNewFriendState';
+import axios from 'axios';
 
 function ChatZoneFetching() {
   const { id } = useParams();
-  const [path, setPath] = useState("");
-  const dispatch = useDispatch();
-
-  const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
+  const [error, setError] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [data, setData] = useState({});
   useEffect(() => {
-    if (id.startsWith("new")) {
-      setPath(`http://localhost:7000/friends/${getRandom(1, 15)}`);
-    } else {
-      setPath(`${process.env.REACT_APP_URL}/user/${id}`);
+    const path = `${process.env.REACT_APP_URL}/user/${id}`;
+    const fetch = async() => {
+      try {
+        let response = await axios.get(path, {
+          headers:{
+            'A_JWT': localStorage.getItem('A_JWT')
+          }
+        })
+        if(response.status == 200) {
+          setData(response.data);
+        }
+        else {setError(true)}
+      } catch(e){
+        setError(true)
+      }
     }
+    fetch();
   }, [id]);
-  const { data: user, error, isPending } = useFetch(path);
 
-  useEffect(() => {
-    if(path.includes('friends')){
-      dispatch(changeFriend(user));
-    }
-  }, [dispatch, user]);
-
-  return <ChatZone user={user} error={error} isPending={isPending} />;
+  return <ChatZone user={data} error={error} isPending={isPending} />;
 }
 
 export default ChatZoneFetching;

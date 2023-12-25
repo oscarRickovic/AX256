@@ -48,34 +48,39 @@ const getUsers = async (req, res) => {
 
 // get only ur friend users.
 const getUser = async (req, res) => {
+  // Chat room.
   const { id } = req.params
   const me = req.customData.user;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(405).json({error: 'No valid id'})
   }
-
- try {
-  const user = await Users.findById(id)
-  if (!user) {
-    return res.status(404).json({error: 'No such user with this id'})
-  }
-  try {
-    const friendship = await Friend.findOne({
-      $or: [
-        { user1: me._id, user2: id},
-        { user1: id, user2: me._id},
-      ],
-    });
-    if(!friendship) {
-      return res.status(401).json({msg: "Not authorize to see no friends informations"})
+  try{
+    const friendShip = await Friend.findById({_id : id});
+    if(!friendShip) {
+      return res.status(404).json({msg : "friend ship not found"});
     }
-    return res.status(200).json(user);
+    else {
+      if(friendShip.user1 != me._id && friendShip.user2 != me._id){
+        return res.status(401).json({msg : "not authorize to get other students data"})
+      } 
+      else {
+        const friendId = friendShip.user1 == me._id ? friendShip.user2 : friendShip.user1;
+        try {
+          let myFriend = await Users.findById({_id : friendId});
+          if(!myFriend){
+            return res.status(404).json({msg : "friend Infos not found"})
+          }
+          else {
+            return res.status(200).json(myFriend)
+          }
+        } catch(e) {
+          return res.status(502).json({msg : "Server error while finding friends infos"});
+        }
+      }
+    }
   } catch(e) {
-    return res.status(502).json({msg : "Server error while finding friends infos"})
+    return res.status(501).json({msg : "server error while finding chat"})
   }
- } catch(e) {
-  return res.status(501).json({msg : "server error while finding user by its id"})
- }
 }
 
 const createUser = async (req, res) => {

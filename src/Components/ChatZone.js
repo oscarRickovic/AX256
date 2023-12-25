@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./ComponentsCss/ChatZoneCss.css";
 import ChatZoneFriendInfo from './ChatZoneFriendInfo';
 import TextingZone from './TextingZone';
@@ -13,6 +13,7 @@ function ChatZone({ user, error, isPending }) {
   // First it will search for new user
   // if it found something it will hide the sidebar.
   // if it doesn't find anything it will wait for 10s then it will return the sidebar.
+
   if(user == null) {
     
   }

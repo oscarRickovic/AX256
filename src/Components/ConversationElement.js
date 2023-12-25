@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./ComponentsCss/ConversationElementCss.css"
 import { Avatar } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-function ConversationElement({user}) {
+function ConversationElement({user, keyChat}) {
     const navigate = useNavigate();
     const light = useSelector(state => state.LightState.value);
     const color = useSelector(state => state.ColorState.primar);
+    const socket = useSelector(state => state.SocketState.value);
+    const [msg, setMsg] = useState('');
+    socket.on('receiveMsg', (res) => {
+      if(res.room == keyChat){
+        setMsg(res.msg)
+      }
+    })
   return (
-    <div className = "ConversationElement" style = {light ? {backgroundColor : color.light} : {backgroundColor : color.dark}} onClick = {()=>{navigate('/app/chat/' + user._id)}}>
+    <div className = "ConversationElement"
+            style = {light ? {backgroundColor : color.light} :
+                {backgroundColor : color.dark}}
+                    onClick = {()=>{navigate('/app/chat/' + user._id)}}>
         <div className = "ConversationElement-imgUser" >
             <Avatar alt={user.username} src= {"/imagesStore/" + user.profilePicture} />
         </div>
@@ -18,7 +28,7 @@ function ConversationElement({user}) {
             </div>
             <div className='ConversationElement-msg-lastMsg-timeStamp'>
                 <div className='ConversationElement-msg-lastMsg'>
-                    {user.email}
+                    {msg}
                 </div>
                 <div className='ConversationElement-msg-timeStamp'>
                     today.

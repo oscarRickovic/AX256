@@ -27,8 +27,8 @@ function Conversations({users}) {
       {users.map( user => {
         
         return (
-        <div key={user.friendShipId} onClick={() => {navigate('/app/chat/' + user.friendInfo._id)}}>
-          <ConversationElement user={user.friendInfo} key = {user.friendShipId}/>
+        <div key={user.friendShipId} onClick={() => {navigate('/app/chat/' + user.friendShipId)}}>
+          <ConversationElement user={user.friendInfo} keyChat={user.friendShipId}/>
         </div>
         )
       })}

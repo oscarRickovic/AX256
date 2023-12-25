@@ -18,7 +18,7 @@ const router = express.Router()
 router.get('/', checkUserJwtMiddleWare, getUsers)
 
 // GET a single user
-router.get('/:id', checkUserJwtMiddleWare, getUser)
+router.get('/:id', checkUserJwtMiddleWare,getUser)
 
 // POST a new user
 router.post('/', createUser)

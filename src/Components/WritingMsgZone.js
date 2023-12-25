@@ -3,6 +3,7 @@ import './ComponentsCss/WritingMsgZoneCss.css'
 import SendIcon from '@mui/icons-material/Send';
 import {useSelector} from 'react-redux'
 import { IconButton } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 function WritingMsgZone() {
   const color = useSelector(state => state.ColorState.fourth);
@@ -10,9 +11,10 @@ function WritingMsgZone() {
   const socket = useSelector(state => state.SocketState.value);
   const [msg, setMsg] = useState('');
 
+  const {id} = useParams();
+
   const sendMsg = () => {
-    socket.emit('sendMsg', msg);
-    setMsg('');
+    socket.emit('sendMsg', msg, id);
   }
   return (
     <div className= "WritingMsgZone" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}>
