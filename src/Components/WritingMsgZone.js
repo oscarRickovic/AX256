@@ -19,6 +19,13 @@ function WritingMsgZone() {
     socket.emit('sendMsg', msg, id, localStorage.getItem('A_JWT'));
     dispatch(renderTextingZone())
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      sendMsg();
+    }
+  };
+
   return (
     <div className= "WritingMsgZone" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}>
       <div className = "WritingMsgZone-Div">
@@ -27,6 +34,7 @@ function WritingMsgZone() {
                   value = {msg}
                   style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}
                     placeholder='text..'
+                    onKeyPress={handleKeyPress}
                     onChange={(e)=>{setMsg(e.target.value)}}/>
       </div>
       <div className = "WritingMsgZone-Icons">
