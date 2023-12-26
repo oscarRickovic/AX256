@@ -10,11 +10,8 @@ import { useDispatch } from 'react-redux';
 function MainComponent() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const socket = io(`http://localhost:7777`);
+    const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
     dispatch(setSocket(socket));
-    /*socket.on('receiveMsg', (msg) => {
-      alert(msg);
-    })*/
   }, []);
 
   return (

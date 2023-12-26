@@ -2,16 +2,22 @@ import React, { useState } from 'react'
 import "./ComponentsCss/ConversationElementCss.css"
 import { Avatar } from '@mui/material'
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { renderTextingZone } from './ReduxDocs/RendersState';
 function ConversationElement({user, keyChat}) {
     const navigate = useNavigate();
     const light = useSelector(state => state.LightState.value);
     const color = useSelector(state => state.ColorState.primar);
     const socket = useSelector(state => state.SocketState.value);
+    let renderTextingZoneValue = useSelector((state) => state.RendersState.TextingZone);
     const [msg, setMsg] = useState('');
-    socket.on('receiveMsg', (res) => {
+    const dispatch = useDispatch();
+    socket.on('receiveMsg', async (res) => {
       if(res.room == keyChat){
-        setMsg(res.msg)
+        setMsg(res.msg);
+        console.log(renderTextingZoneValue)
+        dispatch(renderTextingZone())
+        console.log(renderTextingZoneValue)
       }
     })
   return (

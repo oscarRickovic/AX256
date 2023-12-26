@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import './ComponentsCss/WritingMsgZoneCss.css'
 import SendIcon from '@mui/icons-material/Send';
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import { renderTextingZone } from './ReduxDocs/RendersState';
 
 function WritingMsgZone() {
   const color = useSelector(state => state.ColorState.fourth);
   const light = useSelector(state => state.LightState.value);
   const socket = useSelector(state => state.SocketState.value);
   const [msg, setMsg] = useState('');
-
+  const dispatch = useDispatch();
   const {id} = useParams();
 
   const sendMsg = async () => {
     setMsg('')
     socket.emit('sendMsg', msg, id, localStorage.getItem('A_JWT'));
+    dispatch(renderTextingZone())
   }
   return (
     <div className= "WritingMsgZone" style = {light ? {backgroundColor : color.light} :{backgroundColor : color.dark}}>
