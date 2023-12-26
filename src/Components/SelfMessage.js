@@ -1,9 +1,9 @@
 import React from 'react'
 import './ComponentsCss/SelfMessageCss.css'
-function SelfMessage() {
+function SelfMessage({msg}) {
   return (
     <div className='SelfMessage'>
-        wach a abdelwahedkolchi bikhir alkhssyem
+       {msg}
     </div>
   )
 }

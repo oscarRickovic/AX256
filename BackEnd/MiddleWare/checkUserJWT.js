@@ -6,7 +6,7 @@ const checkUserJwt = async (req, res, next) => {
     const token = req.body.token || req.header('A_JWT');
     const data = jwt.designJWT(token);
     if(data == null) {
-      res.status(402).json({msg : "token not authorized"})
+      res.status(401).json({msg : "token not authorized"})
     }
     else {
       const email = data.email;

@@ -13,6 +13,7 @@ const keysJson = require('./Crypto/Keys.json');
 const usersRoutes = require('./routes/users')
 const preUsersRoutes = require('./routes/preUser')
 const imageRoutes = require('./routes/image')
+const messageRoutes = require('./routes/message')
 
 // MiddleWares imports.
 
@@ -52,6 +53,7 @@ app.use('/user', usersRoutes)
 // For all access we need to check your JWT :
 
 app.use('/image', checkUserJwt ,imageRoutes);
+app.use('/message', checkUserJwt, messageRoutes)
 
 app.get('/ownInformations', checkUserJwt, (req, res) => {
   return res.status(200).json(req.customData.user);
@@ -73,11 +75,12 @@ mongoose.connect(process.env.MONGO_URI)
             const user = await msgController.checkJWT(token);
             if(user == null) return;
             const newMessage = await msgController.createMessage(user._id, room, message);
-            console.log(newMessage)
-            socket.to(room).emit('receiveMsg',{
-              room : room,
-              msg : message
-            });
+            if(newMessage == 200) {
+              socket.to(room).emit('receiveMsg',{
+                room : room,
+                msg : message
+              });
+            } 
           }
         }
       })
