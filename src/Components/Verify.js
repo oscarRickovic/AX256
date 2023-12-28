@@ -48,7 +48,7 @@ function Verify() {
       const data = {
         code : code
       }
-      let response = await sendCryptedData("post" , data, `${process.env.REACT_APP_URL}/preUser/checkUserJwt`, localStorage.getItem('A_Server_pubKey'));
+      let response = await sendCryptedData("post" , `${process.env.REACT_APP_URL}/preUser/checkUserJwt`, data);
       let res = response.status;
       if(res == 200) {
         setError(1);

@@ -65,7 +65,7 @@ function Login() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData("post", data, `${process.env.REACT_APP_URL}/user/login`, serverPubKey);
+        let response = await sendCryptedData("post", `${process.env.REACT_APP_URL}/user/login` ,data);
         let res = response.status;
         if (res === 200) {
           localStorage.setItem('A_JWT', response.data)

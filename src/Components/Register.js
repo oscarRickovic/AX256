@@ -75,7 +75,7 @@ function Register() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData("post", data, `${process.env.REACT_APP_URL}/preUser`, serverPubKey);
+        let response = await sendCryptedData("post", `${process.env.REACT_APP_URL}/preUser` ,data);
         let res = response.status;
         switch (res) {
           case 200:

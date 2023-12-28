@@ -1,7 +1,8 @@
 import axios from 'axios';
 const { encrypt } = require('../CryptoFront/cryptageRSA');
 
-const sendCryptedData = async (type, data, link, serverPubKey = localStorage.getItem('A_Server_pubKey')) => {
+const sendCryptedData = async (type, link, data = null) => {
+  let serverPubKey = localStorage.getItem('A_Server_pubKey');
   try {
     if (!serverPubKey) {
       return 507;
