@@ -5,6 +5,7 @@ import SelfMessage from './SelfMessage';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 
 function TextingZone() {
   const color = useSelector((state) => state.ColorState.fourth);
@@ -18,11 +19,7 @@ function TextingZone() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_URL}/message/${id}`, {
-          headers: {
-            'A_JWT': localStorage.getItem('A_JWT'),
-          },
-        });
+        let response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/message/${id}`)
         if (response.status === 200) {
           setMessages(response.data);
           return;

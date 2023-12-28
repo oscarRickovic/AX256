@@ -30,7 +30,7 @@ function Login() {
     const fetchData = async () => {
       if(localStorage.getItem('A_Server_pubKey') == null) {
         try {
-          const response = await axios.get(`${process.env.REACT_APP_URL}/getServerPubKey`);
+          const response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/getServerPubKey`)
           setServerPubKey(response.data);
           localStorage.setItem('A_Server_pubKey', response.data);
         } catch (error) {

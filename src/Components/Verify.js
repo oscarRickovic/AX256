@@ -14,7 +14,7 @@ function Verify() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL}/getServerPubKey`);
+        const response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/getServerPubKey`);
         localStorage.setItem('A_Server_pubKey', response.data);
       } catch (error) {
         console.error('Error fetching data:', error);

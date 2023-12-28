@@ -7,6 +7,7 @@ import ErrorGettingFriends from './ErrorGettingFriends';
 import SideBarSettings from './SideBarSettings';
 import NoChatSelected from './NoChatSelected';
 import axios from 'axios';
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 
 function SideBar() {
     const light = useSelector(state=>state.LightState.value);
@@ -19,11 +20,7 @@ function SideBar() {
     useEffect(()=>{
       const getUsers = async () => {
         try {
-          let response = await axios.get(`${process.env.REACT_APP_URL}/user`,{
-            headers: {
-              'A_JWT' : localStorage.getItem('A_JWT')
-            }
-          });
+          let response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/user`);
           if(response.status == 200) {
             setUsers(response.data);
           }

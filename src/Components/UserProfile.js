@@ -7,6 +7,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import UserProfileInformations from './UserProfileInformations';
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 function UserProfile() {
   const [updatePicture, setUpdatePicture] = useState(false);
   const [error, setError] = useState(false);
@@ -22,12 +23,7 @@ function UserProfile() {
 
   const fetchData = async (link, callBack) => {
     try {
-      const response = await axios.get(link, {
-        headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
-        }
-      });
-
+      const response = await sendCryptedData('GET', link);
       if (response.data !== null) {
         callBack(response.data);
       }

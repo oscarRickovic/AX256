@@ -10,6 +10,7 @@ import NoChatSelected from "./NoChatSelected";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { renderConversations } from "./ReduxDocs/RendersState";
+import sendCryptedData from "./StaticFunctions/SendingCryptedDataToServer";
 const FriendInfo = () => {
   const { id } = useParams();
   const [friend, setFriend] = useState({});
@@ -21,11 +22,7 @@ const FriendInfo = () => {
 
   const fetch = async(link, callBack)=>{
     try {
-      let response = await axios.get(link,{
-        headers:{
-          'A_JWT': localStorage.getItem('A_JWT')
-        }
-      })
+      let response = await sendCryptedData('GET', link)
       if(response.status == 200) {
         if(callBack != null) {
           callBack(response.data);
