@@ -54,7 +54,6 @@ app.use('/user', usersRoutes)
 
 app.use('/image', checkUserJwt ,imageRoutes);
 app.use('/message', checkUserJwt, messageRoutes)
-
 app.get('/ownInformations', checkUserJwt, (req, res) => {
   return res.status(200).json(req.customData.user);
 })
