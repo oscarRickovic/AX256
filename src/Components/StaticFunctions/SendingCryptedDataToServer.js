@@ -1,41 +1,42 @@
 import axios from 'axios';
+import SendDataError from '../Errors/SendDataError';
 const { encrypt } = require('../CryptoFront/cryptageRSA');
 
 const sendCryptedData = async (type, link, data = null) => {
   let serverPubKey = localStorage.getItem('A_Server_pubKey');
   try {
+    
     if (!serverPubKey) {
-      return 507;
+      throw new SendDataError(404, "No Server Public Key is selected");
     }
+
+    const headers = {
+      'A_JWT': localStorage.getItem('A_JWT'),
+      'CLIENT_PUBLIC_KEY' : localStorage.getItem('rsaKeys_pubKey')
+    }
+
     const pairInfos = {
-      data: encrypt(data, serverPubKey),
-      clientPubKey: localStorage.getItem('rsaKeys_pubKey'),
-      token: localStorage.getItem('A_JWT')
+      data: encrypt(data, serverPubKey)
     };
-    if(type.toUpperCase() === "GET") {
-      return await axios.get(link, {
-        headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
-        }})
+
+    if(type.toUpperCase() === "GET") { 
+      return await axios.get(link, {headers: headers })
     }
+
     else if (type.toUpperCase() === "POST") {
-      return await axios.post(link, pairInfos,{
-        headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
-        }})
+      return await axios.post(link, pairInfos,{headers: headers})
     }
+
     else if(type.toUpperCase() === "UPDATE" || type.toUpperCase() === "PATCH"){
-      return await axios.patch(link, pairInfos, {
-        headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
-        }})
+      return await axios.patch(link, pairInfos, {headers: headers})
     }
+
     else if (type.toUpperCase() === "DELETE"){
       return await axios.delete(link, {
-        headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
-        }})
+        headers: headers
+      })
     }
+    
   } catch (error) {
     return error.response;
   }
