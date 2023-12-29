@@ -3,7 +3,6 @@ import './ComponentsCss/LoginCss.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MyIconButton from './MyIconButton';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 const generateKeys = require('./CryptoFront/generateClientKeys');
 const {
@@ -30,7 +29,8 @@ function Login() {
     const fetchData = async () => {
       if(localStorage.getItem('A_Server_pubKey') == null) {
         try {
-          const response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/getServerPubKey`)
+          const path = `${process.env.REACT_APP_URL}/getServerPubKey`
+          const response = await sendCryptedData('GET', path)
           setServerPubKey(response.data);
           localStorage.setItem('A_Server_pubKey', response.data);
         } catch (error) {
@@ -65,7 +65,8 @@ function Login() {
           email : email,
           password : password
         }
-        let response = await sendCryptedData("post", `${process.env.REACT_APP_URL}/user/login` ,data);
+        let response = await sendCryptedData("POST", `${process.env.REACT_APP_URL}/user/login` ,data);
+        console.log(response)
         let res = response.status;
         if (res === 200) {
           localStorage.setItem('A_JWT', response.data)
