@@ -6,12 +6,21 @@ import { Outlet } from 'react-router-dom';
 import io from 'socket.io-client';
 import { setSocket } from './ReduxDocs/SocketState';
 import { useDispatch } from 'react-redux';
+import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 
+const fetch = async (link) => {
+  await sendCryptedData("GET", link);
+}
 function MainComponent() {
   const dispatch = useDispatch();
   useEffect(() => {
     const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
     dispatch(setSocket(socket));
+    fetch(`${process.env.REACT_APP_URL}/user/onLine`);
+    return () => {
+      fetch(`${process.env.REACT_APP_URL}/user/offLine`);
+      socket.disconnect();
+    }
   }, []);
 
   return (

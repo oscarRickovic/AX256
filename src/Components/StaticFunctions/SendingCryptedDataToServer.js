@@ -2,6 +2,7 @@ import axios from 'axios';
 import SendDataError from '../Errors/SendDataError';
 const { encrypt } = require('../CryptoFront/cryptageRSA');
 
+// ** Return the response of the req.
 const sendCryptedData = async (type, link, data = null) => {
   let serverPubKey = localStorage.getItem('A_Server_pubKey');
   try {

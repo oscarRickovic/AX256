@@ -31,6 +31,9 @@ function ConversationElement({user, keyChat}) {
         <div className='ConversationElement-msg'>
             <div className='ConversationElement-msg-nameUser'>
                 {user.username}
+                {user.isOnline &&
+                  <div className="onLine"></div>
+                }
             </div>
             <div className='ConversationElement-msg-lastMsg-timeStamp'>
                 <div className='ConversationElement-msg-lastMsg'>

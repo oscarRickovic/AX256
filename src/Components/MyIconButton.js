@@ -20,7 +20,6 @@ function MyIconButton(props) {
           break;
         case 'logoutButton':
           localStorage.removeItem('A_JWT');
-          socket.disconnect();
           navigate('/Login')
           break;
         case 'findNewFriends':

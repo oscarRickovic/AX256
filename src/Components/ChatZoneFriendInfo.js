@@ -19,7 +19,7 @@ function ChatZoneFriendInfo({user}) {
                 {user.username}
             </div>
             <div className = 'ChatZone-FriendInfo-State'>
-                online
+                {user.isOnline ? "(online)" : "(offline)"}
             </div>
         </div>
     </div>

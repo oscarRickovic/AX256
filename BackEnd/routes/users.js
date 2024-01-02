@@ -10,13 +10,25 @@ const {
     updateUser,
     loginUser,
     checkUserJwt,
-    checkUserPassword
+    checkUserPassword,
+    setLine
   } = require('../controllers/userController');
 
 const router = express.Router()
 
 // GET all users
 router.get('/', checkUserJwtMiddleWare, getUsers)
+
+// connect and deconnect.
+router.get('/onLine', checkUserJwtMiddleWare, (req, res, next) => {
+  req.line = true;
+  next();
+}, setLine);
+
+router.get('/offLine', checkUserJwtMiddleWare, (req, res, next) => {
+  req.line = false;
+  next();
+}, setLine);
 
 // GET a single user
 router.get('/:id', checkUserJwtMiddleWare,getUser)

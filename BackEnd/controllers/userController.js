@@ -247,6 +247,16 @@ const checkUserPassword = async(req, res) => {
   return res.status(401).json({msg : "NOT SAME USER PASSWORD, AUTHORIZATION DENIED"})
 }
 
+const setLine = async (req, res) => {
+  const user = req.customData.user;
+  const line = req.line;
+  if(line) console.log('its on');
+  else{
+    console.log('its off')
+  }
+}
+
+
 
 module.exports = {
   getUsers,
@@ -257,5 +267,6 @@ module.exports = {
   updateUser,
   loginUser,
   checkUserJwt,
-  checkUserPassword
+  checkUserPassword,
+  setLine
 }

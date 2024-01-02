@@ -69,7 +69,7 @@ mongoose.connect(process.env.MONGO_URI)
           // nothing to do.
         }
         else {
-          console.log(`${socket.id} has send ${message} to ${room}`)
+          //console.log(`${socket.id} has send ${message} to ${room}`)
           if(message != null && message != ""){
             const user = await msgController.checkJWT(token);
             if(user == null) return;
@@ -87,7 +87,7 @@ mongoose.connect(process.env.MONGO_URI)
       socket.on('join-rooms', (rooms) =>{
         for(let i =0; i < rooms.length; i++) {
           socket.join(rooms[i]);
-          console.log(`socket with id : ${socket.id} has joined room ${rooms[i]}`)
+          //console.log(`socket with id : ${socket.id} has joined room ${rooms[i]}`)
         }
       })
       socket.on('disconnect', () => {

@@ -24,6 +24,19 @@
     align-items: center;
 }
 
+.ConversationElement-msg-nameUser{
+    display: flex;
+}
+
+.onLine {
+    width: 10px;
+    height: 10px;
+    background-color: rgb(130, 182, 130);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+
 .ConversationElement-msg{
     padding-top: 4%;
     padding-left: 0%;
