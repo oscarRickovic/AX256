@@ -1,4 +1,4 @@
-import React,{useEffect}from 'react'
+import React, { useEffect } from 'react';
 import './ComponentsCss/MainComponentCss.css';
 import SideBar from './SideBar';
 import WorkArea from './WorkArea';
@@ -9,26 +9,33 @@ import { useDispatch } from 'react-redux';
 import sendCryptedData from './StaticFunctions/SendingCryptedDataToServer';
 
 const fetch = async (link) => {
-  await sendCryptedData("GET", link);
-}
+  await sendCryptedData('GET', link);
+};
+
 function MainComponent() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
     dispatch(setSocket(socket));
-    fetch(`${process.env.REACT_APP_URL}/user/onLine`);
-    return () => {
-      fetch(`${process.env.REACT_APP_URL}/user/offLine`);
+    socket.emit('onLine', localStorage.getItem('A_JWT'));
+    const handleBeforeUnload = () => {
+      socket.emit('offLine', localStorage.getItem('A_JWT'));
       socket.disconnect();
-    }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      handleBeforeUnload();
+    };
   }, []);
 
   return (
-    <div className = "MainComponent">
-      <SideBar/>
-      <WorkArea component = {Outlet}/>
+    <div className="MainComponent">
+      <SideBar />
+      <WorkArea component={Outlet} />
     </div>
-  )
+  );
 }
 
-export default MainComponent
+export default MainComponent;

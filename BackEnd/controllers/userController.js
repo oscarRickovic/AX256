@@ -193,8 +193,6 @@ const updateUser = async (req, res) => {
   }
   try {
     const cred = await Users.findById({_id : user._id})
-    console.log('user controller');
-    console.log(cred);
     return res.status(200).json(signJWT(
       {
         username : cred.username,
@@ -209,7 +207,6 @@ const updateUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const {email, password} = clr.hashClearDataPassword(req);
-    console.log(email, password)
     try {
         const user = await Users.findOne({ email });
 
@@ -247,14 +244,47 @@ const checkUserPassword = async(req, res) => {
   return res.status(401).json({msg : "NOT SAME USER PASSWORD, AUTHORIZATION DENIED"})
 }
 
-const setLine = async (req, res) => {
-  const user = req.customData.user;
-  const line = req.line;
-  if(line) console.log('its on');
-  else{
-    console.log('its off')
+const setLine = async (user, line) => {
+  try {
+    const findUser = await Users.findById(user._id);
+
+    if (!findUser) {
+      return {
+        status: 404,
+        msg: "User with this ID is not found",
+      };
+    }
+
+    if (user.isOnLine == line) {
+      return {
+        status: 200,
+        msg: "Set already without update",
+      };
+    } else {
+      user.isOnline = line;
+      try {
+        await Users.findByIdAndUpdate({_id : user._id}, {
+          ...user
+        }) 
+        return {
+          status: 200,
+          msg: "Set successfully",
+        };
+      } catch (e) {
+        return {
+          status: 500,
+          msg: `Server error while updating user: ${e.message}`,
+        };
+      }
+    }
+  } catch (e) {
+    return {
+      status: 500,
+      msg: `Server error while finding user by ID: ${e.message}`,
+    };
   }
-}
+};
+
 
 
 

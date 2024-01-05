@@ -12,8 +12,6 @@ const uploadProfile = async (req,res) => {
     if (err) {
       res.status(500).send('Error writing file');
     } else {
-      console.log('user : ');
-      console.log(req.customData.user._id)
       const user = req.customData.user;
       try {
         await imageModel.create({
@@ -44,8 +42,6 @@ const uploadPicture = async (req, res) => {
     if (err) {
       res.status(500).send('Error writing file');
     } else {
-      console.log('user : ');
-      console.log(req.customData.user._id)
       const user = req.customData.user;
       try {
         await imageModel.create({

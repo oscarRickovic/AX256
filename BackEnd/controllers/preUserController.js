@@ -96,7 +96,6 @@ const updateUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     const {email, password } = clr.hashClearDataPassword(req);
-    console.log(email, password)
     try {
         const user = await Users.findOne({ email });
 
@@ -128,11 +127,7 @@ const checkUserJwt = async (req, res) => {
   // client pub key
   const token = req.body.token || req.header('A_JWT');
   const dataToken = designJWT(token);
-  console.log('data in token');
-  console.log(dataToken);
   const clearCode = clr.clearDatafnct(req);
-  console.log('clear code passed by user');
-  console.log(clearCode);
   if(dataToken == null) {
     res.status(402).json({msg : "token not authorized"})
   }

@@ -17,24 +17,24 @@ const {
 const router = express.Router()
 
 // GET all users
-router.get('/', checkUserJwtMiddleWare, getUsers)
+router.get('/', checkUserJwtMiddleWare.checkUserJwt, getUsers)
 
 // connect and deconnect.
-router.get('/onLine', checkUserJwtMiddleWare, (req, res, next) => {
+router.get('/onLine', checkUserJwtMiddleWare.checkUserJwt, (req, res, next) => {
   req.line = true;
   next();
 }, setLine);
 
-router.get('/offLine', checkUserJwtMiddleWare, (req, res, next) => {
+router.get('/offLine', checkUserJwtMiddleWare.checkUserJwt, (req, res, next) => {
   req.line = false;
   next();
 }, setLine);
 
 // GET a single user
-router.get('/:id', checkUserJwtMiddleWare,getUser)
+router.get('/:id', checkUserJwtMiddleWare.checkUserJwt,getUser)
 
 // GET a single user
-router.get('/friendShip/:id', checkUserJwtMiddleWare,getFriendShipUser)
+router.get('/friendShip/:id', checkUserJwtMiddleWare.checkUserJwt,getFriendShipUser)
 
 // POST a new user
 router.post('/', createUser)
@@ -43,15 +43,15 @@ router.post('/', createUser)
 router.post('/login', loginUser)
 
 // DELETE a user
-router.get('/blockUser/:id', checkUserJwtMiddleWare ,deleteUser)
+router.get('/blockUser/:id', checkUserJwtMiddleWare.checkUserJwt ,deleteUser)
 
 // UPDATE a user
-router.post('/updateMyProfile',checkUserJwtMiddleWare,updateUserMiddleWare ,updateUser)
+router.post('/updateMyProfile',checkUserJwtMiddleWare.checkUserJwt,updateUserMiddleWare ,updateUser)
 
 // Check the user JWT
-router.post('/checkUserJwt',checkUserJwtMiddleWare ,checkUserJwt);
+router.post('/checkUserJwt',checkUserJwtMiddleWare.checkUserJwt ,checkUserJwt);
 
 // Check user password before update profile.
-router.post('/checkUserPassword', checkUserJwtMiddleWare, checkUserPassword);
+router.post('/checkUserPassword', checkUserJwtMiddleWare.checkUserJwt, checkUserPassword);
 
 module.exports = router

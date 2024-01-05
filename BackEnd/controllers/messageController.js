@@ -97,7 +97,6 @@ const getMessagesHelper = async (friendShipId, meId) => {
 const getMessages = async (req, res) => {
     const { friendShipId } = req.params;
     const meId = req.customData.user._id;
-    console.log(friendShipId, meId)
     const result = await getMessagesHelper(friendShipId, meId);
     // add status of position:
     if (result.status == 200) {

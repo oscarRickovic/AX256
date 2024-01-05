@@ -10,7 +10,7 @@ function MyIconButton(props) {
 
   const socket = useSelector(state => state.SocketState.value);
 
-  const iconButtonMethod = () => {
+  const iconButtonMethod = async () => {
     if (props.callBack != null) {
       props.callBack(props.valueCallBack);
     } else {
@@ -19,12 +19,12 @@ function MyIconButton(props) {
           dispatch(changeLight());
           break;
         case 'logoutButton':
+          socket.emit('offLine', localStorage.getItem('A_JWT'));
           localStorage.removeItem('A_JWT');
           navigate('/Login')
           break;
         case 'findNewFriends':
-            const getRandom = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-          navigate('/app/chat/new' + getRandom(1, 10000));
+          // to do next
           break;
         default:
           // Handle other cases if needed
