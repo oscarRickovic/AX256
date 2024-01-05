@@ -20,7 +20,8 @@ const getFriendsWithLastMsgsMethod = async (meId) => {
         const lastMessage = await Message.findOne({ friendShip: friendShip})
           .sort({ createdAt: -1 })
           .limit(1);
-        const isFromMe = lastMessage && lastMessage.sender === meId;
+        const isFromMe = lastMessage == null ? false : lastMessage.sender == meId ? false : true;
+        // lastMessage && lastMessage.sender == meId
         return {
           friendShipId : friendShip,
           friendInfo : friendUser,

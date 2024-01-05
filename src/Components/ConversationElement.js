@@ -37,11 +37,10 @@ function ConversationElement({data, recentMsg}) {
                 }
             </div>
             <div className='ConversationElement-msg-lastMsg-timeStamp'>
-                <div className='ConversationElement-msg-lastMsg'>
+                <div className={data.isFromMe || msg != null? 'ConversationElement-msg-lastMsg-bold' : 'ConversationElement-msg-lastMsg-italic' }>
                   {
                     msg == null? data.lastMessage != null ? data.lastMessage : "Say Hello ..."  : msg
                   }
-                    
                 </div>
                 <div className='ConversationElement-msg-timeStamp'>
                     today.

@@ -49,10 +49,16 @@
     display: flex;
 }
 
-.ConversationElement-msg-lastMsg{
+.ConversationElement-msg-lastMsg-bold{
     width: 70%;
     font-size: 60%;
     font-weight: bold;
+}
+
+.ConversationElement-msg-lastMsg-italic{
+    width: 70%;
+    font-size: 60%;
+    font-style: italic;
 }
 
 .ConversationElement-msg-timeStamp{
