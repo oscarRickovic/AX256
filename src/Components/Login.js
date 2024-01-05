@@ -27,18 +27,21 @@ function Login() {
     }
 
     const fetchData = async () => {
-      if(localStorage.getItem('A_Server_pubKey') == null) {
+      if(localStorage.getItem('A_Server_pubKey') == null 
+          ||
+        !localStorage.getItem('A_Server_pubKey').startsWith('-----BEGIN PUBLIC KEY-----')) {
         try {
           const path = `${process.env.REACT_APP_URL}/getServerPubKey`
           const response = await sendCryptedData('GET', path)
-          setServerPubKey(response.data);
-          localStorage.setItem('A_Server_pubKey', response.data);
+          if(response.status == 200) {
+            localStorage.setItem('A_Server_pubKey', response.data);
+          }
+          else {
+            throw new Error(response.status + " " + response.msg);
+          }
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-      }
-      else {
-        setServerPubKey(localStorage.getItem('A_Server_pubKey'))
       }
     };
 

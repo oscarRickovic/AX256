@@ -31,17 +31,15 @@ function Register() {
     }
 
     const fetchData = async () => {
-      if(localStorage.getItem('A_Server_pubKey') == null) {
+      if(localStorage.getItem('A_Server_pubKey') == null
+        || 
+      !localStorage.getItem('A_Server_pubKey').startsWith('-----BEGIN PUBLIC KEY-----')) {
         try {
           const response = await sendCryptedData('GET', `${process.env.REACT_APP_URL}/getServerPubKey`);
-          setServerPubKey(response.data);
           localStorage.setItem('A_Server_pubKey', response.data);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-      }
-      else {
-        setServerPubKey(localStorage.getItem('A_Server_pubKey'))
       }
     };
 
