@@ -65,10 +65,10 @@ function Conversations() {
         ?
       <div className='Conversations'>
         {light}
-        {users.map( user => {
+        {users.map( data => {
           return (
-            <div key={user.friendShipId} onClick={() => {navigate('/app/chat/' + user.friendShipId)}}>
-              <ConversationElement user={user.friendInfo} keyChat={user.friendShipId} recentMsg = {recentMsg}/>
+            <div key={data.friendShipId} onClick={() => {navigate('/app/chat/' + data.friendShipId)}}>
+              <ConversationElement data = {data} recentMsg = {recentMsg}/>
             </div>
           )
         })}

@@ -1,22 +1,60 @@
 const Users = require('../models/userModel');
 const Friend = require('../models/friendModel');
+const Message = require('../models/messageModel');
 const mongoose = require('mongoose');
 const clr = require('../CryptoMiddleWare/UserCryptoGraphyMiddleWare');
 const {signJWT} = require('../Crypto/Jwt');
 
-// get only ur friend users.
-const getUsers = async (req, res) => {
-  const me = req.customData.user;
+
+// get friends list with last message
+const getFriendsWithLastMsgsMethod = async (meId) => {
+  try {
+    // All friendsShip that Im in.
+    const friendships = await Friend.find({ $or: [{ user1: meId }, { user2: meId }] });
+    // Getting my friends user id.
+    const friendIds = friendships.map(friendship => (friendship.user1 == meId ? friendship.user2 : friendship.user1));
+    const friendListWithMessages = await Promise.all(
+      friendIds.map(async friendId => {
+        const friendUser = await Users.findById(friendId);
+        const friendShip = friendships.find(friendship => (friendship.user1 === friendId || friendship.user2 === friendId))._id;
+        const lastMessage = await Message.findOne({ friendShip: friendShip})
+          .sort({ createdAt: -1 })
+          .limit(1);
+        const isFromMe = lastMessage && lastMessage.sender === meId;
+        return {
+          friendShipId : friendShip,
+          friendInfo : friendUser,
+          lastMessage: lastMessage ? lastMessage.message : null,
+          isFromMe,
+          lastMessageTimestamp: lastMessage ? lastMessage.createdAt : null
+        };
+      })
+    );
+    friendListWithMessages.sort((a, b) => {
+      return b.lastMessageTimestamp - a.lastMessageTimestamp;
+    });
+    return {
+      status : 200,
+      result : friendListWithMessages
+    } 
+  } catch (error) {
+    console.error('Error getting friend list with last message:', error);
+    throw error;
+  }
+}
+
+// Upgrated
+const getAllFriendsOnly = async (meId) => {
   try{
     const friends = await Friend.find({
       $or: [
-        { user1: me._id },
-        { user2: me._id },
+        { user1: meId },
+        { user2: meId },
       ],
     });
 
     const friendUserIds = friends.map(
-      friend => (friend.user1 == me._id) ?
+      friend => (friend.user1 == meId) ?
        friend.user2 : 
        friend.user1
     );
@@ -28,7 +66,7 @@ const getUsers = async (req, res) => {
         const friendInfo = friendUsers.find(
           (fr) =>
             fr._id ==
-            (friend.user1 == me._id
+            (friend.user1 == meId
               ? friend.user2
               : friend.user1)
         );
@@ -37,12 +75,33 @@ const getUsers = async (req, res) => {
           friendInfo
         };
       });
-      res.status(200).json(result);
+      return {
+        status : 200,
+        result : result
+      }
     } catch(e) {
-      res.status(502).json({msg: 'server error while finding user informations'});
+      return {
+        status : 500,
+        msg : 'server error while finding user informations'
+      }
     }
   } catch(e) {
-    res.status(501).json({msg : 'server error while searching for friends'})
+    return {
+      status : 500,
+      msg : 'Server error while finding friends'
+    }
+  }
+}
+
+// get only ur friend users.
+const getUsers = async (req, res) => {
+  const me = req.customData.user;
+  let result = await getFriendsWithLastMsgsMethod(me._id);
+  if(result.status == 200) {
+    res.status(200).json(result.result);
+  }
+  else {
+    res.status(result.status).json({msg : result.msg});
   }
 }
 
