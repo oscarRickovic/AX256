@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { renderTextingZone } from './ReduxDocs/RendersState';
+import { renderConversations} from './ReduxDocs/RendersState';
 
 function WritingMsgZone() {
   const color = useSelector(state => state.ColorState.fourth);
@@ -18,6 +19,7 @@ function WritingMsgZone() {
     setMsg('')
     socket.emit('sendMsg', msg, id, localStorage.getItem('A_JWT'));
     dispatch(renderTextingZone())
+    dispatch(renderConversations())
   }
 
   const handleKeyPress = (e) => {

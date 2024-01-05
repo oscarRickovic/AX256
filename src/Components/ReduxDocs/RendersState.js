@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Component names that we want to re render.
 const initialName = {
-    Conversations : false,
+    Conversations : 0,
     TextingZone : 0 
 }
 
@@ -11,7 +11,7 @@ export const RendersSlice = createSlice({
     initialState : initialName,
     reducers : {
         renderConversations : (state) => {
-            state.Conversations = !state.Conversations
+            state.Conversations = state.Conversations + 1
         },
         renderTextingZone : (state) => {
             console.log('yes')
