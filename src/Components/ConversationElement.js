@@ -4,7 +4,7 @@ import { Avatar } from '@mui/material'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { renderTextingZone } from './ReduxDocs/RendersState';
-function ConversationElement({user, keyChat}) {
+function ConversationElement({user, keyChat, recentMsg}) {
     const navigate = useNavigate();
     const light = useSelector(state => state.LightState.value);
     const color = useSelector(state => state.ColorState.primar);
@@ -14,6 +14,7 @@ function ConversationElement({user, keyChat}) {
     const dispatch = useDispatch();
     socket.on('receiveMsg', async (res) => {
       if(res.room == keyChat){
+        recentMsg(keyChat);
         setMsg(res.msg);
         console.log(renderTextingZoneValue)
         dispatch(renderTextingZone())

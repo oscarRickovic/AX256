@@ -44,6 +44,21 @@ function Conversations() {
     } 
   },[socket, users])
 
+  const recentMsg = (friendShipId) => {
+    let index = -1;
+    for(let i =0; i < users.length; i++) {
+      if(users[i].friendShipId === friendShipId){
+        index = i;
+        break;
+      }
+    }
+    if(index != -1) {
+      let recent = users[index];
+      users.splice(index, 1);
+      setUsers([recent, ...users]);
+    }
+  }
+
   return (
     <>
       {users
@@ -53,8 +68,8 @@ function Conversations() {
         {users.map( user => {
           return (
             <div key={user.friendShipId} onClick={() => {navigate('/app/chat/' + user.friendShipId)}}>
-            <ConversationElement user={user.friendInfo} keyChat={user.friendShipId}/>
-          </div>
+              <ConversationElement user={user.friendInfo} keyChat={user.friendShipId} recentMsg = {recentMsg}/>
+            </div>
           )
         })}
       </div>
