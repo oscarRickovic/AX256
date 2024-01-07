@@ -130,7 +130,7 @@ function UserProfileInformations(props) {
             let res = response.status;
             switch (res) {
                 case 200:
-                  localStorage.setItem('A_JWT', response.data)
+                  localStorage.setItem('A-JWT', response.data)
                   break;
                 case 500:
                   errors.push('Server error while checking data');

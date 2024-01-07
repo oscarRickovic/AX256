@@ -7,7 +7,7 @@ const sendCryptedData = async (type, link, data = null) => {
   let serverPubKey = localStorage.getItem('A_Server_pubKey');
   try {
     const headers = {
-      'A_JWT': localStorage.getItem('A_JWT'),
+      'A-JWT': localStorage.getItem('A-JWT'),
       'CLIENT_PUBLIC_KEY' : localStorage.getItem('rsaKeys_pubKey')
     }
     if(type.toUpperCase() == "GET") { 

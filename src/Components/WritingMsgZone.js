@@ -17,7 +17,7 @@ function WritingMsgZone() {
 
   const sendMsg = async () => {
     setMsg('')
-    socket.emit('sendMsg', msg, id, localStorage.getItem('A_JWT'));
+    socket.emit('sendMsg', msg, id, localStorage.getItem('A-JWT'));
     dispatch(renderTextingZone())
     dispatch(renderConversations())
   }

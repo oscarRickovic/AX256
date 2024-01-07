@@ -125,7 +125,7 @@ const checkUserJwt = async (req, res) => {
   // token : username, email, password, code, isVerified.
   // data (decrypt) : code.
   // client pub key
-  const token = req.body.token || req.header('A_JWT');
+  const token = req.body.token || req.header('A-JWT');
   const dataToken = designJWT(token);
   const clearCode = clr.clearDatafnct(req);
   if(dataToken == null) {

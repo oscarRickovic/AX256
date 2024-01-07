@@ -72,7 +72,7 @@ function Login() {
         console.log(response)
         let res = response.status;
         if (res === 200) {
-          localStorage.setItem('A_JWT', response.data)
+          localStorage.setItem('A-JWT', response.data)
           navigate('/app');
           return;
         } else if (res === 507) {

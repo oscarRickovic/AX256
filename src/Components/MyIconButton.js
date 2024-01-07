@@ -19,8 +19,8 @@ function MyIconButton(props) {
           dispatch(changeLight());
           break;
         case 'logoutButton':
-          socket.emit('offLine', localStorage.getItem('A_JWT'));
-          localStorage.removeItem('A_JWT');
+          socket.emit('offLine', localStorage.getItem('A-JWT'));
+          localStorage.removeItem('A-JWT');
           navigate('/Login')
           break;
         case 'findNewFriends':

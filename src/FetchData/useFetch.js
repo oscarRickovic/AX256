@@ -11,7 +11,7 @@ const useFetch = (url) => {
          {
             signal: abortCont.signal,
             headers : {
-              'A_JWT': localStorage.getItem('A_JWT')
+              'A-JWT': localStorage.getItem('A-JWT')
             }
           }
         )

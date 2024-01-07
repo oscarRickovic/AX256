@@ -77,7 +77,7 @@ function Register() {
         let res = response.status;
         switch (res) {
           case 200:
-            localStorage.setItem('A_JWT', response.data)
+            localStorage.setItem('A-JWT', response.data)
             navigate('/Verify');
             break;
           case 507:

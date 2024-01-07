@@ -18,9 +18,9 @@ function MainComponent() {
   useEffect(() => {
     const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
     dispatch(setSocket(socket));
-    socket.emit('onLine', localStorage.getItem('A_JWT'));
+    socket.emit('onLine', localStorage.getItem('A-JWT'));
     const handleBeforeUnload = () => {
-      socket.emit('offLine', localStorage.getItem('A_JWT'));
+      socket.emit('offLine', localStorage.getItem('A-JWT'));
       socket.disconnect();
     };
     window.addEventListener('beforeunload', handleBeforeUnload);

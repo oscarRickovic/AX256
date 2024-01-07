@@ -29,7 +29,7 @@ const PrivateRoute = ({ element, to = "/Login", value = true }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const filterResult = await checkUserJwt(localStorage.getItem('A_JWT'));
+      const filterResult = await checkUserJwt(localStorage.getItem('A-JWT'));
       setFilteredElement(filterResult == value ? element : <Navigate to= {to} />);
     };
 

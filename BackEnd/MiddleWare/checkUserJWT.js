@@ -41,7 +41,7 @@ const checkUserJwtMethod = async (token) => {
 }
 
 const checkUserJwt = async (req, res, next) => {
-    const token = req.body.token || req.header('A_JWT');
+    const token = req.body.token || req.header('A-JWT') || req.header('a-jwt');
     let result = await checkUserJwtMethod(token);
     if(result.status == 200) {
       req.customData = {

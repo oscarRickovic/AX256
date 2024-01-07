@@ -25,7 +25,7 @@ function Verify() {
       fetchData();
     }
 
-    if (!localStorage.getItem('A_JWT')) {
+    if (!localStorage.getItem('A-JWT')) {
       navigate('/Register');
     }
 

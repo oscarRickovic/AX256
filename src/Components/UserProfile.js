@@ -54,7 +54,7 @@ function UserProfile() {
     try {
       const response = await axios.post(link, formData, {
         headers: {
-          'A_JWT': localStorage.getItem('A_JWT')
+          'A-JWT': localStorage.getItem('A-JWT')
         }
       });
 
