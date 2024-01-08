@@ -24,7 +24,7 @@ function MyIconButton(props) {
           navigate('/Login')
           break;
         case 'findNewFriends':
-          // to do next
+          alert('it works');
           break;
         default:
           // Handle other cases if needed
