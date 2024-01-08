@@ -184,7 +184,7 @@ const createUser = async (req, res) => {
             return res.status(404).json({ error: 'email already existed' });
         }
 
-        const newUser = await Users.create({username, email, password});
+        await Users.create({username, email, password});
         const credentials = {
           username : username,
           email : email,

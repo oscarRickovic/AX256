@@ -13,6 +13,7 @@ const usersRoutes = require('./routes/users')
 const preUsersRoutes = require('./routes/preUser')
 const imageRoutes = require('./routes/image')
 const messageRoutes = require('./routes/message')
+const findNewFriendsRoutes = require('./routes/findNewFriends');
 
 // MiddleWares imports.
 
@@ -42,17 +43,13 @@ app.use('/preUser', preUsersRoutes)
 
 app.use('/user', usersRoutes)
 
-app.use('/test', (req, res) => {
-  console.log(req.headers)
-  res.status(200).json({msg : req.headers})
-})
-
 // For all access we need to check your JWT :
 app.use('/image', checkUserJwt ,imageRoutes);
 app.use('/message', checkUserJwt, messageRoutes)
 app.get('/ownInformations', checkUserJwt, (req, res) => {
   return res.status(200).json(req.customData.user);
 })
+app.use('/findNewFriends', checkUserJwt, findNewFriendsRoutes);
 
 // Start Server:
 connectDb(app, mongoose, io, socketIo);
